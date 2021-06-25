@@ -100,8 +100,37 @@ public class DbSeeding {
 		u7.setSurname("Lee");
 		u7.setPassword("123");
 		
-		urepo.save(u1);urepo.save(u2);urepo.save(u3);urepo.save(u4);urepo.save(u5);urepo.save(u6);urepo.save(u7);
+		User u8=new User();
+		u8.setFirstname("Kong Jia");
+		u8.setEmail("QiKongJia@nus.edu.sg");
+		u8.setEnrollmentDate(epoch);
+		u8.setImgUrl("http://KongJia.com");
+		u8.setRole(RoleType.STUDENT);
+		u8.setSurname("Qi");
+		u8.setPassword("123");
 		
+		User u9=new User();
+		u9.setFirstname("Chen Xiao");
+		u9.setEmail("Chenxiao@nus.edu.sg");
+		u9.setEnrollmentDate(epoch);
+		u9.setImgUrl("http://Chenxiao.com");
+		u9.setRole(RoleType.STUDENT);
+		u9.setSurname("Pan");
+		u9.setPassword("123");
+		
+		
+		User u10=new User();
+		u10.setFirstname("Tian");
+		u10.setEmail("ZhangTian@nus.edu.sg");
+		u10.setEnrollmentDate(epoch);
+		u10.setImgUrl("http://ZhangTian.com");
+		u10.setRole(RoleType.STUDENT);
+		u10.setSurname("Zhang");
+		u10.setPassword("123");
+		
+		
+		urepo.save(u1);urepo.save(u2);urepo.save(u3);urepo.save(u4);urepo.save(u5);urepo.save(u6);urepo.save(u7);
+		urepo.save(u8);urepo.save(u9);urepo.save(u10);
 		//Start Date of Sem1 and 2
 		LocalDateTime Sem1ModuleStart=LocalDateTime.of(2021,2,1,0,0,0);
 		LocalDateTime Sem2ModuleStart=LocalDateTime.of(2021,5,1,0,0,0);
@@ -151,6 +180,82 @@ public class DbSeeding {
 		c3.setMaxSize(3);
 		c3.setName("Digital Product Management");
 		crepo.save(c3);		
+		
+		Course c4=new Course();
+		c4.setCredit(4);
+		c4.setDescription("To Teach students Java and React");
+		c4.setCode("SA4105");
+		c4.setStartDate(Sem2EpochStart);
+		c4.setEndDate(Sem2EpochEnd);
+		c4.setMaxSize(3);
+		c4.setName("Web Application Development");
+		crepo.save(c4);		
+		
+		Course c5=new Course();
+		c5.setCredit(4);
+		c5.setDescription("This module teaches student how to create an android application");
+		c5.setCode("SA4108");
+		c5.setStartDate(Sem2EpochStart);
+		c5.setEndDate(Sem2EpochEnd);
+		c5.setMaxSize(3);
+		c5.setName("Mobile Application Development");
+		crepo.save(c5);
+		
+		
+		Course c6=new Course();
+		c6.setCredit(4);
+		c6.setDescription("This is the final AD Project module");
+		c6.setCode("SA4110");
+		c6.setStartDate(Sem2EpochStart);
+		c6.setEndDate(Sem2EpochEnd);
+		c6.setMaxSize(3);
+		c6.setName("AD Project");
+		crepo.save(c6);		
+		
+		
+		Course c7=new Course();
+		c7.setCredit(4);
+		c7.setDescription("This Module teaches students how to use JavaScript");
+		c7.setCode("SA4111");
+		c7.setStartDate(Sem2EpochStart);
+		c7.setEndDate(Sem2EpochEnd);
+		c7.setMaxSize(3);
+		c7.setName("JavaScript 101");
+		crepo.save(c7);		
+		
+		
+		Course c8=new Course();
+		c8.setCredit(4);
+		c8.setDescription("This module teaches students algorithm and data structure");
+		c8.setCode("SA4112");
+		c8.setStartDate(Sem2EpochStart);
+		c8.setEndDate(Sem2EpochEnd);
+		c8.setMaxSize(3);
+		c8.setName("Algorithm and Data Structures Part 1");
+		crepo.save(c8);		
+		
+		
+		Course c9=new Course();
+		c9.setCredit(4);
+		c9.setDescription("This module teaches students advanced algorithms and data structure");
+		c9.setCode("SA4113");
+		c9.setStartDate(Sem2EpochStart);
+		c9.setEndDate(Sem2EpochEnd);
+		c9.setMaxSize(3);
+		c9.setName("Algorithm and Data Structures Part 2");
+		crepo.save(c9);		
+		
+		
+		Course c10=new Course();
+		c10.setCredit(4);
+		c10.setDescription("This module teaches Students SQL and database knowledge");
+		c10.setCode("SA4114");
+		c10.setStartDate(Sem2EpochStart);
+		c10.setEndDate(Sem2EpochEnd);
+		c10.setMaxSize(3);
+		c10.setName("SQL and Databases");
+		crepo.save(c10);		
+		
 	}
 	
 	@Transactional
@@ -192,7 +297,21 @@ public class DbSeeding {
 		sc9.setUser(urepo.getById(3));
 
 		screpo.save(sc7);screpo.save(sc8); screpo.save(sc9);
+		
+		//set student for course 4
+		Student_Course sc10=new Student_Course();
+		sc10.setCourse(crepo.getById(4));
+		sc10.setUser(urepo.getById(1));
+		Student_Course sc11=new Student_Course();
+		sc11.setCourse(crepo.getById(4));
+		sc11.setUser(urepo.getById(2));
+		Student_Course sc12=new Student_Course();
+		sc12.setCourse(crepo.getById(4));
+		sc12.setUser(urepo.getById(3));
 
+		screpo.save(sc10);screpo.save(sc11); screpo.save(sc12);
+		
+		
 		//add lecturer to course1 
 		List<User> LectTeach1=new ArrayList<User>();
 		LectTeach1.add(urepo.getById(4));
@@ -212,5 +331,18 @@ public class DbSeeding {
 		LectTeach3.add(urepo.getById(6));
 		crepo.getById(3).setUser(LectTeach3);
 		crepo.save(crepo.getById(3));
+		
+		//add lecturer to course4
+		List<User> LectTeach4=new ArrayList<User>();
+		LectTeach4.add(urepo.getById(4));
+		LectTeach4.add(urepo.getById(5));
+		crepo.getById(4).setUser(LectTeach2);
+		crepo.save(crepo.getById(4));	
+		
+		//add lecturer to course5
+		List<User> LectTeach5=new ArrayList<User>();
+		LectTeach5.add(urepo.getById(6));
+		crepo.getById(5).setUser(LectTeach3);
+		crepo.save(crepo.getById(5));
 	}
 }
