@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.service.interfaces.ICourse;
 
+
+//change from chenxiao
 @Controller
 @RequestMapping("/course")
 public class CourseController {
