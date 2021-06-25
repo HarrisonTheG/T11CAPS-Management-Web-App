@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1" />
+    <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    
+
+    <title>Course Detail</title>
+</head>
+
+<body class="bg-gray-300">
+
+	<div th:insert="fragments/general.html::navBar"> </div>
+
+    <section class="box-content" style="margin-top:88px">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Course </strong></h3>
+                    <form action="/action_page.php">
+                        <div class="form-group">
+
+                            <input disabled type="text"
+                                class="form-control input-style input-title-style no-input-border" id="" name=""
+                                value="SA4111 Data Structure">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <textarea disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description"
+                                value="">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" value="Lecturer: Donald Trump Jr.">
+                        </div>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" value="Credit: 5">
+                        </div>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" value="Class size: 5/10">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div>
+    </section>
+
+    <section>
+        <div class="text-content-style"> - This course has reached its maximum students - </div>
+    </section>
+
+    <section>
+        <div class="button-style">
+            <a class="btn btn-primary">Enroll</a>
+        </div>
+    </section>
+</body>
+
+</html>

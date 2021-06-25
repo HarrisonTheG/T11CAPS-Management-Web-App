@@ -17,7 +17,7 @@ public class CourseController {
 	
 	@GetMapping("/viewCourses")
 	public String viewProfile() {
-		return "ListTableView";
+		return "ViewDetail";
 	}
 
 }
