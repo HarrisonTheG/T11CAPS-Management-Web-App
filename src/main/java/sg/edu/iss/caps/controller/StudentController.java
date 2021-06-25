@@ -9,6 +9,7 @@ import sg.edu.iss.caps.service.interfaces.IStudent;
 
 //changes by zhangtian
 //changes by hafiz
+//changes by wanling
 @Controller
 @RequestMapping("/student")
 public class StudentController {
