@@ -13,7 +13,8 @@ target/
 .springBeans
 .sts4-cache
 mvnw
-pom
+mvnw.cmd
+pom.xml
 
 ### IntelliJ IDEA ###
 .idea
