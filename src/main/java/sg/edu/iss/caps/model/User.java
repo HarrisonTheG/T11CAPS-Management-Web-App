@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.model;
 
 import java.beans.Transient;
+import java.util.List;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
@@ -9,16 +10,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.URL;
 
-@Entity @Inheritance @DiscriminatorColumn(name="role")
-public abstract class User {
+@Entity
+public class User {
 	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Size(max=30) @NotBlank
 	private String firstname;
@@ -31,7 +34,10 @@ public abstract class User {
 	@URL
 	private String imgUrl;
 	private long enrollmentDate;
+	private RoleType role;
 	
+	@ManyToMany(mappedBy="User")
+	private List<Course> Course;
 	
 	public User(int id, String firstname, String surname, String email, String password, String imgUrl, long enrollmentDate) {
 		super();

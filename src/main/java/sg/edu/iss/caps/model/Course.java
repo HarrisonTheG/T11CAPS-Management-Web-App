@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
@@ -32,8 +34,9 @@ public class Course {
 	        orphanRemoval = true)
 	private List<Student_Course> studentCourses;
 	
-	@ManyToMany(mappedBy="courses")
-	private List<Lecturer> lecturers;
+	@ManyToMany (cascade=CascadeType.ALL)
+	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="lecturer_course_id"))
+	private List<User> User;
 	
 
 	public Course(@NotBlank String name, String description, @Range(min = 1, max = 5) int credit, int maxSize,
@@ -119,12 +122,13 @@ public class Course {
 	}
 
 
-	public List<Lecturer> getLecturers() {
-		return lecturers;
+	public List<User> getUser() {
+		return User;
 	}
 
-	public void setLecturers(List<Lecturer> lecturers) {
-		this.lecturers = lecturers;
+
+	public void setUser(List<User> user) {
+		User = user;
 	}
 	
 	
