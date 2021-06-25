@@ -1,0 +1,31 @@
+.center-margin {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-style {
+  width: 60%;
+  height: 30vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+.tableFixHead {
+  overflow: auto;
+  height: 50vh;
+}
+.tableFixHead thead tr th {
+  background-color: lightblue;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.container-style {
+  overflow-x: auto;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}

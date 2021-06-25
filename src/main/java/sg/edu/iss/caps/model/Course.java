@@ -21,6 +21,8 @@ public class Course {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@NotBlank
+	private String code;
+	@NotBlank
 	private String name;
 	private String description;
 	@Range(min=1, max=5)
@@ -38,9 +40,9 @@ public class Course {
 	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="lecturer_course_id"))
 	private List<User> User;
 	
-
+	
 	public Course(@NotBlank String name, String description, @Range(min = 1, max = 5) int credit, int maxSize,
-			long startDate, long endDate) {
+			long startDate, long endDate, @NotBlank String code) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -48,7 +50,20 @@ public class Course {
 		this.maxSize = maxSize;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.code = code;
 	}
+
+	
+
+	public String getCode() {
+		return code;
+	}
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 
 
 	public Course() {
