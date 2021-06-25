@@ -28,9 +28,15 @@ public class Student_Course {
 	@ManyToOne (fetch = FetchType.LAZY)
 	private Course course;
 	
-
 	public Student_Course() {
 		super();
+	}
+
+	public Student_Course(@Range(min = 0, max = 100) double grade, User user, Course course) {
+		super();
+		this.grade = grade;
+		this.user = user;
+		this.course = course;
 	}
 
 	public double getGrade() {
