@@ -37,7 +37,7 @@ public class Course {
 	private List<Student_Course> studentCourses;
 	
 	@ManyToMany (cascade=CascadeType.ALL)
-	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="lecturer_course_id"))
+	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="course_id"), inverseJoinColumns=@JoinColumn(name="lecturer_id"))
 	private List<User> User;
 	
 	
