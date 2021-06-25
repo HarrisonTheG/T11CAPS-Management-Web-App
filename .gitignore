@@ -15,6 +15,7 @@ target/
 mvnw
 mvnw.cmd
 pom.xml
+**/application.properties
 
 ### IntelliJ IDEA ###
 .idea
