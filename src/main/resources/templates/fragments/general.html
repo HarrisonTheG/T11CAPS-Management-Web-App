@@ -12,21 +12,23 @@
 
 	<!-- Bootstrap whole library navigation bar -->
 	<div th:fragment="navBar" id="navBar">
-		<nav
+		<nav style="justify-content: center !important"
 			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
-			<div class="container">
-				<div class="collapse navbar-collapse" id="navcol-1">
-					<a href="index.html">My Account</a>
-					<ul class="navbar-nav mr-auto">
-						<li class="nav-item"></li>
-						<li class="nav-item"><a class="nav-link"
-							href="contact-us.html">Courses Taught</a></li>
-						<li class="nav-item"><a class="nav-link" href="pricing.html">Log
-								Out</a></li>
+			<div class="container" style="text-align: center; width: 100%; margin-right: 15px !important; margin-left: 0px !important">
+				<div class="collapse navbar-collapse" id="navcol-1" style=" justify-content: center !important">
+					<!--<a href="index.html">My Account</a>-->
+					<ul class="navbar-nav mr-auto" style="display: flex; width: 90%; margin-right: 0px !important;">
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							href="contact-us.html">My Account</a></li>
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							href="contact-us.html">My Courses</a></li>
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							href="contact-us.html">Find Courses</a></li>
+						<li class="nav-item" style="flex-grow: 8"></li>
+						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" href="pricing.html">Log Out</a></li>
 					</ul>
 				</div>
 			</div>
-
 		</nav>
 	</div>
 	

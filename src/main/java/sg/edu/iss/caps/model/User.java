@@ -120,5 +120,23 @@ public class User {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+
+	public RoleType getRole() {
+		return role;
+	}
+
+	public void setRole(RoleType role) {
+		this.role = role;
+	}
+
+	public List<Course> getCourse() {
+		return Course;
+	}
+
+	public void setCourse(List<Course> course) {
+		Course = course;
+	}
+	
+	
 	
 }
