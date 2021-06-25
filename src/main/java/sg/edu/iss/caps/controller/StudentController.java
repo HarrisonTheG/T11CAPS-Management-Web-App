@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.service.interfaces.IStudent;
 
-//test
+
 @Controller
 @RequestMapping("/student")
 public class StudentController {
