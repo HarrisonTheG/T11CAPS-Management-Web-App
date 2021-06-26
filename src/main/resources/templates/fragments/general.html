@@ -34,6 +34,28 @@
 		</nav>
 	</div>
 	
+	<!-- Navbar for lecturer -->
+	<div th:fragment="navBar-lecturer" id="navBar">
+		<nav style="justify-content: center !important"
+			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+			<div class="container" style="text-align: center; width: 100%; margin-right: 15px !important; margin-left: 0px !important">
+				<div class="collapse navbar-collapse" id="navcol-1" style=" justify-content: center !important">
+					<!--<a href="index.html">My Account</a>-->
+					<ul class="navbar-nav mr-auto" style="display: flex; width: 90%; margin-right: 0px !important;">
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							href="profile" style="font-size: 14px !important">My Account</a></li>
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							href="courses" style="font-size: 14px !important">Courses Taught</a></li>
+						<li class="nav-item" style="flex-grow: 8"></li>
+						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" href="pricing.html" style="font-size: 14px !important">
+						Log Out</a></li>
+						
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+	
 	<!-- Breadcrumb NavBar -->
 		<div th:fragment="navigationBar">
 			<nav aria-label="breadcrumb" class="main-breadcrumb" style="margin-left: 64px; margin-right: 64px">

@@ -8,10 +8,10 @@
     
     
 </head>
-<body class="bg-gray-300">
+<body class="bg-gray-100">
 
 	
-	<div th:insert="fragments/general.html::navBar"> </div>
+	<div th:insert="fragments/general.html::navBar-lecturer"> </div>
 	
 	<div class="container" style="margin-top: 88px">
 		<div class="main-body">
@@ -23,10 +23,8 @@
 								<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
 									class="img-circle rounded-circle" width="150" alt="Admin" />
 								<div class="mt-3">
-									<h3 th:"${}">John Doe</h3>
-									<p class="text-muted font-size-sm ">Student</p>
-									<button class="btn btn-link"><span style="font-size: small;">View Student
-											Performance</span></button>
+									<h3 th:"${}">Elon Doge</h3>
+									<p class="text-muted font-size-sm" th:text="${T(sg.edu.iss.caps.model.RoleType).LECTURER}"></p>
 								</div>
 							</div>
 						</div>
@@ -65,7 +63,7 @@
 									<h6 class="mb-0">Surname</h6>
 								</div>
 								<div class="col-sm-9 text-secondary margin">
-									Doe
+									Doge
 								</div>
 							</div>
 
@@ -76,28 +74,17 @@
 									<h6 class="mb-0">Email</h6>
 								</div>
 								<div class="col-sm-9 text-secondary margin">
-									plsDontAnyhao@gmail.com
+									sianofcoding@gmail.com
 								</div>
 							</div>
 
 							<hr>
 
-							<div class="row">
-								<div class="col-sm-3">
-									<h6 class="mb-0">Enrollment Date</h6>
-								</div>
-								<div class="col-sm-9 text-secondary margin">
-									15 Jan 2021 5:30 pm
-								</div>
-							</div>
-
-							<hr>
-
+							
 							<!-- Edit Button for Admin -->
-							<div class="row" style="text-align: right">
+							<div class="row"  th:if="${T(sg.edu.iss.caps.model.RoleType).ADMIN}" style="text-align: right">
 								<div class="col-sm-12">
-									<a class="btn btn-info" target="__blank"
-										href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+									<a class="btn btn-success" target="__blank">Edit</a>
 								</div>
 							</div>
 						</div>
@@ -110,5 +97,14 @@
 	</div>
 
     
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
 </body>
 </html>
