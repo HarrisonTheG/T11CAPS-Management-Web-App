@@ -22,9 +22,10 @@ public class T11CapsApplication {
 	@Bean
 	CommandLineRunner runner() {
 		return args->{
-			DbSeeding.SeedDBWithUsersAndCourses();
-			DbSeeding.SeedDBforCoursesTeachedandEnrolled();
-			
+			// Seed data only done once
+//			DbSeeding.SeedDBWithUsersAndCourses();
+//			DbSeeding.SeedDBforCoursesTeachedandEnrolled();
+//			
 		};
 	}
 }

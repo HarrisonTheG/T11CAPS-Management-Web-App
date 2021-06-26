@@ -1,0 +1,84 @@
+.bg-gray-300 {
+  background-color: #e2e8f0;
+}
+
+html, body{
+	font-size: 14px !important;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+	
+}
+
+.text-on-pannel {
+  background: #fff none repeat scroll 0 0;
+  height: auto;
+  margin-left: 20px;
+  padding: 3px 5px;
+  position: absolute;
+  margin-top: -47px;
+  border: 1px solid #337ab7;
+  border-radius: 8px;
+}
+
+.panel {
+  /* for text on pannel */
+  margin-top: 27px !important;
+}
+
+.panel-body {
+  padding-top: 30px !important;
+}
+
+input[type="text"]:disabled {
+  background: white;
+}
+
+textarea[type="text"]:disabled {
+  background: white;
+}
+
+.box-content {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.no-input-border {
+  border: 0 im !important;
+  border-width: 0px !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.input-title-style {
+  font-size: large !important;
+  font-weight: bold !important;
+}
+
+.input-style {
+  margin-left: 20px;
+  padding-left: 0px !important;
+  padding: none !important;
+  width: 80% !important;
+}
+
+.text-content-style {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bolder;
+  color: red;
+}
+
+.button-style {
+  text-align: center;
+  margin-left: auto !important;
+  margin-right: 0px !important;
+}
