@@ -27,27 +27,30 @@
                 <div style="margin-top:30px;margin-bottom:20px">
                   <IMG SRC='' Alt="Logo Picture"></IMG>
                 </div>
-                <table align="center">
+                <form action="/account/authenticate" method="post">
+                <table style="text-align: center">
                 <tr>
-                <th align="left" >Email</th><th><input type="text" id="email"></th>
+                <th align="left" >Email</th><th><input type="text" id="email" name="email"></th>
                 </tr>
                 <tr>
-                <th align="left">Password</th><th><input type="password" id="password"></th>
+                <th align="left">Password</th><th><input type="password" id="password" name="password"></th>
                 </tr>
                 <tr>
                 <th align="left">Identity</th>
-                <th align="left"><select name="Identity"> 
+                <th align="left"><select name="identity"> 
                  <option value="student" selected>Student</option>
                  <option value="lecturer">Lecturer</option>
                  <option value="administrator">Administrator</option>
                 </select></th>
                 </tr>
-                </table>  
+                </table> 
+                
                 <div style="text-align:center;margin-top:30px">
                 
                 <button name="register" class="btn btn-outline-info" style="margin-right:10px; font-size: 14px">Register</button>
-                <button type="submit"name="login"  class="btn btn-primary" style="margin-left:10px; font-size: 14px">Sign in</button>               
+                <button type="submit" name="login"  class="btn btn-primary" style="margin-left:10px; font-size: 14px">Sign in</button>               
                 </div>
+                </form> 
                 </div>             
         </section>
     </main>
