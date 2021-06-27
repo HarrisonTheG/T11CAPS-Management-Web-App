@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <main class="page pricing-table-page">
         <section class="clean-block clean-pricing dark">
             <div class="container">
@@ -22,11 +21,19 @@
                   <IMG SRC='' Alt="Logo Picture"></IMG>
                 </div>
                 <div style="text-align:center; ">
-                <form action="/account/authenticate" method="post" style="display: inline-block">
-                <div style="text-align:center;">
+                	<form name="f" th:action="@{/login}" method="post" style="display: inline-block">
+ 						<fieldset>
+ 							<legend>Please Login</legend>
+ 						                <div style="text-align:center;">
+ 						               		<div th:if="${param.error}" class="alert alert-error">
+ 						               		Invalid Username and password.
+ 						               		</div>
+ 						               	<div th:if="${param.logout}" class="alert alert-success">
+ 						               	You have been logged out
+ 						               	</div>
                 <table>
                 <tr>
-                <th>Email</th><th><input type="text" id="email" name="email"></th>
+                <th>Email</th><th><input type="text" id="email" name="username"></th>
                 </tr>
                 <tr>
                 <th>Password</th><th><input type="password" id="password" name="password"></th>
@@ -49,6 +56,9 @@
                 <button name="register" class="btn btn-outline-info" style="margin-right:10px; font-size: 14px">Register</button>
                 <button type="submit" name="login"  class="btn btn-primary" style="margin-left:10px; font-size: 14px">Sign in</button>               
                 </div>
+ 							
+ 						</fieldset>
+               
                  </form> 
                 </div>
                 </div>             
