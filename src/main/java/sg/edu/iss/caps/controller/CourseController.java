@@ -2,6 +2,7 @@ package sg.edu.iss.caps.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,14 +17,23 @@ public class CourseController {
 	@Autowired ICourse courseService;
 	
 	@GetMapping("/viewCourses")
-	public String viewAllCourses() {
-		return "ListTableView";
+	public String viewAllCourses(Model model) {
+		
+		model.addAttribute("courses", courseService.listAllCourses());
+		return "Courses";
+	}
+	
+	@GetMapping("/details")
+	public String viewCourseDetails() {
+		return "CourseDetail";
 	}
 	
 	@GetMapping("/studentCourses")
-	public String viewSpecificStudentCourses() {
+	public String viewSpecificStudentAllCourses() {
 		return "student/student-courses";
 	}
+	
+	
 
 }
 

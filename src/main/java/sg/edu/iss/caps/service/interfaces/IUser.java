@@ -12,5 +12,6 @@ public interface IUser {
 
 	public User findUser(@Valid String email, String password, String identity);
 	
+	
 	public void sendEmailNotification(MailVo mailVo);
 }
