@@ -15,7 +15,7 @@ import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.IUser;
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping()
 public class AccountController {
 
 //	@Autowired private IStudent studentService;
