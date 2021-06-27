@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.repo.UserRepository;
@@ -25,5 +26,15 @@ public class UserService implements IUser {
 		}
 			
 		return null;
+	}
+	
+	@Transactional
+	public User findStudentById(Integer id) {
+		 return urepo.findStudent(id);
+	}
+	
+	@Transactional
+	public User findLecturerById(Integer id) {
+		 return urepo.findLecturer(id);
 	}
 }
