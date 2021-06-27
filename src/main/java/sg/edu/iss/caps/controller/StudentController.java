@@ -25,7 +25,7 @@ public class StudentController {
 	public String viewProfile(HttpSession session, Model model) {
 		model.addAttribute("user", session.getAttribute("user"));
 		
-		return "student-profile";
+		return "Profile";
 	}
 
 }
