@@ -1,8 +1,11 @@
 package sg.edu.iss.caps.service.interfaces;
 
-//import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
+import java.util.List;
+
+import sg.edu.iss.caps.model.User;
 
 public interface IAdmin {
 	
+	public List<User> listAll(String keyword);
 	
 }
