@@ -12,9 +12,6 @@ public class UtilityManager {
 	  
 	public static String checkIdentity(User user, String identity) {
 		
-		System.out.println(user.getRole()==RoleType.LECTURER);
-		System.out.println(identity);
-		System.out.println(identity == "lecturer");
 		if(user.getRole() == RoleType.STUDENT && identity.equals("student")) {
 			return identity;
 		} else if (user.getRole() == RoleType.LECTURER && identity.equals("lecturer")) {

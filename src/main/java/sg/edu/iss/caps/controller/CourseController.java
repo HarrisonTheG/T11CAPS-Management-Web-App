@@ -16,8 +16,13 @@ public class CourseController {
 	@Autowired ICourse courseService;
 	
 	@GetMapping("/viewCourses")
-	public String viewProfile() {
+	public String viewAllCourses() {
 		return "ListTableView";
+	}
+	
+	@GetMapping("/studentCourses")
+	public String viewSpecificStudentCourses() {
+		return "student/student-courses";
 	}
 
 }

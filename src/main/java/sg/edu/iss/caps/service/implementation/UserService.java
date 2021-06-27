@@ -25,10 +25,10 @@ public class UserService implements IUser {
 	@Override
 	public User findUser(@Valid String email, String password, String identity) {
 		
-		System.out.print(1);
+		
 		User user = urepo.findByEmailAndPassword(email, password);
 		if(user != null) {
-			System.out.print(2);
+			
 			if (UtilityManager.checkIdentity(user, identity) != "error")
 				return user;
 		}

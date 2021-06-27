@@ -27,5 +27,6 @@ public class StudentController {
 		
 		return "Profile";
 	}
+	
 
 }
