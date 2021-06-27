@@ -33,12 +33,12 @@ public class AccountController {
 		
 		return "LoginPage";
 	}
-	
+
 	@PostMapping("/authenticate")
 	public String authenticate(@Valid String email, String password, String identity, HttpSession session, Model model) {
-		
+
 		User user = userService.findUser(email, password, identity);
-		
+
 		if(user != null) {
 			session.setAttribute("user", user);
 			return "Profile";

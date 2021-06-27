@@ -1,7 +1,12 @@
 package sg.edu.iss.caps.utility;
 
 import sg.edu.iss.caps.model.RoleType;
+import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.List;
 
 public class UtilityManager {
 	  
@@ -17,16 +22,30 @@ public class UtilityManager {
 		
 		return "Error";
 	}
- 
-  //public static double gradesToCGPA (List<Student_Course> courses) {
-  			
- // }
-  
- // public static LocalDateTime UnixToDate (long unixTime) {
-	  
-  //}
-  
- // public static long DateToUnix (LocalDateTime dateTime)
+
+	public static double GradesToGPA (List<Student_Course> courses) {
+		double grades=0;
+		double credits=0;
+		for (Student_Course course:courses){
+			credits+=course.getCourse().getCredit();
+			grades+=course.getGrade();
+		}
+		return credits/grades;
+	}
+
+	public static LocalDateTime UnixToDate (long unixTime) {
+		return LocalDateTime.ofEpochSecond(unixTime,0, ZoneOffset.ofHours(8));
+	}
+
+
+	public static long DateToUnix (LocalDateTime dateTime){
+		return dateTime.toEpochSecond(ZoneOffset.of("+8"));
+	}
+
+	//just for test
+	public static void main(String[] args) {
+
+	}
  
 }
  
