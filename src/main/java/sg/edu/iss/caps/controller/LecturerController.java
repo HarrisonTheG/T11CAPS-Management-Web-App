@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ILecturer;
-import sg.edu.iss.caps.service.interfaces.IUser;
-
 
 @Controller
 @RequestMapping("/lecturer")
