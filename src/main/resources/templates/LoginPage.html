@@ -4,16 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Pricing - Brand</title>
+    <title>Login Page</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="assets/css/Search-Input-responsive.css">
-    <link rel="stylesheet" href="assets/css/smoothproducts.css">
 </head>
 
 <body>
@@ -24,42 +18,43 @@
                 <div class="block-heading">
                     <h1>Welcome to T11CAPS</h1>
                 </div>
-                <div style="margin-top:30px;margin-bottom:20px">
+                <div style="margin-top:30px;margin-bottom:20px;text-align:center;">
                   <IMG SRC='' Alt="Logo Picture"></IMG>
                 </div>
-                <form action="/account/authenticate" method="post">
-                <table style="text-align: center">
+                <div style="text-align:center; ">
+                <form action="/account/authenticate" method="post" style="display: inline-block">
+                <div style="text-align:center;">
+                <table>
                 <tr>
-                <th align="left" >Email</th><th><input type="text" id="email" name="email"></th>
+                <th>Email</th><th><input type="text" id="email" name="email"></th>
                 </tr>
                 <tr>
-                <th align="left">Password</th><th><input type="password" id="password" name="password"></th>
+                <th>Password</th><th><input type="password" id="password" name="password"></th>
                 </tr>
                 <tr>
-                <th align="left">Identity</th>
-                <th align="left"><select name="identity"> 
-                 <option value="student" selected>Student</option>
-                 <option value="lecturer">Lecturer</option>
-                 <option value="administrator">Administrator</option>
+                <th>Identity</th>
+                <th><select name="identity"> 
+                 <option value="student" selected>student</option>
+                 <option value="lecturer">lecturer</option>
+                 <option value="admin">admin</option>
                 </select></th>
                 </tr>
                 </table> 
+               
+                </div>
+                
                 
                 <div style="text-align:center;margin-top:30px">
                 
                 <button name="register" class="btn btn-outline-info" style="margin-right:10px; font-size: 14px">Register</button>
                 <button type="submit" name="login"  class="btn btn-primary" style="margin-left:10px; font-size: 14px">Sign in</button>               
                 </div>
-                </form> 
+                 </form> 
+                </div>
                 </div>             
         </section>
     </main>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="assets/js/smoothproducts.min.js"></script>
-    <script src="assets/js/theme.js"></script>
 </body>
 
 </html>

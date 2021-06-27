@@ -1,7 +1,10 @@
 package sg.edu.iss.caps.service.interfaces;
 
+
+
 import javax.validation.Valid;
 
+import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
 
 public interface IUser {
@@ -12,4 +15,5 @@ public interface IUser {
 	public User findStudentById(Integer id);
 	public User findLecturerById(Integer id);
 	
+	public void sendEmailNotification(MailVo mailVo);
 }

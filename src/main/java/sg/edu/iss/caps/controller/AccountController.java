@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.IUser;
 
@@ -32,15 +33,21 @@ public class AccountController {
 		
 		return "LoginPage";
 	}
-	
+
 	@PostMapping("/authenticate")
 	public String authenticate(@Valid String email, String password, String identity, HttpSession session, Model model) {
-		
+
 		User user = userService.findUser(email, password, identity);
-		
+
 		if(user != null) {
-		session.setAttribute("user", user);
-		return "Profile";
+			session.setAttribute("user", user);
+			return "Profile";
+//			if(user.getRole() == RoleType.STUDENT)
+//				return "student/student-profile";
+//			else if(user.getRole() == RoleType.LECTURER)
+//				return "lecturer/lecturer-profile";
+//			else
+//				return "admin/admin-profile";
 		}
 		return "LoginPage";
 	}
