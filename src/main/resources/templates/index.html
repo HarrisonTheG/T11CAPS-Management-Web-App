@@ -6,5 +6,12 @@
 </head>
 <body>
 	HI I am default page
+	<div sec:authorize="hasAuthority('USER')">Text visible to user.</div>
+	<div sec:authorize="hasAuthority('ADMIN')">Text visible to admin.</div>
+    <div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
+	<div sec:authorize="hasAuthority('STUDENT')">Text visible to student only.</div>      
+		<div sec:authorize="hasAuthority('LECTURER')">Text visible to LECTURER.</div>  
+        
+</div>
 </body>
 </html>

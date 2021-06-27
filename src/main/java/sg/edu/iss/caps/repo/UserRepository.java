@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,6 +12,8 @@ import sg.edu.iss.caps.model.User;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
 	
+	Optional<User> findByEmail(String userName); //tell jpa that this service needs implementation in users.
+	//method is given a username, JPA do a method username, finds a given user.
 
 	User findByEmailAndPassword(@Valid String email, String password);
 	
