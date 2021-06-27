@@ -2,6 +2,7 @@
   package sg.edu.iss.caps.service.implementation;
   
   import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import
@@ -21,6 +22,13 @@ import
   	public List<Course> listAllCourses() {
 	  
 	return crepo.findAll();
+  	}
+
+  @Override
+  public Optional<Course> findCourse(int id) {
+	  
+	  Optional<Course> foundCourse = crepo.findById(id);
+	  return foundCourse;
   	}
   
   

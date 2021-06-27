@@ -52,6 +52,10 @@ public class Course {
 		this.endDate = endDate;
 		this.code = code;
 	}
+	
+	public Course() {
+		super();
+	}
 
 	
 
@@ -64,11 +68,6 @@ public class Course {
 		this.code = code;
 	}
 
-
-
-	public Course() {
-		super();
-	}
 	
 	public List<Student_Course> getStudentCourses() {
 		return studentCourses;

@@ -14,7 +14,7 @@
     <title>Insert title here</title>
 <title>Insert title here</title>
 </head>
-<body style="background-color: #e2e8f0">
+<body style="background-color: #e2e8f0" th:href="@{/css/ListTableView.css}">
 
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
@@ -45,9 +45,9 @@
             </thead>
             <tbody th:each="course, iter:${courses}">
                 <tr>
-                    <td th:text=${iter.index+1}>1</td>
-                    <td th:text=${course.code}>SAdefault</td>
-                    <td th:text=${course.name}>Default</td>
+                    <td th:text="${iter.index+1}">1</td>
+                    <td><a th:href="@{'/course/details/' + ${course.id}} "><span th:text="${course.code}">SAdefault </span></a></td>
+                    <td><a th:href="@{'/course/details/' + ${course.id}} "><span  th:text="${course.name}">Default</span></a></td>
 
                 </tr>
 

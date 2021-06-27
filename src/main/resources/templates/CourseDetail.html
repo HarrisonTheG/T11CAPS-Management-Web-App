@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<html  xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <meta charset="ISO-8859-1" />
+    <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    
+
+    <title>Course Detail</title>
+</head>
+
+<body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+    <section class="box-content" style="margin-top:88px">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Course </strong></h3>
+                    <form action="/action_page.php">
+                        <div class="form-group">
+
+                            <input disabled type="text"
+                                class="form-control input-style input-title-style no-input-border" id="" name=""
+                                th:value="${course.code} + ' ' + ${course.name}">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <textarea disabled class="form-control input-style no-input-border"
+                                id="description" name="description"
+                                th:text="${course.description}" th:href="@{/css/ViewDetail.css}">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</textarea>
+                        </div>
+                        
+                        <div class="form-group" th:each="lecturer,iter :${lecturers}">
+                            <input th:if="${#lists.size(lecturers)}<=1" disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="'Lecturer: ' + ${lecturer.firstname} + ' ' + ${lecturer.surname}">
+                             <input th:if="${(#lists.size(lecturers)>1) && (iter.index == 0)}" disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="'Lecturer: ' + ${lecturer.firstname} + ', '">
+                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index != (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="${lecturer.firstname} + ', '">
+                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index == (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="${lecturer.firstname}">
+                                 
+                        </div>
+                        
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="'Credit: ' + ${course.credit}">
+                        </div>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control input-style no-input-border"
+                                id="description" name="description" th:value="'Class size: ' +  ${#lists.size(students)} + '/' + ${course.maxSize}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <section>
+        <div class="text-content-style"> - This course has reached its maximum students - </div>
+    </section>
+
+    <section>
+        <div class="button-style">
+            <a class="btn btn-primary">Enroll</a>
+        </div>
+    </section>
 </body>
+
 </html>
