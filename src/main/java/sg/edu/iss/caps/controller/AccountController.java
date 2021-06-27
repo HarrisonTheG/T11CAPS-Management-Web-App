@@ -39,7 +39,7 @@ public class AccountController {
 		User user = userService.findUser(email, password, identity);
 		
 		if(user != null) {
-		session.setAttribute("user", user);
+			session.setAttribute("user", user);
 		return "Profile";
 		}
 		return "LoginPage";

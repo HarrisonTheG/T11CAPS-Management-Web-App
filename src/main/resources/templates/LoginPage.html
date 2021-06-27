@@ -7,13 +7,7 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
-    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="assets/css/Search-Input-responsive.css">
-    <link rel="stylesheet" href="assets/css/smoothproducts.css">
 </head>
 
 <body>
@@ -27,8 +21,9 @@
                 <div style="margin-top:30px;margin-bottom:20px;text-align:center;">
                   <IMG SRC='' Alt="Logo Picture"></IMG>
                 </div>
+                <div style="text-align:center; ">
+                <form action="/account/authenticate" method="post" style="display: inline-block">
                 <div style="text-align:center;">
-                <form action="/account/authenticate" method="post" style="display:inline-block;">
                 <table>
                 <tr>
                 <th>Email</th><th><input type="text" id="email" name="email"></th>
@@ -39,13 +34,13 @@
                 <tr>
                 <th>Identity</th>
                 <th><select name="identity"> 
-                 <option value="student" selected>Student</option>
-                 <option value="lecturer">Lecturer</option>
-                 <option value="administrator">Administrator</option>
+                 <option value="student" selected>student</option>
+                 <option value="lecturer">lecturer</option>
+                 <option value="admin">admin</option>
                 </select></th>
                 </tr>
                 </table> 
-                </form> 
+               
                 </div>
                 
                 
@@ -54,17 +49,12 @@
                 <button name="register" class="btn btn-outline-info" style="margin-right:10px; font-size: 14px">Register</button>
                 <button type="submit" name="login"  class="btn btn-primary" style="margin-left:10px; font-size: 14px">Sign in</button>               
                 </div>
-                
-                
+                 </form> 
+                </div>
                 </div>             
         </section>
     </main>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="assets/js/smoothproducts.min.js"></script>
-    <script src="assets/js/theme.js"></script>
 </body>
 
 </html>
