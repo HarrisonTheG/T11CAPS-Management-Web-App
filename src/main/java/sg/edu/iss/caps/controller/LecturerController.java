@@ -20,7 +20,7 @@ public class LecturerController {
 	
 	@GetMapping("/profile")
 	public String viewProfile() {
-		return "lecturer/lecturer-profile";
+		return "Profile";
 	}
 	
 	@GetMapping("/courses")

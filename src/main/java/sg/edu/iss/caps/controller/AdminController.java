@@ -19,7 +19,7 @@ public class AdminController {
 	@GetMapping("/profile")
 	
 	public String viewProfile() {
-		return "admin/admin-profile";
+		return "Profile";
 	}
 	
 }

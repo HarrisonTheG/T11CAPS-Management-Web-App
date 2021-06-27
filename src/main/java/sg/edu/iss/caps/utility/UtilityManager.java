@@ -12,15 +12,18 @@ public class UtilityManager {
 	  
 	public static String checkIdentity(User user, String identity) {
 		
-		if(user.getRole() == RoleType.STUDENT && identity == "student") {
-			return identity.toUpperCase();
-		} else if (user.getRole() == RoleType.LECTURER && identity == "lecturer") {
-			return identity.toUpperCase();
-		} else if (user.getRole() == RoleType.ADMIN && identity == "admin") {
-			return identity.toUpperCase();
+		System.out.println(user.getRole()==RoleType.LECTURER);
+		System.out.println(identity);
+		System.out.println(identity == "lecturer");
+		if(user.getRole() == RoleType.STUDENT && identity.equals("student")) {
+			return identity;
+		} else if (user.getRole() == RoleType.LECTURER && identity.equals("lecturer")) {
+			return identity;
+		} else if (user.getRole() == RoleType.ADMIN && identity.equals("admin")) {
+			return identity;
 		} 
 		
-		return "Error";
+		return "error";
 	}
 
 	public static double GradesToGPA (List<Student_Course> courses) {
