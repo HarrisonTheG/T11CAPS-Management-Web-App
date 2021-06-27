@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import sg.edu.iss.caps.model.User;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
@@ -17,10 +16,10 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 	@Query("SELECT u FROM User u WHERE CONCAT(u.id, ' ', u.firstname, ' ', u.surname, ' ', u.email) LIKE %?1%")
 	public List<User> search(String keyword);
 
-	@Query("Select s from User u where s.id = :id and s.role = STUDENT")
-	   public User findStudent(@Param("id") Integer id);
+	@Query("Select u from User u where u.id = ?1 and u.role = STUDENT")
+	   public User findStudent(Integer id);
 
-	@Query("Select s from User u where s.id = :id and s.role = LECTURER")
-	   public User findLecturer(@Param("id") Integer id);
+	@Query("Select u from User u where u.id = ?1 and u.role = LECTURER")
+	   public User findLecturer(Integer id);
 
 }

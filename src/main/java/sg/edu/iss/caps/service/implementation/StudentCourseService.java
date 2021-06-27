@@ -26,9 +26,7 @@ import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 	  
 	  @Transactional
 		public void removeStudentFromCourse(Course course, User user) {
-		  Integer course_id = course.getId();
-		  Integer student_id = user.getId();
-		  Student_Course current = screpo.findStudentCourse(course_id, student_id);
+		  Student_Course current = screpo.findStudentCourseByCourseAndUser(course, user).get(0);
 		  screpo.delete(current);
 		}
 
