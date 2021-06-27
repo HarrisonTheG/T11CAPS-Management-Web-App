@@ -1,6 +1,6 @@
 package sg.edu.iss.caps.service.implementation;
 
-import java.util.List;
+
 
 import javax.validation.Valid;
 
@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.repo.UserRepository;
-import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IUser;
 import sg.edu.iss.caps.utility.UtilityManager;
 
@@ -27,8 +26,10 @@ public class UserService implements IUser,ILecturer {
 	@Override
 	public User findUser(@Valid String email, String password, String identity) {
 
+		System.out.print(1);
 		User user = urepo.findByEmailAndPassword(email, password);
 		if(user != null) {
+			System.out.print(2);
 			if (UtilityManager.checkIdentity(user, identity) != "error")
 				return user;
 		}
@@ -48,13 +49,7 @@ public class UserService implements IUser,ILecturer {
 	}
 
 
-	public List<User> listAll(String keyword) {
-		// TODO Auto-generated method stub
-		if (keyword != null) {
-	        return urepo.search(keyword);
-	    }
-	    return urepo.findAll();
-	}
+
 
 
 
