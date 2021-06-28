@@ -1,5 +1,7 @@
 package sg.edu.iss.caps.service.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,4 +44,8 @@ import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 			
 		}
 
+	  @Transactional
+	  public List<User> listStudentsInCourse(Course course){
+		  return screpo.listStudentsInCourse(course);
+	  }
 }

@@ -22,7 +22,7 @@
         <form action="" method="post">
             <div class="input-group rounded">
                 <input id="search" name="searchTerm" type="search" class="form-control rounded"
-                    placeholder="Search Course" aria-label="Search" aria-describedby="search-addon" />
+                    placeholder="Search for a course" aria-label="Search" aria-describedby="search-addon" />
                 <span class="input-group-text border-0" id="search-addon">
                     <button class="fa fa-search" type="submit"></button>
                 </span>
@@ -43,7 +43,13 @@
             </thead>
             <tbody>
 
-                <tr>
+				<tr th:each="course : ${listCourses}">
+					<td th:text="${course.id}"></td>
+                	<td th:text="${course.code}"></td>
+                	<td th:text="${course.name}"></td>
+              </tr>
+              
+                <!-- <tr>
                     <td>1</td>
                     <td>SA4111</td>
                     <td>Edinburgh</td>
@@ -90,7 +96,7 @@
                     <td>SA4112</td>
                     <td>Tokyo</td>
 
-                </tr>
+                </tr> -->
 
             </tbody>
 

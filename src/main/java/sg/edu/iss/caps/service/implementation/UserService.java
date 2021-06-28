@@ -2,6 +2,8 @@ package sg.edu.iss.caps.service.implementation;
 
 
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.repo.UserRepository;
+import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IUser;
 import sg.edu.iss.caps.utility.UtilityManager;
 
@@ -48,18 +52,28 @@ public class UserService implements IUser,ILecturer {
 
 	}
 
-
-
-
-
-
 	@Transactional
 	public User findStudentById(Integer id) {
-		 return urepo.findStudent(id);
+		 return urepo.findUserByRoleType(id, RoleType.STUDENT);
 	}
 
 	@Transactional
 	public User findLecturerById(Integer id) {
-		 return urepo.findLecturer(id);
+		 return urepo.findUserByRoleType(id, RoleType.LECTURER);
 	}
+
+	@Override
+	public List<User> listAll(String keyword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public List<User> listStudents(String keyword) {
+		// TODO Auto-generated method stub
+		if (keyword != null) {
+	        return urepo.findStudents(keyword);
+	    }
+	    return urepo.listAllStudents(RoleType.STUDENT);
+	}
+	
 }
