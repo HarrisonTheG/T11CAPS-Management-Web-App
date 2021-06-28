@@ -20,10 +20,13 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
+
 	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
-
+		
+		<b th:text="'Student ID/Name: '" ></b> <span th:text="${session.user.id} + '/' + ${session.user.firstname} + ' ' + ${session.user.surname}" >Student Credentials</span>
+		<p><b th:text=" 'Cumulative GPA: '"></b><u><span th:text="${cgpa}"></span></u><span th:text="'/5.0'">Cumulative GPA</span></p>
     </section>
-
+    
     <div class="container-style tableFixHead">
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
@@ -44,7 +47,7 @@
                 	<td th:text="${studentCourse.Course.code}"></td>
                 	<td th:text="${studentCourse.course.name}"></td>
                 	<td th:text="${studentCourse.course.credit}"></td>
-                	<td th:text="${studentCourse.grade}"></td>
+                	<td th:with="grade=${studentCourse.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
               </tr>
               
                 <!-- <tr>

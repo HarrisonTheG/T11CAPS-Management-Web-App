@@ -21,6 +21,7 @@ import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/course")
@@ -57,7 +58,7 @@ public class CourseController {
 		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
 		
 			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
-
+			model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 			return "student/student-courses";
 		}
 
