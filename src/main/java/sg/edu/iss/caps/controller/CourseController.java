@@ -40,57 +40,61 @@ public class CourseController {
 		model.addAttribute("courses", courseService.listAllCourses());
 		return "Courses";
 	}
-	
-	
+
+
 	@GetMapping("/details/{id}")
 	public String viewCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
 		System.out.println(id);
 		session.getAttribute("user");
 		Course selectedCourse = courseService.findCourse(id).orElse(null);
 		System.out.println(courseService.findCourse(id).orElse(null));
-		
+
 		model.addAttribute("course", selectedCourse);
 		model.addAttribute("lecturers", selectedCourse.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
 		model.addAttribute("students", selectedCourse.getStudentCourses().stream().map(x -> x.getUser()).collect(Collectors.toList()));
-		
+
 		return "CourseDetail";
 	}
 
 	@GetMapping("/studentCourses")
-	public String viewSpecificStudentAllCourses() {
+	public String viewSpecificStudentAllCourses(HttpSession session, Model model) {
+		
 		return "student/student-courses";
 	}
-	
+
 	public String viewProfile(Model model, @Param("keyword") String keyword) {
 		List<Course> listCourses = courseService.listAll(keyword);
         model.addAttribute("listCourses", listCourses);
         model.addAttribute("keyword", keyword);
 		return "ListTableView";
 	}
-	
-	
 
-	@GetMapping("/{cid}")
-	public String viewCourseDetails(Model model, @PathVariable("cid") int cid) {
-		Course course = courseService.findCourseById(cid);
-        model.addAttribute("course", course);
-		return "admin/course-detail";
-	}
+
+//	@GetMapping("/{cid}")
+//	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
+//		session.getAttribute("user");
+//		Course course = courseService.findCourseById(cid);
+//        model.addAttribute("course", course);
+//		return "admin/course-detail";
+//	}
 
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
-	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid) {
+	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+		session.getAttribute("user");
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
 
 	@GetMapping(value = "/{cid}/deleteStudentFromCourse/{sid}")
-	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid) {
+	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+		session.getAttribute("user");
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
 
 	@GetMapping("/{cid}/student-list")
-	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword) {
+	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
+		session.getAttribute("user");
 		List<User> listUsers = userService.listStudents(keyword);
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("keyword", keyword);
