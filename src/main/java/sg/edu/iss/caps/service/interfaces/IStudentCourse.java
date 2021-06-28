@@ -16,4 +16,5 @@ public interface IStudentCourse {
 	public void addLecturerToCourse(Course course, User user);
 	public void removeLecturerFromCourse(Course course, User user);
 	public List<User> listStudentsInCourse (Course course);
+	public List<Student_Course> listStudentsGradesInCourse(Course course);
 }

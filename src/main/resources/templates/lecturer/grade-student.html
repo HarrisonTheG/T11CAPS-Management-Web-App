@@ -32,58 +32,22 @@
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th class="th-sm">Student Id
-                    </th>
                     <th class="th-sm">Student Name
                     </th>
-                    <th class="th-sm">Grades
+                    <th class="th-sm">Credit
                     </th>
                     <th class="th-sm">GPA
                     </th>
                 </tr>
             </thead>
             <tbody>
+            	<tr th:each="student : ${students}">
+            	<td th:text="${student.user.firstname} + ' ' + ${student.user.surname}"></td>
+            	<td th:text="${student.course.credit}"></td>
+                <td th:with="grade=${student.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
 
-                <tr>
-                  
-                    <td>SA12345671S</td>
-                    <td>Elon Musk</td>
-                    <td>99</td>
-                    <td>5.0</td>
-
-                </tr>
-                <tr>
-                    
-                    <td>SA12345672S</td>
-                    <td>Michael Saylor</td>
-                    <td>98</td>
-                    <td>5.0</td>
-
-                </tr>
-                <tr>
-                    
-                    <td>SA12345673S</td>
-                    <td>Charles Hodginski</td>
-                    <td>97</td>
-                    <td>5.0</td>
-
-                </tr>
-                <tr>
-                   
-                    <td>SA12345674S</td>
-                    <td>Jo Jo Joget</td>
-                    <td>96</td>
-                    <td>5.0</td>
-
-                </tr>
-                <tr>
-                    <td>SA12345654S</td>
-                    <td>John Doe</td>
-                    <td>95</td>
-                    <td>5.0</td>
-
-                </tr>
-                </tbody>
+                
+            </tbody>
                 
    
         
