@@ -31,10 +31,13 @@ public class CourseController {
 	@Autowired IUser userService;
 	@Autowired IStudentCourse scService;
 
-	@GetMapping("/viewCourses")
-	public String viewAllCourses(Model model, HttpSession session) {
+
+	@GetMapping("/viewCourses/{id}")
+	public String viewAllUnenrolledCourses(@PathVariable("id") int id, Model model, HttpSession session) {
 		session.getAttribute("user");
-		model.addAttribute("courses", courseService.listAllCourses());
+		
+		model.addAttribute("courses", courseService.findNewCoursesForStudents(id));
+		
 		return "Courses";
 	}
 

@@ -1,24 +1,22 @@
 
   package sg.edu.iss.caps.service.implementation;
   
-  import java.util.List;
+  import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import org.springframework.beans.factory.annotation.Autowired; import
+import
 
   org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.model.Course;
-
-import sg.edu.iss.caps.repo.CourseRepository;
-import sg.edu.iss.caps.service.interfaces.ICourse;
-
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.repo.CourseRepository;
+import sg.edu.iss.caps.repo.StudentCourseRepository;
+import sg.edu.iss.caps.repo.UserRepository;
 import sg.edu.iss.caps.service.interfaces.ICourse;
 
 
@@ -26,6 +24,8 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
   @Service public class CourseService implements ICourse{
   
   @Autowired CourseRepository crepo;
+  @Autowired StudentCourseRepository screpo;
+  @Autowired UserRepository urepo;
 
   @Override @Transactional(timeout=30, readOnly=true)
   	public List<Course> listAllCourses() {
@@ -55,6 +55,25 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	    return crepo.findAll();
 	}
   
+  
+  @Override
+  public List<Course> findNewCoursesForStudents(int id) {
+  	List<Course> allCourses = crepo.findAll();
+  	User user = urepo.findById(id).orElse(null);
+  	List<Course> enrolledStudentCourses = screpo.findStudentCoursesByStudent(user).stream().map(x -> x.getCourse()).collect(Collectors.toList());
+  	
+  	List<Course> newCourses = new ArrayList<Course>();
+  	
+  	for (Course c : allCourses) {
+  		if(!enrolledStudentCourses.contains(c)) {
+  			newCourses.add(c);
+  		}
+  	}
+  	
+  	return newCourses;
+  }
+    
+  
   @Transactional
   public List<Course> findCourseByLecturerId(Integer id){
 	  return crepo.findCoursesByUser(id);
@@ -72,6 +91,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	  existingLecturers.remove(lecturer);
 	  selectedCourse.setUser(existingLecturers);
   }
-  
+
+
   
   }

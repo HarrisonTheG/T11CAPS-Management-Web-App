@@ -13,6 +13,8 @@ public interface ICourse {
 	
 	public Optional<Course> findCourse(int id);
 	public Course findCourseById(Integer id);
+	
+	public List<Course> findNewCoursesForStudents(int id);
 
 	//search bar keyword
 	public List<Course> listAll(String keyword);
