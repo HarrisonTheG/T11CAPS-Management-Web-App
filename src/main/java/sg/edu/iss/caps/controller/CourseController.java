@@ -59,6 +59,8 @@ public class CourseController {
 	@GetMapping("/studentCourses")
 	public String viewSpecificStudentAllCourses() {
 		return "student/student-courses";
+	}
+	
 	public String viewProfile(Model model, @Param("keyword") String keyword) {
 		List<Course> listCourses = courseService.listAll(keyword);
         model.addAttribute("listCourses", listCourses);
