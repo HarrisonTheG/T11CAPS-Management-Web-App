@@ -55,11 +55,9 @@ public class CourseController {
 	//WORKING ON THIS
 	@GetMapping("/studentCourses/{id}")
 	public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
-	
+
 		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 
-		return "student/student-courses";
-	}
 
 	@GetMapping("/search")
 	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
@@ -69,6 +67,17 @@ public class CourseController {
         return "Courses";
 	}
 
+	//Get list of students in course
+	@GetMapping("/{cid}/student-list")
+	public String viewCourseStudentList(Model model, @Param("keyword") String keyword, @PathVariable("cid") int cid, HttpSession session) {
+		session.getAttribute("user");
+		Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+        List<User> listUsers = scService.listStudentsInCourse(course);
+        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("keyword", keyword);
+		return "lecturer/student-list";
+	}
 
 	//Manage students
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
@@ -85,7 +94,7 @@ public class CourseController {
 		return "forward:/course/"+cid+"/student-list";
 	}
 
-	@GetMapping("/{cid}/student-list")
+	@GetMapping("/{cid}/edit-student-list")
 	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
 		session.getAttribute("user");
 		List<User> listUsers = userService.listStudents(keyword);
@@ -97,7 +106,7 @@ public class CourseController {
         model.addAttribute("students", listStudentsInCourse);
 		return "admin/course-student-list";
 	}
-	
+
 	// Manage lecturers
 	@GetMapping(value = "/{cid}/addLecturerToCourse/{uid}")
 	public String addLecturerToCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
@@ -114,8 +123,8 @@ public class CourseController {
 		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
 		return "forward:/course/"+cid+"/lecturer-list";
 	}
-	
-	@GetMapping("/{cid}/lecturer-list")
+
+	@GetMapping("/{cid}/edit-lecturer-list")
 	public String viewCourseLecturerList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
 		session.getAttribute("user");
 		//get full list of lecturers
