@@ -52,10 +52,12 @@ public class CourseController {
 		return "CourseDetail";
 	}
 
-	@GetMapping("/studentCourses")
-	public String viewSpecificStudentAllCourses(HttpSession session, Model model) {
-		return "student/student-courses";
-	}
+	//WORKING ON THIS
+	@GetMapping("/studentCourses/{id}")
+	public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
+
+		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
+
 
 	@GetMapping("/search")
 	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
@@ -104,7 +106,7 @@ public class CourseController {
         model.addAttribute("students", listStudentsInCourse);
 		return "admin/course-student-list";
 	}
-	
+
 	// Manage lecturers
 	@GetMapping(value = "/{cid}/addLecturerToCourse/{uid}")
 	public String addLecturerToCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
@@ -121,7 +123,7 @@ public class CourseController {
 		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
 		return "forward:/course/"+cid+"/lecturer-list";
 	}
-	
+
 	@GetMapping("/{cid}/edit-lecturer-list")
 	public String viewCourseLecturerList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
 		session.getAttribute("user");
