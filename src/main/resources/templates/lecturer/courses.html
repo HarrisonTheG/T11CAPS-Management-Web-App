@@ -20,44 +20,23 @@
 <div class="container-style tableFixHead">
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
-                <tr>
+                <tr><th class="th-sm">#
+                    </th>
                     <th class="th-sm">Course Code
                     </th>
                     <th class="th-sm">Course Name
                 </tr>
             </thead>
-            <tbody>
-
+            <tbody th:each="course, iter:${courses}">
                 <tr>
-                  
-                    <td><a href="course-detail">SA4101</a></td>
-                    <td>Application Life Cycle</td>
+                    <td th:text="${iter.index+1}">1</td>
+                    <td><a th:href="@{'/course/details/' + ${course.id}} "><span th:text="${course.code}">SAdefault </span></a></td>
+                    <td><a th:href="@{'/course/details/' + ${course.id}} "><span  th:text="${course.name}">Default</span></a></td>
 
                 </tr>
-                <tr>
-                    
-                    <td>SA4102</td>
-                    <td>Fundamentals of Programming</td>
 
-                </tr>
-                <tr>
-                    
-                    <td>SA4104</td>
-                    <td>Project Management</td>
-
-                </tr>
-                <tr>
-                   
-                    <td>SA4105</td>
-                    <td>Java</td>
-
-                </tr>
-                <tr>
-                    <td>SA4108</td>
-                    <td>Python</td>
-
-                </tr>
-                </tbody>
+            </tbody>
+            
 
 </table>
 </div>
