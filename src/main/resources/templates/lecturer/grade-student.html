@@ -34,7 +34,7 @@
                 <tr>
                     <th class="th-sm">Student Name
                     </th>
-                    <th class="th-sm">Grades
+                    <th class="th-sm">Credit
                     </th>
                     <th class="th-sm">GPA
                     </th>
@@ -43,7 +43,8 @@
             <tbody>
             	<tr th:each="student : ${students}">
             	<td th:text="${student.user.firstname} + ' ' + ${student.user.surname}"></td>
-                <td th:text="${student.grade}"></td>
+            	<td th:text="${student.course.credit}"></td>
+                <td th:with="grade=${student.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
 
                 
             </tbody>
