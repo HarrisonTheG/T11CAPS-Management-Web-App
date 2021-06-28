@@ -40,6 +40,19 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	  return foundCourse;
   	}
   
+  @Override
+  @Transactional
+  public void edit(Course course) {
+	Course editcourse=crepo.findById(course.getId()).get();
+	  editcourse.setName(course.getName());
+	  editcourse.setCredit(course.getCredit());
+	  editcourse.setCode(course.getCode());
+	  editcourse.setDescription(course.getDescription());
+	  editcourse.setStartDate(course.getStartDate());
+	  editcourse.setEndDate(course.getEndDate());
+	  crepo.save(editcourse);
+	  
+  }
   
   @Transactional
 	public Course findCourseById(Integer id) {

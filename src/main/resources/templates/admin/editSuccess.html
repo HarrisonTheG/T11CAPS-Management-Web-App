@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1" />
+    <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    
+
+    <title>Course Detail</title>
+</head>
+
+<body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+    <section class="box-content" style="margin-top:88px">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Course Success! </strong></h3>
+                    <form th:action="@{/course/save}" method="post" th:object=${course}>
+						<input type="hidden" th:field="*{id}">
+                        <label style="display:inline-block;width:200px">Course Code:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="code"
+                         th:value="*{code}"></br>
+
+                         <label style="display:inline-block;width:200px">Course Name:</label>
+                        <input  disabled class="form-control no-input-border" type="text" style="display:inline-block;width:300px" id="" name="name"
+                         th:value="*{name}"></br>                      
+                         
+                         <label style="display:inline-block;width:200px">Description:</label>
+                        <textarea disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id="" name="description"
+                         th:text="*{description}"></textarea></br>
+                         
+                         <label style="display:inline-block;width:200px">Credits:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="credit"
+                         th:value="*{credit}"></br>
+                         
+                         <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="maxSize"
+                         th:value="*{maxSize}"></br>               
+                         
+                        <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input disabled type="text" class="form-control no-input-border" style="display:inline-block;width:200px" id="" name="startDate"
+                         th:value="*{startDate}"></br>
+
+                         <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="endDate"
+                         th:value="*{endDate}"></br>
+            			<a class="btn btn-primary" href="/course/viewCourses">Back to Course List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+   
+    
+</body>
+
+</html>

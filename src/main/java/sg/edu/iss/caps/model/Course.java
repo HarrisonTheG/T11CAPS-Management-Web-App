@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.model;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
+@DynamicUpdate
 public class Course {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,7 +37,7 @@ public class Course {
 	@OneToMany(mappedBy="course", 
 			cascade = CascadeType.ALL,
 	        orphanRemoval = true)
-	private List<Student_Course> studentCourses;
+	private Set<Student_Course> studentCourses;
 	
 	@ManyToMany (cascade=CascadeType.ALL)
 	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="course_id"), inverseJoinColumns=@JoinColumn(name="lecturer_id"))
@@ -69,12 +72,12 @@ public class Course {
 	}
 
 	
-	public List<Student_Course> getStudentCourses() {
+	public Set<Student_Course> getStudentCourses() {
 		return studentCourses;
 	}
 
 
-	public void setStudentCourses(List<Student_Course> studentCourses) {
+	public void setStudentCourses(Set<Student_Course> studentCourses) {
 		this.studentCourses = studentCourses;
 	}
 

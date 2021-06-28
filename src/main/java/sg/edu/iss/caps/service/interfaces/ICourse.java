@@ -11,6 +11,8 @@ public interface ICourse {
 	public List<Course> listAllCourses();
 	
 	public Optional<Course> findCourse(int id);
+	
+	public void edit(Course course);
   public Course findCourseById(Integer id);
 	public List<Course> listAll(String keyword);
 

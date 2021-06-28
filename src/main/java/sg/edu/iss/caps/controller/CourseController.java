@@ -4,6 +4,7 @@ package sg.edu.iss.caps.controller;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.Course;
@@ -55,6 +60,26 @@ public class CourseController {
 
 		return "CourseDetail";
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String EditCourseDetails(@PathVariable("id") int id,Model model, HttpSession session) {
+		session.getAttribute("user");
+		Course selectedCourse=courseService.findCourse(id).orElse(null);
+		
+		model.addAttribute("course",selectedCourse);
+		
+		return "admin/editcourse";
+	}
+	
+	@PostMapping("/save")
+	public String saveProductForm(@ModelAttribute("course") @Valid Course course,BindingResult bindingResult,Model model) {
+
+		courseService.edit(course);
+		model.addAttribute("course",course);
+		
+		return"admin/editSuccess";
+	}
+	
 
 	@GetMapping("/studentCourses")
 	public String viewSpecificStudentAllCourses() {
