@@ -57,7 +57,8 @@ public class CourseController {
 	}
 
 	@GetMapping("/studentCourses")
-	public String viewSpecificStudentAllCourses() {
+	public String viewSpecificStudentAllCourses(HttpSession session, Model model) {
+		
 		return "student/student-courses";
 	}
 	
