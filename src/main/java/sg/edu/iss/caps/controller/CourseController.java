@@ -22,19 +22,26 @@ import sg.edu.iss.caps.service.interfaces.IUser;
 @Controller
 @RequestMapping("/course")
 public class CourseController {
-	
+
 	@Autowired ICourse courseService;
 	@Autowired IUser userService;
 	@Autowired IStudentCourse scService;
-	
+
 	@GetMapping("/viewCourses")
+	public String viewAllCourses() {
+		return "ListTableView";
+	}
+
+	@GetMapping("/studentCourses")
+	public String viewSpecificStudentCourses() {
+		return "student/student-courses";
 	public String viewProfile(Model model, @Param("keyword") String keyword) {
 		List<Course> listCourses = courseService.listAll(keyword);
         model.addAttribute("listCourses", listCourses);
         model.addAttribute("keyword", keyword);
 		return "ListTableView";
 	}
-	
+
 	@GetMapping("/{cid}")
 	public String viewCourseDetails(Model model, @PathVariable("cid") int cid) {
 		Course course = courseService.findCourseById(cid);
@@ -47,13 +54,13 @@ public class CourseController {
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
-	
+
 	@GetMapping(value = "/{cid}/deleteStudentFromCourse/{sid}")
 	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid) {
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
-	
+
 	@GetMapping("/{cid}/student-list")
 	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword) {
 		List<User> listUsers = userService.listStudents(keyword);
@@ -66,4 +73,3 @@ public class CourseController {
 		return "admin/student-list";
 	}
 }
-

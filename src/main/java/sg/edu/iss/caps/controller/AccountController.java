@@ -41,6 +41,8 @@ public class AccountController {
 
 		if(user != null) {
 			session.setAttribute("user", user);
+			//session.getAttribute("user");
+			//model.addAttribute(user);
 			return "Profile";
 //			if(user.getRole() == RoleType.STUDENT)
 //				return "student/student-profile";

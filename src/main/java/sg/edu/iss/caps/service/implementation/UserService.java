@@ -29,11 +29,10 @@ public class UserService implements IUser,ILecturer {
 
 	@Override
 	public User findUser(@Valid String email, String password, String identity) {
-
-		System.out.print(1);
+		// System.out.print(1);
 		User user = urepo.findByEmailAndPassword(email, password);
 		if(user != null) {
-			System.out.print(2);
+
 			if (UtilityManager.checkIdentity(user, identity) != "error")
 				return user;
 		}
@@ -67,7 +66,7 @@ public class UserService implements IUser,ILecturer {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public List<User> listStudents(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
@@ -75,5 +74,5 @@ public class UserService implements IUser,ILecturer {
 	    }
 	    return urepo.listAllStudents(RoleType.STUDENT);
 	}
-	
+
 }
