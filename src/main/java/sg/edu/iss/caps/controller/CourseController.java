@@ -59,36 +59,42 @@ public class CourseController {
 	@GetMapping("/studentCourses")
 	public String viewSpecificStudentAllCourses() {
 		return "student/student-courses";
-	public String viewProfile(Model model, @Param("keyword") String keyword) {
-		List<Course> listCourses = courseService.listAll(keyword);
-        model.addAttribute("listCourses", listCourses);
-        model.addAttribute("keyword", keyword);
-		return "ListTableView";
 	}
-	
+		
+//	public String viewProfile(Model model, @Param("keyword") String keyword) {
+//		List<Course> listCourses = courseService.listAll(keyword);
+//        model.addAttribute("listCourses", listCourses);
+//        model.addAttribute("keyword", keyword);
+//		return "ListTableView";
+//	}
+//	
 	
 
 	@GetMapping("/{cid}")
-	public String viewCourseDetails(Model model, @PathVariable("cid") int cid) {
+	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
+		session.getAttribute("user");
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
 		return "admin/course-detail";
 	}
 
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
-	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid) {
+	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+		session.getAttribute("user");
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
 
 	@GetMapping(value = "/{cid}/deleteStudentFromCourse/{sid}")
-	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid) {
+	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+		session.getAttribute("user");
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		return "forward:/course/"+cid+"/student-list";
 	}
 
 	@GetMapping("/{cid}/student-list")
-	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword) {
+	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
+		session.getAttribute("user");
 		List<User> listUsers = userService.listStudents(keyword);
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("keyword", keyword);
