@@ -64,16 +64,12 @@
         </div>
         
     </section>
-
-    <section>
-        <div class="text-content-style"> - This course has reached its maximum students - </div>
-    </section>
-
-    <section>
-        <div class="button-style">
-            <a class="btn btn-primary">Enroll</a>
-        </div>
-    </section>
+    
+    <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/course-detail-buttons.html::courseDetailButtons-student"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/course-detail-buttons.html::courseDetailButtons-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/course-detail-buttons.html::courseDetailButtons-admin"> </div>
+    
+    
 </body>
 
 </html>

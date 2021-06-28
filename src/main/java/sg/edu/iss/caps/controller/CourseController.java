@@ -69,13 +69,13 @@ public class CourseController {
 	}
 
 
-	@GetMapping("/{cid}")
-	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
-		session.getAttribute("user");
-		Course course = courseService.findCourseById(cid);
-        model.addAttribute("course", course);
-		return "admin/course-detail";
-	}
+//	@GetMapping("/{cid}")
+//	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
+//		session.getAttribute("user");
+//		Course course = courseService.findCourseById(cid);
+//        model.addAttribute("course", course);
+//		return "admin/course-detail";
+//	}
 
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
 	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
