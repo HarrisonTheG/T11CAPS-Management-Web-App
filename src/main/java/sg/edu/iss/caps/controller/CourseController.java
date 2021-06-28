@@ -1,6 +1,7 @@
 package sg.edu.iss.caps.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,7 @@ public class CourseController {
 	}
 
 
-
+	//Manage students
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
 	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
 		session.getAttribute("user");
@@ -94,6 +95,39 @@ public class CourseController {
         model.addAttribute("course", course);
         List<User> listStudentsInCourse = scService.listStudentsInCourse(course);
         model.addAttribute("students", listStudentsInCourse);
-		return "admin/student-list";
+		return "admin/course-student-list";
+	}
+	
+	// Manage lecturers
+	@GetMapping(value = "/{cid}/addLecturerToCourse/{uid}")
+	public String addLecturerToCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+		session.getAttribute("user");
+		List<User> lecturer = new ArrayList<User>();
+		lecturer.add(userService.findLecturerById(uid));
+		courseService.addLecturerToCourse(lecturer, cid);
+		return "forward:/course/"+cid+"/lecturer-list";
+	}
+
+	@GetMapping(value = "/{cid}/deleteLecturerFromCourse/{uid}")
+	public String deleteLecturerFromCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+		session.getAttribute("user");
+		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
+		return "forward:/course/"+cid+"/lecturer-list";
+	}
+	
+	@GetMapping("/{cid}/lecturer-list")
+	public String viewCourseLecturerList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
+		session.getAttribute("user");
+		//get full list of lecturers
+		List<User> listUsers = userService.listLecturers(keyword);
+        model.addAttribute("listUsers", listUsers);
+        //add search keyword to model
+        model.addAttribute("keyword", keyword);
+        //add course id to model
+        Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+        //add lecturers teaching the course to model
+        model.addAttribute("lecturers", course.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
+		return "admin/course-lecturer-list";
 	}
 }
