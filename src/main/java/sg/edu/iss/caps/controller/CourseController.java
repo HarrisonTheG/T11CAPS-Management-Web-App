@@ -53,11 +53,13 @@ public class CourseController {
 	}
 
 	//WORKING ON THIS
-	@GetMapping("/studentCourses/{id}")
-	public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
+		@GetMapping("/studentCourses/{id}")
+		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
+		
+			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 
-		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
-
+			return "student/student-courses";
+		}
 
 	@GetMapping("/search")
 	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
