@@ -18,5 +18,8 @@ public interface ICourse {
 	public List<Course> listAll(String keyword);
 	
 	public List<Course> findCourseByLecturerId(Integer id);
+	
+	public void addLecturerToCourse(List<User> lecturers, Integer cid);
+	public void deleteLecturerFromCourse(User lecturer, Integer cid);
 
 }

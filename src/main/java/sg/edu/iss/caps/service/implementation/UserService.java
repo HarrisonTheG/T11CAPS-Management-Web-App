@@ -67,12 +67,23 @@ public class UserService implements IUser,ILecturer {
 		return null;
 	}
 
+	@Transactional
 	public List<User> listStudents(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
-	        return urepo.findStudents(keyword);
+	        return urepo.findStudent(keyword);
 	    }
-	    return urepo.listAllStudents(RoleType.STUDENT);
+	    return urepo.listAllInRole(RoleType.STUDENT);
 	}
+	
+	@Transactional
+	public List<User> listLecturers(String keyword) {
+		// TODO Auto-generated method stub
+		if (keyword != null) {
+	        return urepo.findLecturer(keyword);
+	    }
+	    return urepo.listAllInRole(RoleType.LECTURER);
+	}
+
 
 }
