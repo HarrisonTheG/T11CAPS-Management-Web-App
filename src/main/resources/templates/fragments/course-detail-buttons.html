@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+	
+	
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	
+<title>HTML fragments for navBar, footer</title>
+</head>
+<body>
+
+	<!-- Student course detail buttons -->
+	<div th:fragment="courseDetailButtons-student" id="courseDetailButtons">
+		<section>
+        <div class="text-content-style"> - This course has reached its maximum students - </div>
+    	</section>
+
+    	<section>
+        <div class="button-style">
+            <a class="btn btn-primary">Enroll</a>
+        </div>
+    </section>
+	</div>
+	
+	<!-- Admin course detail buttons -->
+	<div th:fragment="courseDetailButtons-admin" id="courseDetailButtons">
+		<section>
+        <div class="button-style">
+            <a class="btn btn-primary" href="student-list" th:href="@{/course/}+${course.id}+@{/student-list}">Modify Students</a>
+            <a class="btn btn-primary" href="student-list">Modify Lecturers</a>
+            <a class="btn btn-primary" href="grade-student">View Enrolled Students List</a>
+        </div>
+    	</section>
+	</div>
+	
+	<!-- Lecturer course detail buttons -->
+	<div th:fragment="courseDetailButtons-lecturer" id="courseDetailButtons">
+		<section>
+        <div class="button-style">
+            <a class="btn btn-primary" href="student-list">View Student List</a>
+            <a class="btn btn-primary" href="grade-student">Grade Students</a>
+        </div>
+    	</section>
+	</div>
+	
