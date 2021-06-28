@@ -62,21 +62,13 @@ public class CourseController {
 		return "student/student-courses";
 	}
 
-	public String viewProfile(Model model, @Param("keyword") String keyword) {
-		List<Course> listCourses = courseService.listAll(keyword);
-        model.addAttribute("listCourses", listCourses);
-        model.addAttribute("keyword", keyword);
-		return "ListTableView";
-	}
-
-
-//	@GetMapping("/{cid}")
-//	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
-//		session.getAttribute("user");
-//		Course course = courseService.findCourseById(cid);
-//        model.addAttribute("course", course);
-//		return "admin/course-detail";
+//	public String viewProfile(Model model, @Param("keyword") String keyword) {
+//		List<Course> listCourses = courseService.listAll(keyword);
+//        model.addAttribute("listCourses", listCourses);
+//        model.addAttribute("keyword", keyword);
+//		return "ListTableView";
 //	}
+
 
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
 	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
