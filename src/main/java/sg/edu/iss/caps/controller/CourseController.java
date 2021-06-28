@@ -1,13 +1,10 @@
 package sg.edu.iss.caps.controller;
 
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
-
-import java.util.List;
-import java.util.Map;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
-
 import sg.edu.iss.caps.service.interfaces.ICourse;
-import sg.edu.iss.caps.service.interfaces.IStudent;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
 
@@ -58,16 +53,18 @@ public class CourseController {
 
 	@GetMapping("/studentCourses")
 	public String viewSpecificStudentAllCourses(HttpSession session, Model model) {
-		
+
 		return "student/student-courses";
 	}
 
-//	public String viewProfile(Model model, @Param("keyword") String keyword) {
-//		List<Course> listCourses = courseService.listAll(keyword);
-//        model.addAttribute("listCourses", listCourses);
-//        model.addAttribute("keyword", keyword);
-//		return "ListTableView";
-//	}
+	@GetMapping("/search")
+	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
+		List<Course> searchedCourses = courseService.listAll(keyword);
+        model.addAttribute("courses", searchedCourses);
+        model.addAttribute("keyword", keyword);
+        return "Courses";
+	}
+
 
 
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")

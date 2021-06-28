@@ -10,6 +10,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/ListTableView.css">
     <script src="/js/ListTableView.js"></script>
+    
+    <script src="/js/searchCourses.js"></script>
+    
      <link rel="stylesheet" href="/css/bootstrap.css">
     <title>Insert title here</title>
 <title>Insert title here</title>
@@ -21,9 +24,10 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
 	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
-        <form action="" method="post">
+        <form th:action="@{/course/search}" method="get">
             <div class="input-group rounded">
-                <input id="search" name="searchTerm" type="search" class="form-control rounded"
+                <input th:value="${keyword}"
+                id="keyword" name="keyword" type="search" class="form-control rounded"
                     placeholder="Search for a Course" aria-label="Search" aria-describedby="search-addon" />
                 <span class="input-group-text border-0" id="search-addon">
                     <button class="fa fa-search" type="submit"></button>
