@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.User;
 
 public interface ICourse {
 	
@@ -12,8 +13,10 @@ public interface ICourse {
 	
 	public Optional<Course> findCourse(int id);
 	public Course findCourseById(Integer id);
-	
+
 	//search bar keyword
 	public List<Course> listAll(String keyword);
+	
+	public List<Course> findCourseByLecturerId(Integer id);
 
 }

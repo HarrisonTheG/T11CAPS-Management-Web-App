@@ -54,5 +54,11 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	    return crepo.findAll();
 	}
   
+  public List<Course> findCourseByLecturerId(Integer id){
+	  return crepo.findCoursesByUser(id);
   }
- 
+
+
+  
+  
+  }

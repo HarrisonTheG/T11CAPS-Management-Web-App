@@ -9,12 +9,16 @@ import
   org.springframework.stereotype.Repository;
   
   import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.User;
   
   @Repository public interface CourseRepository extends JpaRepository<Course,
   Integer> {
   
 	  @Query("SELECT c FROM Course c WHERE CONCAT(c.id, ' ', c.code, ' ', c.description, ' ', c.name) LIKE %?1%")
 		public List<Course> search(String keyword);
+	  
+	  @Query("SELECT c FROM Course c JOIN c.User u WHERE u.id = :id ")
+	  	public List<Course> findCoursesByUser(Integer id);
 	  
   }
  
