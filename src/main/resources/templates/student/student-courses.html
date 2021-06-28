@@ -1,10 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/ListTableView.css">
+    <script src="/js/ListTableView.js"></script>
+     <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Insert title here</title>
 <title>Insert title here</title>
 </head>
-<body>
+<body style="background-color: #e2e8f0">
 
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+
+	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
+		
+		<b th:text="'Student ID/Name: '" ></b> <span th:text="${session.user.id} + '/' + ${session.user.firstname} + ' ' + ${session.user.surname}" >Student Credentials</span>
+		<p><b th:text=" 'Cumulative GPA: '"></b><u><span th:text="${cgpa}"></span></u><span th:text="'/5.0'">Cumulative GPA</span></p>
+    </section>
+    
+    <div class="container-style tableFixHead">
+        <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">Course Id
+                    </th>
+                    <th class="th-sm">Course Code
+                    </th>
+                    <th class="th-sm">Course Name </th>
+                    <th class="th-sm">Credit </th>
+                    <th class="th-sm">Grade </th>
+                </tr>
+            </thead>
+            <tbody>
+
+				<tr th:each="studentCourse : ${listStudentCourses}">
+					<td th:text="${studentCourse.course.id}"></td>
+                	<td th:text="${studentCourse.Course.code}"></td>
+                	<td th:text="${studentCourse.course.name}"></td>
+                	<td th:text="${studentCourse.course.credit}"></td>
+                	<td th:with="grade=${studentCourse.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
+              </tr>
+              
+                <!-- <tr>
+                    <td>1</td>
+                    <td>SA4111</td>
+                    <td>Edinburgh</td>
+
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>SA4112</td>
+                    <td>Tokyo</td>
+
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>SA4112</td>
+                    <td>San Francisco</td>
+
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>SA4112</td>
+                    <td>Edinburgh</td>
+
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>SA4112</td>
+                    <td>Tokyo</td>
+
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>SA4112</td>
+                    <td>New York</td>
+
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>SA4112</td>
+                    <td>San Francisco</td>
+
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>SA4112</td>
+                    <td>Tokyo</td>
+
+                </tr> -->
+
+            </tbody>
+
+        </table>
+    </div>
 </body>
 </html>

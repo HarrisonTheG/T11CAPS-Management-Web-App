@@ -17,6 +17,7 @@ public interface IUser {
 	public User findStudentById(Integer id);
 	public User findLecturerById(Integer id);
 	public List<User> listStudents(String keyword);
+	public List<User> listLecturers(String keyword);
 	
 	
 	public void sendEmailNotification(MailVo mailVo);

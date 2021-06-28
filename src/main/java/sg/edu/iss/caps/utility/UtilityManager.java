@@ -28,10 +28,11 @@ public class UtilityManager {
 		double credits=0;
 		for (Student_Course course:courses){
 			credits+=course.getCourse().getCredit();
-			grades+=course.getGrade();
+			grades+=course.getGrade()/100 * course.getCourse().getCredit();
 		}
-		return credits/grades;
+		return grades/credits * 5.0;
 	}
+	
 
 	public static LocalDateTime UnixToDate (long unixTime) {
 		return LocalDateTime.ofEpochSecond(unixTime,0, ZoneOffset.ofHours(8));

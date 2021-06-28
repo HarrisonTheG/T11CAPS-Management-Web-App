@@ -59,6 +59,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 		 return crepo.findById(id).get();
 	}
   
+  @Transactional
   public List<Course> listAll(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
@@ -67,5 +68,23 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	    return crepo.findAll();
 	}
   
+  @Transactional
+  public List<Course> findCourseByLecturerId(Integer id){
+	  return crepo.findCoursesByUser(id);
   }
- 
+
+  @Transactional
+  public void addLecturerToCourse(List<User> lecturers, Integer cid) {
+	  crepo.getById(cid).setUser(lecturers);
+  }
+  
+  @Transactional
+  public void deleteLecturerFromCourse(User lecturer, Integer cid) {
+	  Course selectedCourse = crepo.getById(cid);
+	  List<User> existingLecturers = selectedCourse.getUser();
+	  existingLecturers.remove(lecturer);
+	  selectedCourse.setUser(existingLecturers);
+  }
+  
+  
+  }

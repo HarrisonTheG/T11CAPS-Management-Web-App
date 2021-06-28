@@ -1,14 +1,12 @@
 package sg.edu.iss.caps.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
-import java.util.List;
-import java.util.Map;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -25,11 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
-
 import sg.edu.iss.caps.service.interfaces.ICourse;
-import sg.edu.iss.caps.service.interfaces.IStudent;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/course")
@@ -81,27 +78,36 @@ public class CourseController {
 	}
 	
 
-	@GetMapping("/studentCourses")
-	public String viewSpecificStudentAllCourses() {
-		return "student/student-courses";
-	}
+	//WORKING ON THIS
+		@GetMapping("/studentCourses/{id}")
+		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
+		
+			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
+			model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
+			return "student/student-courses";
+		}
 
-	public String viewProfile(Model model, @Param("keyword") String keyword) {
-		List<Course> listCourses = courseService.listAll(keyword);
-        model.addAttribute("listCourses", listCourses);
+	@GetMapping("/search")
+	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
+		List<Course> searchedCourses = courseService.listAll(keyword);
+        model.addAttribute("courses", searchedCourses);
         model.addAttribute("keyword", keyword);
-		return "ListTableView";
+        return "Courses";
 	}
 
+	//Get list of students in course
+	@GetMapping("/{cid}/student-list")
+	public String viewCourseStudentList(Model model, @Param("keyword") String keyword, @PathVariable("cid") int cid, HttpSession session) {
+		session.getAttribute("user");
+		Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+        List<User> listUsers = scService.listStudentsInCourse(course);
+        model.addAttribute("listUsers", listUsers);
+        model.addAttribute("keyword", keyword);
+		return "lecturer/student-list";
+	}
 
-//	@GetMapping("/{cid}")
-//	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
-//		session.getAttribute("user");
-//		Course course = courseService.findCourseById(cid);
-//        model.addAttribute("course", course);
-//		return "admin/course-detail";
-//	}
-
+	//Manage students
 	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
 	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
 		session.getAttribute("user");
@@ -116,7 +122,7 @@ public class CourseController {
 		return "forward:/course/"+cid+"/student-list";
 	}
 
-	@GetMapping("/{cid}/student-list")
+	@GetMapping("/{cid}/edit-student-list")
 	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
 		session.getAttribute("user");
 		List<User> listUsers = userService.listStudents(keyword);
@@ -126,6 +132,39 @@ public class CourseController {
         model.addAttribute("course", course);
         List<User> listStudentsInCourse = scService.listStudentsInCourse(course);
         model.addAttribute("students", listStudentsInCourse);
-		return "admin/student-list";
+		return "admin/course-student-list";
+	}
+
+	// Manage lecturers
+	@GetMapping(value = "/{cid}/addLecturerToCourse/{uid}")
+	public String addLecturerToCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+		session.getAttribute("user");
+		List<User> lecturer = new ArrayList<User>();
+		lecturer.add(userService.findLecturerById(uid));
+		courseService.addLecturerToCourse(lecturer, cid);
+		return "forward:/course/"+cid+"/lecturer-list";
+	}
+
+	@GetMapping(value = "/{cid}/deleteLecturerFromCourse/{uid}")
+	public String deleteLecturerFromCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+		session.getAttribute("user");
+		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
+		return "forward:/course/"+cid+"/lecturer-list";
+	}
+
+	@GetMapping("/{cid}/edit-lecturer-list")
+	public String viewCourseLecturerList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
+		session.getAttribute("user");
+		//get full list of lecturers
+		List<User> listUsers = userService.listLecturers(keyword);
+        model.addAttribute("listUsers", listUsers);
+        //add search keyword to model
+        model.addAttribute("keyword", keyword);
+        //add course id to model
+        Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+        //add lecturers teaching the course to model
+        model.addAttribute("lecturers", course.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
+		return "admin/course-lecturer-list";
 	}
 }

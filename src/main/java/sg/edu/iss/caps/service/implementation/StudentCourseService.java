@@ -11,12 +11,29 @@ import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.repo.CourseRepository;
 import sg.edu.iss.caps.repo.StudentCourseRepository;
+import sg.edu.iss.caps.repo.UserRepository;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Service public class StudentCourseService implements IStudentCourse {
 
 	  @Autowired CourseRepository crepo;
 	  @Autowired StudentCourseRepository screpo;
+	  @Autowired UserRepository urepo;
+	  
+
+		@Override
+		public List<Student_Course> findStudentCoursesByStudentId(int id) {
+			
+			User student = urepo.findById(id).orElse(null); 
+			if(UtilityManager.checkIdentity(student, "student") != "error") {
+			List<Student_Course> studentCourses = screpo.findStudentCoursesByStudent(student);
+			return studentCourses;
+			}
+			
+			return null;
+		}
+
 	  
 	  @Transactional
 		public void addStudentToCourse(Course course, User user) {
@@ -48,4 +65,19 @@ import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 	  public List<User> listStudentsInCourse(Course course){
 		  return screpo.listStudentsInCourse(course);
 	  }
+	  
+	  @Transactional
+	  public List<Student_Course> listStudentsGradesInCourse(Course course){
+		  return screpo.listStudentsGradesInCourse(course);
+	  }
+
+
+
+
+
+
+
+
+
+
 }
