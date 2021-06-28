@@ -40,19 +40,19 @@ public class CourseController {
 		model.addAttribute("courses", courseService.listAllCourses());
 		return "Courses";
 	}
-	
-	
+
+
 	@GetMapping("/details/{id}")
 	public String viewCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
 		System.out.println(id);
 		session.getAttribute("user");
 		Course selectedCourse = courseService.findCourse(id).orElse(null);
 		System.out.println(courseService.findCourse(id).orElse(null));
-		
+
 		model.addAttribute("course", selectedCourse);
 		model.addAttribute("lecturers", selectedCourse.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
 		model.addAttribute("students", selectedCourse.getStudentCourses().stream().map(x -> x.getUser()).collect(Collectors.toList()));
-		
+
 		return "CourseDetail";
 	}
 
@@ -60,15 +60,14 @@ public class CourseController {
 	public String viewSpecificStudentAllCourses() {
 		return "student/student-courses";
 	}
-		
-//	public String viewProfile(Model model, @Param("keyword") String keyword) {
-//		List<Course> listCourses = courseService.listAll(keyword);
-//        model.addAttribute("listCourses", listCourses);
-//        model.addAttribute("keyword", keyword);
-//		return "ListTableView";
-//	}
-//	
-	
+
+	public String viewProfile(Model model, @Param("keyword") String keyword) {
+		List<Course> listCourses = courseService.listAll(keyword);
+        model.addAttribute("listCourses", listCourses);
+        model.addAttribute("keyword", keyword);
+		return "ListTableView";
+	}
+
 
 	@GetMapping("/{cid}")
 	public String viewCourseDetails(Model model, @PathVariable("cid") int cid, HttpSession session) {
