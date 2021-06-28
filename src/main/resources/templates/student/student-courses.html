@@ -28,19 +28,23 @@
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th class="th-sm">#
+                    <th class="th-sm">Course Id
                     </th>
                     <th class="th-sm">Course Code
                     </th>
-                    <th class="th-sm">Course Name
+                    <th class="th-sm">Course Name </th>
+                    <th class="th-sm">Credit </th>
+                    <th class="th-sm">Grade </th>
                 </tr>
             </thead>
             <tbody>
 
-				<tr th:each="course : ${listCourses}">
-					<td th:text="${course.id}"></td>
-                	<td th:text="${course.code}"></td>
-                	<td th:text="${course.name}"></td>
+				<tr th:each="studentCourse : ${listStudentCourses}">
+					<td th:text="${studentCourse.course.id}"></td>
+                	<td th:text="${studentCourse.Course.code}"></td>
+                	<td th:text="${studentCourse.course.name}"></td>
+                	<td th:text="${studentCourse.course.credit}"></td>
+                	<td th:text="${studentCourse.grade}"></td>
               </tr>
               
                 <!-- <tr>

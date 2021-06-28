@@ -21,7 +21,7 @@
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							th:href="@{/student/profile}" style="font-size: 14px !important">My Account</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							th:href="@{/course/studentCourses}" style="font-size: 14px !important">My Courses</a></li>
+							th:href="@{/course/studentCourses/} + ${session.user.id}" style="font-size: 14px !important">My Courses</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							th:href="@{/course/viewCourses}" style="font-size: 14px !important">Find Courses</a></li>
 						<li class="nav-item" style="flex-grow: 8"></li>
