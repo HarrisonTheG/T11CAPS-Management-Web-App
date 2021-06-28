@@ -14,11 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
-@DynamicUpdate
 public class Course {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
