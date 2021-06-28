@@ -14,7 +14,10 @@
     <title>Courses Taught</title>
 </head>
 <body>
-<div th:insert="fragments/general.html::navBar-lecturer"> </div>
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 <div class="container-style tableFixHead">

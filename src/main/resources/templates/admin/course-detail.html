@@ -13,7 +13,9 @@
     <title>Course Detail</title>
 </head>
 <body class="bg-gray-300">
-<div th:insert="fragments/general.html::navBar-lecturer"> </div>
+<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 <section class="box-content" style="margin-top:88px">
         <div class="container">
             <div class="panel panel-primary">
