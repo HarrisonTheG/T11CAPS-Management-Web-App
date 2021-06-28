@@ -12,6 +12,8 @@ public interface ICourse {
 	public List<Course> listAllCourses();
 	
 	public Optional<Course> findCourse(int id);
+	
+	public void edit(Course course);
 	public Course findCourseById(Integer id);
 
 	//search bar keyword
