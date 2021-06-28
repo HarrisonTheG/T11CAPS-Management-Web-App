@@ -37,7 +37,7 @@ public class Course {
 	@OneToMany(mappedBy="course", 
 			cascade = CascadeType.ALL,
 	        orphanRemoval = true)
-	private Set<Student_Course> studentCourses;
+	private List<Student_Course> studentCourses;
 	
 	@ManyToMany (cascade=CascadeType.ALL)
 	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="course_id"), inverseJoinColumns=@JoinColumn(name="lecturer_id"))
@@ -72,12 +72,12 @@ public class Course {
 	}
 
 	
-	public Set<Student_Course> getStudentCourses() {
+	public List<Student_Course> getStudentCourses() {
 		return studentCourses;
 	}
 
 
-	public void setStudentCourses(Set<Student_Course> studentCourses) {
+	public void setStudentCourses(List<Student_Course> studentCourses) {
 		this.studentCourses = studentCourses;
 	}
 
