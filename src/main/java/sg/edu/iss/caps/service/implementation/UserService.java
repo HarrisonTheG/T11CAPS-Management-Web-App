@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.model.RoleType;
@@ -71,7 +72,7 @@ public class UserService implements IUser,ILecturer {
 	public List<User> listStudents(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
-	        return urepo.findStudent(keyword);
+			urepo.searchByRoleType(RoleType.STUDENT, keyword);
 	    }
 	    return urepo.listAllInRole(RoleType.STUDENT);
 	}
@@ -80,10 +81,27 @@ public class UserService implements IUser,ILecturer {
 	public List<User> listLecturers(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
-	        return urepo.findLecturer(keyword);
+	        return urepo.searchByRoleType(RoleType.LECTURER, keyword);
 	    }
 	    return urepo.listAllInRole(RoleType.LECTURER);
 	}
+	
+	//edit user
+	@Override
+	  @Transactional
+	  public void edit(User user) {
+		User edituser=urepo.findById(user.getId()).get();
+		edituser.setFirstname(user.getFirstname());
+		edituser.setSurname(user.getSurname());
+		edituser.setEmail(user.getEmail());
+		edituser.setPassword(user.getPassword());
+		edituser.setEnrollmentDate(user.getEnrollmentDate());
+		  urepo.save(edituser);
+		  
+	  }
 
-
+	@Transactional
+	public void delete(User user) {
+		 urepo.delete(user);
+	}
 }

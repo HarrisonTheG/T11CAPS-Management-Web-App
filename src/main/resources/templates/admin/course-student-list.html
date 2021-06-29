@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/ListTableView.css">
+    <script src="/js/ListTableView.js"></script>
+     <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Student List</title>
+</head>
+<body style="background-color: #e2e8f0" th:href="@{/css/ListTableView.css}">
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
+		<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
+		<p th:text="${course.code} + ' ' + ${course.name}">Course</p>
+		
+        <form th:action="@{/course/}+${course.id}+@{/edit-student-list}">
+            <div class="input-group rounded">
+                <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
+                    placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <button class="fa fa-search" type="submit"></button>
+                </span>
+            </div>
+        </form>
+    </section>
+    
+<div class="container-style tableFixHead">
+        <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">First Name</th>
+                    <th class="th-sm">Surname</th>
+                    <th class="th-sm">Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+			<tr th:each="user : ${listUsers}">
+                	<td th:text="${user.firstname}"></td>
+                	<td th:text="${user.surname}"></td>
+                	<td>
+                		<span th:unless="${#lists.contains(students, user)}">
+                			<a href="AddStudent.html" th:href="@{~/course/}+${course.id}+@{/addStudentToCourse/}+${user.id}">Add</a></span>
+               			<span th:if="${#lists.contains(students, user)}">
+                			<a href="DeleteStudent.html" th:href="@{~/course/}+${course.id}+@{/deleteStudentFromCourse/}+${user.id}">Delete</a></span>
+                	</td>	
+              </tr>
+                </tbody>
+
+</table>
+</div>
+
+</body>
+</html>

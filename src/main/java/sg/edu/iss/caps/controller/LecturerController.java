@@ -28,12 +28,12 @@ import sg.edu.iss.caps.service.interfaces.IUser;
 @Controller
 @RequestMapping("/lecturer")
 public class LecturerController {
-	
+
 	@Autowired ILecturer lecturerService;
 	@Autowired ICourse courseService;
 	@Autowired IStudentCourse scService;
-	@Autowired IUser uService;
-	
+	@Autowired IUser userService;
+
 	@GetMapping("/profile")
 	public String viewProfile() {
 		return "Profile";
@@ -48,12 +48,12 @@ public class LecturerController {
 		model.addAttribute("id", id);
 		return "lecturer/courses";
 	}
-	
+
 	@GetMapping("/course-detail")
 	public String viewCourseDetails() {
 		return "lecturer/course-detail";
 	}
-	
+
 	@GetMapping("/student-list")
 	public String viewCourseStudentList(Model model, @Param("keyword") String keyword) {
 		List<User> listUsers = lecturerService.listAll(keyword);
@@ -61,8 +61,8 @@ public class LecturerController {
         model.addAttribute("keyword", keyword);
 		return "lecturer/student-list";
 	}
-	
-	
+
+
 	@GetMapping("/{cid}/grade-student-list")
 	public String gradeStudentList(Model model, HttpSession session,@PathVariable("cid") int cid) {
 		session.getAttribute("user");
@@ -72,19 +72,19 @@ public class LecturerController {
         model.addAttribute("students", students);
 		return "lecturer/grade-student-list";
 	}
-	
+
 	@GetMapping("/{cid}/grade-student-list/edit/{id}")
 	public String editStudentGrade(@PathVariable("id") int id,@PathVariable("cid") int cid,Model model, HttpSession session) {
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
 		session.getAttribute("user");
 		Student_Course selectedStudentCourse = scService.findStudentCourseById(id);
-		
+
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
-		
+
 		return "lecturer/edit";
 	}
-	
+
 	@PostMapping("/grade-student/save")
 	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model) {
 		System.out.println(selectedStudentCourse.getGrade());
@@ -92,11 +92,51 @@ public class LecturerController {
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
 		return "lecturer/grade-student-list";
 	}
-	
-	 
-	
-	
-	
-	
 
+	//View all lecturers
+	@GetMapping("/viewLecturers")
+	public String viewAllLecturers(Model model, HttpSession session, @Param("keyword") String keyword) {
+		session.getAttribute("user");
+		model.addAttribute("lecturers", userService.listLecturers(keyword));
+		model.addAttribute("keyword", keyword);
+		return "lecturer/lecturer-list";
+	}
+
+	//Edit Lecturer
+	@GetMapping("/edit/{id}")
+	public String EditLecturerDetails(@PathVariable("id") int id,Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedLecturer=userService.findLecturerById(id);
+
+		model.addAttribute("lecturer",selectedLecturer);
+
+		return "admin/editlecturer";
+	}
+
+	@PostMapping("/save")
+	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult,Model model) {
+
+		userService.edit(lecturer);
+		model.addAttribute("lecturer",lecturer);
+
+		return"admin/editLecturerSuccess";
+	}
+
+	//Delete lecturer
+	@RequestMapping(value = "/delete/{id}")
+	public String deleteLecturer(@PathVariable("id") Integer id) {
+		User lecturer = userService.findLecturerById(id);
+		//Find courses that lecturer teaches
+		List<Course> coursesTaught = courseService.findCourseByLecturerId(id);
+		//Delete lecturer from those courses
+		for (Course course: coursesTaught) {
+			List<User> lecturers = course.getUser();
+			lecturers.remove(lecturer);
+			course.setUser(lecturers);
+		}
+
+		//Delete lecturer from Users table
+		userService.delete(lecturer);
+		return "forward:/lecturer/lecturer-list";
+	}
 }
