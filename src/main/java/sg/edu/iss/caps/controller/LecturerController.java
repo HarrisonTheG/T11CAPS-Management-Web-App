@@ -24,6 +24,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/lecturer")
@@ -56,8 +57,8 @@ public class LecturerController {
 
 	@GetMapping("/student-list")
 	public String viewCourseStudentList(Model model, @Param("keyword") String keyword) {
-		List<User> listUsers = lecturerService.listAll(keyword);
-        model.addAttribute("listUsers", listUsers);
+		List<User> listStudents = userService.listStudents(keyword);
+        model.addAttribute("listStudents", listStudents);
         model.addAttribute("keyword", keyword);
 		return "lecturer/student-list";
 	}
@@ -79,7 +80,6 @@ public class LecturerController {
         model.addAttribute("course", course);
 		session.getAttribute("user");
 		Student_Course selectedStudentCourse = scService.findStudentCourseById(id);
-
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
 
 		return "lecturer/edit";
@@ -93,6 +93,15 @@ public class LecturerController {
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
 		return "redirect:/lecturer/"+cid+"/grade-student-list";
+	}
+	
+	@GetMapping("/studentCourses/{id}")
+	public String viewStudentPerformanceForLecturer(HttpSession session, Model model, @PathVariable("id") int id) {
+		session.getAttribute("user");
+		model.addAttribute("student", userService.findStudentById(id));
+		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
+		model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
+		return "lecturer/student-list";
 	}
 
 	//View all lecturers
