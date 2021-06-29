@@ -1,5 +1,6 @@
 package sg.edu.iss.caps.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.DTO.manageCourse.EditCourseDto;
+import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
@@ -161,47 +164,4 @@ public class LecturerController {
 		return "redirect:/lecturer/viewLecturers";
 	}
 	
-	@RequestMapping("/add")
-	public String addLecturer(Model model, HttpSession session) {
-		session.getAttribute("user");
-		model.addAttribute("lecturer", new User());
-		return "addLecturerForm";
-	}
-	
-//	@PostMapping("/saveNewLecturer")
-//	public String saveNewLecturer(Model model, HttpSession session) {
-//		session.getAttribute("user");
-//		return "";
-//	}
-	
-	@RequestMapping(value = "/add")
-	public String addForm(Model model) {
-		model.addAttribute("booking", new Booking());
-		ArrayList<String> flist = fservice.findAllFacilityNames();
-		ArrayList<String> mlist = mservice.findAllMemberNames();
-		model.addAttribute("mnames", mlist);
-		model.addAttribute("fnames", flist);
-		return "booking-form";
-	}
-	
-//	@RequestMapping(value = "/saveNewUser")
-//	public String saveMember(@ModelAttribute("booking") @Valid Booking booking, 
-//			BindingResult bindingResult,  Model model) {
-//		
-//		if (bindingResult.hasErrors()) {
-//			return "booking-form";
-//		}
-//		Member member = mservice.findMemberByFirstName(booking.getMember().getFirstName());
-//		member = mservice.findMemberById(member.getMemberId());
-//		booking.setMember(member);
-//		Facility facility = fservice.findFacilityByName(booking.getFacility().getName());
-//		facility = fservice.findFacilityById(facility.getFacilityId());
-//		booking.setFacility(facility);
-//		booking.setStatus(BookingStatus.BOOKED);
-//		if (bservice.checkAvailability(booking)) {
-//			bservice.addBooking(booking);
-//			return "forward:/booking/list";
-//		} else
-//			return "error";		
-//	}
 }
