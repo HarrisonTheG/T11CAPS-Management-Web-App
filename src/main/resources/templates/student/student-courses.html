@@ -44,8 +44,8 @@
 
 				<tr th:each="studentCourse : ${listStudentCourses}">
 					<td th:text="${studentCourse.course.id}"></td>
-                	<td th:text="${studentCourse.Course.code}"></td>
-                	<td th:text="${studentCourse.course.name}"></td>
+					<td><a th:href="@{'/course/enrolledDetails/' + ${studentCourse.course.id}} "><span th:text="${studentCourse.Course.code}">SAdefault </span></a></td>
+              		<td><a th:href="@{'/course/enrolledDetails/' + ${studentCourse.course.id}} "><span th:text="${studentCourse.course.name}">Default </span></a></td>
                 	<td th:text="${studentCourse.course.credit}"></td>
                 	<td th:with="grade=${studentCourse.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
               </tr>
