@@ -1,12 +1,14 @@
 package sg.edu.iss.caps.service.implementation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.repo.CourseRepository;
@@ -71,6 +73,29 @@ import sg.edu.iss.caps.utility.UtilityManager;
 	  public List<Student_Course> listStudentsGradesInCourse(Course course){
 		  return screpo.listStudentsGradesInCourse(course);
 	  }
+	  
+	  @Transactional
+	  public void deleteStudentCourse(Course course){
+		  List<Student_Course> todelete=screpo.listStudentsGradesInCourse(course);
+		  if(todelete!=null) {
+			  for(Student_Course s:todelete) {
+			  }			  
+		  }
+
+	  }
+
+	  @Override
+	  @Transactional
+	  public void  editStudentsGradesInCourse(Student_Course selectedStudentCourse){
+		  Student_Course StudentCourse = screpo.findById(selectedStudentCourse.getId()).get();
+		  StudentCourse.setGrade(selectedStudentCourse.getGrade());
+		  screpo.save(StudentCourse);
+	  }
+	  
+	  @Transactional
+		public Student_Course findStudentCourseById(Integer id) {
+			 return screpo.getById(id);
+		}
 
 
 

@@ -344,5 +344,13 @@ public class DbSeeding {
 		LectTeach5.add(urepo.getById(6));
 		crepo.getById(5).setUser(LectTeach3);
 		crepo.save(crepo.getById(5));
+		
+		//delete lecturer to course1
+//		List<Course> c=crepo.findallUsersByCourse(1);
+//		for(Course i:c)
+//			crepo.delete(i);
+		
+		
 	}
+
 }

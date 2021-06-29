@@ -36,7 +36,9 @@
                     </th>
                     <th class="th-sm">Credit
                     </th>
-                    <th class="th-sm">GPA
+                    <th class="th-sm">Grades
+                    </th>
+                    <th class="th-sm">Action
                     </th>
                 </tr>
             </thead>
@@ -45,7 +47,7 @@
             	<td th:text="${student.user.firstname} + ' ' + ${student.user.surname}"></td>
             	<td th:text="${student.course.credit}"></td>
                 <td th:with="grade=${student.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
-
+				<td><a th:href="@{/lecturer/}+${student.course.id}+@{/grade-student-list/edit/}+${student.id}" class="btn btn-primary">Edit</a>
                 
             </tbody>
                 
@@ -55,7 +57,6 @@
 
 </table>
 <div class="btn-group" style="float: right;">
-            <a class="btn btn-primary"  style="margin-right: 10px;">Edit</a>
             <a class="btn btn-secondary">Save</a>
 </div>
 </div>

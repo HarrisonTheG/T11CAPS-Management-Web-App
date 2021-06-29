@@ -6,9 +6,9 @@
     <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    
+
     <link rel="stylesheet" href="/css/bootstrap.css">
-    
+
 
     <title>Course Detail</title>
 </head>
@@ -22,7 +22,7 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Course </strong></h3>
-                    <form th:action="@{/course/save}" method="post" th:object=${course}>
+                    <form th:action="@{/course/edit}" method="post" th:object=${course}>
 						<input type="hidden" th:field="*{id}">
                         <label style="display:inline-block;width:200px">Course Code:</label>
                         <input type="text" style="display:inline-block;width:200px" id="" name="code"
@@ -30,37 +30,37 @@
 
                          <label style="display:inline-block;width:200px">Course Name:</label>
                         <input type="text" style="display:inline-block;width:200px" id="" name="name"
-                         th:value="*{name}"></br>                      
-                         
+                         th:value="*{name}"></br>
+
                          <label style="display:inline-block;width:200px">Description:</label>
                         <textarea type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id="" name="description"
                          th:text="*{description}"></textarea></br>
-                         
+
                          <label style="display:inline-block;width:200px">Credits:</label>
                         <input type="text" style="display:inline-block;width:200px" id="" name="credit"
                          th:value="*{credit}"></br>
-                         
-                         <label style="display:inline-block;width:200px">Maximum Class Size:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="maxSize"
-                         th:value="*{maxSize}"></br>               
-                         
-                        <label style="display:inline-block;width:200px">Maximum Class Size:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="startDate"
-                         th:value="*{startDate}"></br>
 
                          <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input type="text" style="display:inline-block;width:200px" id="" name="maxSize"
+                         th:value="*{maxSize}"></br>
+
+                        <label style="display:inline-block;width:200px">StartDate:</label>
+                        <input type="text" style="display:inline-block;width:200px" id="" name="startDate"
+                         th:value="${startdate}"></br>
+
+                         <label style="display:inline-block;width:200px">End Date:</label>
                         <input type="text" style="display:inline-block;width:200px" id="" name="endDate"
-                         th:value="*{endDate}"></br>
-						<input type="submit" class="btn btn-primary" value="Submit">
-            			<a class="btn btn-primary" href="/course/viewCourses">Cancel</a>
+                         th:value="${enddate}"></br>
+						<input type="submit" class="btn btn-primary" value="Edit Course">
+            			<a class="btn btn-primary" href="/course/viewCourses">Back to Course List</a>
                     </form>
                 </div>
             </div>
         </div>
-        
+
     </section>
-   
-    
+
+
 </body>
 
 </html>
