@@ -36,7 +36,7 @@ public class UtilityManager {
 	
 
 	public static LocalDateTime UnixToDate (long unixTime) {
-		return LocalDateTime.ofEpochSecond(unixTime,0, ZoneOffset.ofHours(8));
+		return LocalDateTime.ofEpochSecond(unixTime, 0, ZoneOffset.ofHours(8));
 	}
 	
 	public static String ChangeDateTimeToString(LocalDateTime ldt) {

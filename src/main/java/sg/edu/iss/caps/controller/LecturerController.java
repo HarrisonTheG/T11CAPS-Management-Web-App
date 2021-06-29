@@ -38,7 +38,11 @@ public class LecturerController {
 	@Autowired IUser userService;
 
 	@GetMapping("/profile")
-	public String viewProfile() {
+	public String viewProfile(HttpSession session, Model model) {
+		
+		User user = (User) session.getAttribute("user");
+		long start = user.getEnrollmentDate();
+		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 		return "Profile";
 	}
 	
@@ -52,20 +56,28 @@ public class LecturerController {
 		return "lecturer/courses";
 	}
 
-	@GetMapping("/course-detail")
-	public String viewCourseDetails() {
-		return "lecturer/course-detail";
-	}
-
+	
+	//View entire student list
 	@GetMapping("/student-list")
-	public String viewCourseStudentList(Model model, @Param("keyword") String keyword) {
+	public String viewStudentList(Model model, @Param("keyword") String keyword) {
 		List<User> listStudents = userService.listStudents(keyword);
         model.addAttribute("listStudents", listStudents);
         model.addAttribute("keyword", keyword);
 		return "lecturer/student-list";
 	}
+	
+	//View student list in specific course
+	@GetMapping("/{cid}/student-list")
+	public String viewCourseStudentList(HttpSession session, Model model,@PathVariable("cid") int cid, @Param("keyword") String keyword) {
+		Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+		List<User> listStudentsCourse = scService.listStudentsInCourse(course);
+        model.addAttribute("listStudents", listStudentsCourse);
+        model.addAttribute("keyword", keyword);
+		return "lecturer/student-list";
+	}
 
-
+	//Get list of students to grade for a course
 	@GetMapping("/{id}/grade-student-list")
 	public String gradeStudentList(Model model, HttpSession session,@PathVariable("id") int id) {
 		session.getAttribute("user");
@@ -75,7 +87,8 @@ public class LecturerController {
         model.addAttribute("students", students);
 		return "lecturer/grade-student-list";
 	}
-
+		
+	//Edit grade of student
 	@GetMapping("/{cid}/grade-student-list/edit/{id}")
 	public String editStudentGrade(@PathVariable("id") int id,@PathVariable("cid") int cid,Model model, HttpSession session) {
 		Course course = courseService.findCourseById(cid);
@@ -87,6 +100,7 @@ public class LecturerController {
 		return "lecturer/edit";
 	}
 
+	//To save grade after editing
 	@PostMapping("{cid}/grade-student-list")
 	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model,@PathVariable("cid") int cid) {
 		System.out.println(selectedStudentCourse.getGrade());
@@ -97,10 +111,13 @@ public class LecturerController {
 		return "redirect:/lecturer/"+cid+"/grade-student-list";
 	}
 	
+	//View student performance and profile from student list
 	@GetMapping("/studentCourses/{id}")
 	public String viewStudentPerformanceForLecturer(HttpSession session, Model model, @PathVariable("id") int id) {
 		session.getAttribute("user");
-		model.addAttribute("student", userService.findStudentById(id));
+		System.out.println(userService.findStudentById(id));
+		User student = userService.findUserById(id);
+		model.addAttribute("student", student);
 		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 		model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 		return "lecturer/student-list";
