@@ -3,13 +3,17 @@ package sg.edu.iss.caps.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.caps.model.Course;
@@ -18,6 +22,7 @@ import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
+import sg.edu.iss.caps.service.interfaces.IUser;
 
 @Controller
 @RequestMapping("/lecturer")
@@ -26,6 +31,7 @@ public class LecturerController {
 	@Autowired ILecturer lecturerService;
 	@Autowired ICourse courseService;
 	@Autowired IStudentCourse scService;
+	@Autowired IUser userService;
 	
 	@GetMapping("/profile")
 	public String viewProfile() {
@@ -66,10 +72,50 @@ public class LecturerController {
 		return "lecturer/grade-student";
 	}
 	
-	 
+	//View all lecturers
+	@GetMapping("/viewLecturers")
+	public String viewAllLecturers(Model model, HttpSession session, @Param("keyword") String keyword) {
+		session.getAttribute("user");
+		model.addAttribute("lecturers", userService.listLecturers(keyword));
+		model.addAttribute("keyword", keyword);
+		return "lecturer/lecturer-list";
+	}
 	
+	//Edit Lecturer
+	@GetMapping("/edit/{id}")
+	public String EditLecturerDetails(@PathVariable("id") int id,Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedLecturer=userService.findLecturerById(id);
+		
+		model.addAttribute("lecturer",selectedLecturer);
+		
+		return "admin/editlecturer";
+	}
 	
-	
-	
+	@PostMapping("/save")
+	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult,Model model) {
 
+		userService.edit(lecturer);
+		model.addAttribute("lecturer",lecturer);
+		
+		return"admin/editLecturerSuccess";
+	}
+	
+	//Delete lecturer
+	@RequestMapping(value = "/delete/{id}")
+	public String deleteLecturer(@PathVariable("id") Integer id) {
+		User lecturer = userService.findLecturerById(id);
+		//Find courses that lecturer teaches
+		List<Course> coursesTaught = courseService.findCourseByLecturerId(id);
+		//Delete lecturer from those courses
+		for (Course course: coursesTaught) {
+			List<User> lecturers = course.getUser();
+			lecturers.remove(lecturer);
+			course.setUser(lecturers);
+		}
+		
+		//Delete lecturer from Users table
+		userService.delete(lecturer);
+		return "forward:/lecturer/lecturer-list";
+	}
 }

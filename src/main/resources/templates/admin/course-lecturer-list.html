@@ -22,7 +22,7 @@
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 		<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
 		<p th:text="${course.code} + ' ' + ${course.name}">Course</p>
-        <form th:action="@{/admin/lecturer-list}">
+        <form th:action="@{/lecturer/search}">
             <div class="input-group rounded">
                 <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
                     placeholder="Search for lecturer" aria-label="Search" aria-describedby="search-addon" />

@@ -36,7 +36,15 @@ public class CourseController {
 	@Autowired IUser userService;
 	@Autowired IStudentCourse scService;
 
-
+	//view all courses
+	@GetMapping("/viewCourses")
+	public String viewAllCourses(Model model, HttpSession session) {
+		session.getAttribute("user");
+		model.addAttribute("courses", courseService.listAllCourses());
+		return "Courses";
+	}
+	
+	//View courses specific to one student
 	@GetMapping("/viewCourses/{id}")
 	public String viewAllUnenrolledCourses(@PathVariable("id") int id, Model model, HttpSession session) {
 		session.getAttribute("user");
@@ -61,6 +69,7 @@ public class CourseController {
 		return "CourseDetail";
 	}
 	
+	//Edit Course
 	@GetMapping("/edit/{id}")
 	public String EditCourseDetails(@PathVariable("id") int id,Model model, HttpSession session) {
 		session.getAttribute("user");
