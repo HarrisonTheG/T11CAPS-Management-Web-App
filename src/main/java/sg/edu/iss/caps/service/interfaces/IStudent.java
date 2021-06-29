@@ -6,5 +6,6 @@ import sg.edu.iss.caps.model.User;
 
 public interface IStudent {
 	
+	public void enrollStudentToCourse(int studentId, int courseId);
 	
 }
