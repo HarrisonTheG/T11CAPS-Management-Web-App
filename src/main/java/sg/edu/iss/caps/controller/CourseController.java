@@ -131,9 +131,10 @@ public class CourseController {
 	//WORKING ON THIS
 		@GetMapping("/studentCourses/{id}")
 		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
-
+			System.out.println(id);
 			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 			model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
+			System.out.println(UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 			return "student/student-courses";
 		}
 

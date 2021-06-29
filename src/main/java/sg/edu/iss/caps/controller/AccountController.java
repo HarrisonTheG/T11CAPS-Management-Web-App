@@ -66,9 +66,9 @@ public class AccountController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout() {
-		
-		
+	public String logout(HttpSession session) {
+		//remove session user after logs out
+		session.setAttribute("user", null);
 		return "LoginPage";
 	}
 	

@@ -23,7 +23,7 @@
 
 	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 		<div  th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}">
-		<b th:text="'Student ID/Name: '" ></b> <span th:object th:text="${session.user.id} + '/' + ${session.user.firstname} + ' ' + ${session.user.surname}" >Student Credentials</span>
+		<b th:text="'Student ID/Name: '" ></b> <span th:text="${session.user.id} + '/' + ${session.user.firstname} + ' ' + ${session.user.surname}" >Student Credentials</span>
 		<p><b th:text=" 'Cumulative GPA: '"></b><u><span th:text="${cgpa}"></span></u><span th:text="'/5.0'">Cumulative GPA</span></p>
 		</div>
 		<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}">
