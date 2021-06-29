@@ -31,16 +31,15 @@
 }
 
 .hyperlink-style{
-	text-decoration: none;
-	
+	text-decoration: none !important;
 }
 
 tr:hover{
-	background: azure;
-	background-color: azure;
+	background: azure !important;
+	background-color: azure !important;
 }
 
 td a {
-	display: block;
-	
+	display: block !important;
+	text-decoration: none !important;
 }
