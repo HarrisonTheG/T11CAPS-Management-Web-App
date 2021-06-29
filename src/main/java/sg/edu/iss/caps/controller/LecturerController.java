@@ -63,10 +63,10 @@ public class LecturerController {
 	}
 
 
-	@GetMapping("/{cid}/grade-student-list")
-	public String gradeStudentList(Model model, HttpSession session,@PathVariable("cid") int cid) {
+	@GetMapping("/{id}/grade-student-list")
+	public String gradeStudentList(Model model, HttpSession session,@PathVariable("id") int id) {
 		session.getAttribute("user");
-		Course course = courseService.findCourseById(cid);
+		Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
 		List<Student_Course> students = scService.listStudentsGradesInCourse(course);
         model.addAttribute("students", students);
@@ -85,12 +85,14 @@ public class LecturerController {
 		return "lecturer/edit";
 	}
 
-	@PostMapping("/grade-student/save")
-	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model) {
+	@PostMapping("{cid}/grade-student-list")
+	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model,@PathVariable("cid") int cid) {
 		System.out.println(selectedStudentCourse.getGrade());
 		scService.editStudentsGradesInCourse(selectedStudentCourse);
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
-		return "lecturer/grade-student-list";
+		Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+		return "redirect:/lecturer/"+cid+"/grade-student-list";
 	}
 
 	//View all lecturers
