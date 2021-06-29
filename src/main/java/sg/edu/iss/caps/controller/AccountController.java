@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.IUser;
@@ -31,6 +32,13 @@ public class AccountController {
 	@GetMapping("/login")
 	public String login() {
 		
+		return "LoginPage";
+	}
+
+	@GetMapping("sendMail")
+	public String sendMail(){
+		MailVo mail=new MailVo("PCXGudrew@163.com","979024642@qq.com","hello","hello");
+		userService.sendEmailNotification(mail);
 		return "LoginPage";
 	}
 
