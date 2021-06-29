@@ -38,7 +38,7 @@
 	<div th:fragment="courseDetailButtons-lecturer" id="courseDetailButtons">
 		<section>
         <div class="button-style">
-            <a class="btn btn-primary" th:href="@{/course/}+${course.id}+@{/student-list}">View Student List</a>
+            <a class="btn btn-primary" th:href="@{/lecturer/}+${course.id}+@{/student-list}">View Student List</a>
             <a class="btn btn-primary" th:href="@{/lecturer/}+${course.id}+@{/grade-student-list}">Grade Students</a>
         </div>
     	</section>
