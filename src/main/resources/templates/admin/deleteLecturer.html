@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1" />
+    <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    
+
+    <title>Delete Course</title>
+</head>
+
+<body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+    <section class="box-content" style="margin-top:88px">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+ 	                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Delete Lecturer </strong></h3>
+ 	                    <label><strong>Please note that deleting a lecturer is irreversible upon confirmation of deletion</strong></label>
+ 	                    
+                    <form th:action="@{/lecturer/delete}" method="post"  th:object=${lecturer}>
+						<input type="hidden" th:field="*{id}" name="id">
+						
+						<label style="display:inline-block;width:200px">First Name:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="firstname"
+                         th:value="*{firstname}"></br>
+                         
+                         <label style="display:inline-block;width:200px">Surname:</label>
+                        <input  disabled class="form-control no-input-border" type="text" style="display:inline-block;width:300px" id="" name="surname"
+                         th:value="*{surname}"></br>                      
+                         
+                         <label style="display:inline-block;width:200px">Email:</label>
+                         <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="email"
+                         th:value="*{email}"></br>
+                                                  
+                         <label style="display:inline-block;width:200px">Password:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="password"
+                         th:value="*{password}"></br>
+                         
+                         <label style="display:inline-block;width:200px">Enrollment Date:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="enrollmentDate"
+                         th:value="*{enrollmentDate}"></br>    
+                         
+                         <input type="submit" class="btn btn-danger" value="Delete Lecturer">
+            			<a class="btn btn-primary" href="/lecturer/viewLecturers">Back to Lecturer List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+   
+    
+</body>
+
+</html>
