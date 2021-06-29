@@ -55,10 +55,6 @@ public class LecturerController {
 		return "lecturer/courses";
 	}
 
-	@GetMapping("/course-detail")
-	public String viewCourseDetails() {
-		return "lecturer/course-detail";
-	}
 	
 	//View entire student list
 	@GetMapping("/student-list")
@@ -118,7 +114,9 @@ public class LecturerController {
 	@GetMapping("/studentCourses/{id}")
 	public String viewStudentPerformanceForLecturer(HttpSession session, Model model, @PathVariable("id") int id) {
 		session.getAttribute("user");
-		model.addAttribute("student", userService.findStudentById(id));
+		System.out.println(userService.findStudentById(id));
+		User student = userService.findUserById(id);
+		model.addAttribute("student", student);
 		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 		model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 		return "lecturer/student-list";
