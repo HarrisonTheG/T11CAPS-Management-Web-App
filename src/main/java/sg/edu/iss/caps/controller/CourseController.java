@@ -72,8 +72,8 @@ public class CourseController {
 		Course selectedCourse=courseService.findCourse(id).orElse(null);
 		
 		model.addAttribute("course",selectedCourse);
-		model.addAttribute("startdate",UtilityManager.UnixToDate(selectedCourse.getStartDate()).toString());
-		model.addAttribute("enddate",UtilityManager.UnixToDate(selectedCourse.getEndDate()).toString());
+		model.addAttribute("startdate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getStartDate())));
+		model.addAttribute("enddate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getEndDate())));
 		return "admin/editcourse";
 	}
 
