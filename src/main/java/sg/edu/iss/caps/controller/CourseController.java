@@ -121,7 +121,7 @@ public class CourseController {
 
 	@Transactional
 	@PostMapping("/delete")
-	public String deleteCourse(@ModelAttribute("course") Course course,Model model,HttpSession session) {
+	public String deleteCourse(@ModelAttribute("course") Course course,Model model, HttpSession session) {
 		Course todelete=courseService.findCourseById(course.getId());
 		courseService.deleteCourse(todelete);
 

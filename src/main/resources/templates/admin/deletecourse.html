@@ -23,8 +23,10 @@
                 <div class="panel-body">
  	                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Delete Course </strong></h3>
  	                    <label><strong>Please note that deleting a course is irreversible upon confirming deletion</strong></label>
+ 	                    
                     <form th:action="@{/course/delete}" method="post" th:object=${course}>
 						<input type="hidden" th:field="*{id}" name="id">
+						
                         <label style="display:inline-block;width:200px">Course Code:</label>
                         <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="code"
                          th:value="*{code}"></br>
