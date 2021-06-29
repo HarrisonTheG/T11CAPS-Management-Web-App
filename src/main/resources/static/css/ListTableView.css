@@ -29,3 +29,17 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.hyperlink-style{
+	text-decoration: none !important;
+}
+
+tr:hover{
+	background: azure !important;
+	background-color: azure !important;
+}
+
+td a {
+	display: block !important;
+	text-decoration: none !important;
+}
