@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/ListTableView.css">
+    <script src="/js/ListTableView.js"></script>
+    
+    <script src="/js/searchLecturers.js"></script>
+    
+     <link rel="stylesheet" href="/css/bootstrap.css">
+    <title>Insert title here</title>
+<title>Insert title here</title>
+</head>
+<body style="background-color: #e2e8f0" th:href="@{/css/ListTableView.css}">
+
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
+
+	<input type="hidden" id="studentId" th:value="${session.user.id}" />
+	
+	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
+        <form th:action="@{/lecturer/viewLecturers}">
+            <div class="input-group rounded">
+                <input th:value="${keyword}"
+                id="keyword" name="keyword" type="search" class="form-control rounded"
+                    placeholder="Search for a lecturer" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <button class="fa fa-search" type="submit"></button>
+                </span>
+            </div>
+        </form>
+    </section>
+
+    <div class="container-style tableFixHead">
+        <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">#
+                    </th>
+                    <th class="th-sm">First Name
+                    </th>
+                    <th class="th-sm">Last Name
+                    </th>
+                    <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
+                    <th class="th-sm">Manage Lecturer</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody th:each="lecturer, iter:${lecturers}">
+                <tr>
+                    <td th:text="${iter.index+1}">1</td>
+                    <td th:text="${lecturer.firstname}"></td>
+                	<td th:text="${lecturer.surname}"></td>
+                    <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}">
+                    	<td class="th-sm">
+                        <a type="submit" th:href="@{'/lecturer/edit/'+${lecturer.id}}" th:text="${'Edit'}">Edit</a>
+                       	<a type="submit" th:href="@{'/lecturer/delete/'+${lecturer.id}}" th:text="${'Delete'}">Delete</a>
+                    	</td>
+                    </div>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</body>
+</html>
