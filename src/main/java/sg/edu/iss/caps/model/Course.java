@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 @Entity
@@ -72,7 +74,8 @@ public class Course {
 	}
 
 
-	@ManyToMany (cascade=CascadeType.ALL)
+	@ManyToMany
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	@JoinTable(name="user_lecturer_course", joinColumns=@JoinColumn(name="course_id"), inverseJoinColumns=@JoinColumn(name="lecturer_id"))
 	private List<User> User;
 	
