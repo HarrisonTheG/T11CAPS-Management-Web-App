@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import sg.edu.iss.caps.model.MailVo;
+import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.IStudent;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/student")
@@ -28,13 +31,26 @@ public class StudentController {
 	@GetMapping("/profile")
 	public String viewProfile(HttpSession session, Model model) {
 		model.addAttribute("user", session.getAttribute("user"));
-
+		
+		User user = (User) session.getAttribute("user");
+		
+		long start = user.getEnrollmentDate();
+		//System.out.println(UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+		
 		return "Profile";
 	}
 	
 	@GetMapping("/enroll") @ResponseBody
-	public RedirectView enrollCourse(HttpSession session, Model model, @RequestParam("studentId") int sId, @RequestParam("courseId") int cId) {
+	public RedirectView enrollCourse(HttpSession session, Model model, @RequestParam("studentId") int sId, @RequestParam("courseId") int cId, 
+			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
+		
 		studentService.enrollStudentToCourse(sId, cId);
+		
+		User student = (User) session.getAttribute("user");
+		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
+		userService.sendEmailNotification(mail);
+		
 		return new RedirectView ("/course/viewCourses/" + sId);
 	}
 	
