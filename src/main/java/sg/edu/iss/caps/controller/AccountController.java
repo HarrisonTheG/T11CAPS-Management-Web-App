@@ -17,6 +17,7 @@ import sg.edu.iss.caps.model.RoleType;
 
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/account")
@@ -54,6 +55,9 @@ public class AccountController {
 			session.setAttribute("user", user);
 			//session.getAttribute("user");
 			//model.addAttribute(user);
+				long start = user.getEnrollmentDate();
+				//System.out.println(UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+				model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 			return "Profile";
 //			if(user.getRole() == RoleType.STUDENT)
 //				return "student/student-profile";
@@ -76,6 +80,10 @@ public class AccountController {
 	public String viewOtherProfile(HttpSession session, @PathVariable int id, Model model) {
 		User user = userService.findUserById(id);
 		model.addAttribute("user", user);
+		
+		long start = user.getEnrollmentDate();
+		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+		
 		return "OthersProfile";
 	}
 	

@@ -37,7 +37,11 @@ public class LecturerController {
 	@Autowired IUser userService;
 
 	@GetMapping("/profile")
-	public String viewProfile() {
+	public String viewProfile(HttpSession session, Model model) {
+		
+		User user = (User) session.getAttribute("user");
+		long start = user.getEnrollmentDate();
+		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 		return "Profile";
 	}
 	

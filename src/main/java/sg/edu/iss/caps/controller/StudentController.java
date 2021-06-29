@@ -17,6 +17,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.IStudent;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/student")
@@ -30,7 +31,13 @@ public class StudentController {
 	@GetMapping("/profile")
 	public String viewProfile(HttpSession session, Model model) {
 		model.addAttribute("user", session.getAttribute("user"));
-
+		
+		User user = (User) session.getAttribute("user");
+		
+		long start = user.getEnrollmentDate();
+		//System.out.println(UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
+		
 		return "Profile";
 	}
 	
