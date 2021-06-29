@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     
 
-    <title>Course Detail</title>
+    <title>Delete Course</title>
 </head>
 
 <body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
@@ -21,37 +21,38 @@
         <div class="container">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Course </strong></h3>
-                    <form th:action="@{/course/edit}" method="post" th:object=${course}>
-						<input type="hidden" th:field="*{id}">
+ 	                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Delete Course </strong></h3>
+ 	                    <label><strong>Please note that deleting a course is irreversible upon confirming deletion</strong></label>
+                    <form th:action="@{/course/delete}" method="post" th:object=${course}>
+						<input type="hidden" th:field="*{id}" name="id">
                         <label style="display:inline-block;width:200px">Course Code:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="code"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="code"
                          th:value="*{code}"></br>
 
                          <label style="display:inline-block;width:200px">Course Name:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="name"
+                        <input  disabled class="form-control no-input-border" type="text" style="display:inline-block;width:300px" id="" name="name"
                          th:value="*{name}"></br>                      
                          
                          <label style="display:inline-block;width:200px">Description:</label>
-                        <textarea type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id="" name="description"
+                        <textarea disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id=""
                          th:text="*{description}"></textarea></br>
                          
                          <label style="display:inline-block;width:200px">Credits:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="credit"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="credit"
                          th:value="*{credit}"></br>
                          
                          <label style="display:inline-block;width:200px">Maximum Class Size:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="maxSize"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id=""
                          th:value="*{maxSize}"></br>               
                          
-                        <label style="display:inline-block;width:200px">StartDate:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="startDate"
-                         th:value="${startdate}"></br>
+                        <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input disabled type="text" class="form-control no-input-border" style="display:inline-block;width:200px" id=""
+                         th:value="*{startDate}"></br>
 
-                         <label style="display:inline-block;width:200px">End Date:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="endDate"
-                         th:value="${enddate}"></br>
-						<input type="submit" class="btn btn-primary" value="Edit Course">
+                         <label style="display:inline-block;width:200px">Maximum Class Size:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" 
+                         th:value="*{endDate}"></br>
+                         <input type="submit" class="btn btn-danger" value="Delete Course">
             			<a class="btn btn-primary" href="/course/viewCourses">Back to Course List</a>
                     </form>
                 </div>

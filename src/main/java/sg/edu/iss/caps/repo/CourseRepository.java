@@ -21,6 +21,9 @@ import sg.edu.iss.caps.model.User;
 	  
 	  @Query("SELECT c FROM Course c JOIN c.User u WHERE u.id = :id ")
 	  	public List<Course> findCoursesByUser(Integer id);
+	    
+	  @Query("SELECT c FROM Course c JOIN c.User u WHERE c.id=:id")
+	  	public List<Course> findallUsersByCourse(Integer id);
 	  
   }
  

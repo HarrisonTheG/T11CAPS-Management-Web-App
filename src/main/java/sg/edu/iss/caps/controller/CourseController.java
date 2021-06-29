@@ -1,11 +1,13 @@
 package sg.edu.iss.caps.controller;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.DTO.manageCourse.EditCourseDto;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
@@ -58,25 +60,47 @@ public class CourseController {
 		return "CourseDetail";
 	}
 	
+
+
+	
 	@GetMapping("/edit/{id}")
 	public String EditCourseDetails(@PathVariable("id") int id,Model model, HttpSession session) {
 		session.getAttribute("user");
 		Course selectedCourse=courseService.findCourse(id).orElse(null);
 		
 		model.addAttribute("course",selectedCourse);
-		
+		model.addAttribute("startdate",UtilityManager.UnixToDate(selectedCourse.getStartDate()).toString());
+		model.addAttribute("enddate",UtilityManager.UnixToDate(selectedCourse.getEndDate()).toString());
 		return "admin/editcourse";
 	}
-	
-	@PostMapping("/save")
-	public String saveProductForm(@ModelAttribute("course") @Valid Course course,BindingResult bindingResult,Model model) {
 
-		courseService.edit(course);
-		model.addAttribute("course",course);
-		
+	
+	@PostMapping("/edit")
+	public String editCourse(@ModelAttribute("course") @Valid EditCourseDto editCourseDto,BindingResult bindingResult,Model model) throws ParseException {
+		model.getAttribute("course").toString();
+		//course.setStartDate(unix);
+		courseService.edit(editCourseDto);
+//		model.addAttribute("course",editCourseDto);
+	
 		return"admin/editSuccess";
 	}
 	
+	@GetMapping("/delete/{id}")
+	public String DeleteCourse(@PathVariable("id")int id,Model model,HttpSession session) {
+		session.getAttribute("user");
+		Course selectedCourse=courseService.findCourse(id).orElse(null);	
+		model.addAttribute("course",selectedCourse);
+		return "admin/deletecourse";
+	}
+	
+	@Transactional
+	@PostMapping("/delete")
+	public String deleteCourse(@ModelAttribute("course") Course course,Model model,HttpSession session) {
+		Course todelete=courseService.findCourseById(course.getId());
+		courseService.deleteCourse(todelete);
+		
+		return "Courses";
+	}
 
 	//WORKING ON THIS
 		@GetMapping("/studentCourses/{id}")
