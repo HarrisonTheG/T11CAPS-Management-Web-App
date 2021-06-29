@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,29 +115,37 @@ public class LecturerController {
 	}
 
 	@PostMapping("/save")
-	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult,Model model) {
+	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult, Model model) {
 
 		userService.edit(lecturer);
 		model.addAttribute("lecturer",lecturer);
 
 		return"admin/editLecturerSuccess";
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteLecturer(@PathVariable("id") int id, Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedlecturer = userService.findLecturerById(id);
+		model.addAttribute("lecturer",selectedlecturer);
+		return "admin/deleteLecturer";
+	}
 
 	//Delete lecturer
-	@RequestMapping(value = "/delete/{id}")
-	public String deleteLecturer(@PathVariable("id") Integer id) {
-		User lecturer = userService.findLecturerById(id);
+	@Transactional
+	@PostMapping("/delete")
+	public String delete(@ModelAttribute("lecturer") User lecturer, Model model, HttpSession session) {
+		User lecturerToDelete = userService.findLecturerById(lecturer.getId());
 		//Find courses that lecturer teaches
-		List<Course> coursesTaught = courseService.findCourseByLecturerId(id);
+		List<Course> coursesTaught = lecturerToDelete.getCourse();
 		//Delete lecturer from those courses
 		for (Course course: coursesTaught) {
-			List<User> lecturers = course.getUser();
-			lecturers.remove(lecturer);
-			course.setUser(lecturers);
+			List<User> courseLecturers = course.getUser();
+			courseLecturers.remove(lecturerToDelete);
+			course.setUser(courseLecturers);
 		}
-
 		//Delete lecturer from Users table
-		userService.delete(lecturer);
-		return "forward:/lecturer/lecturer-list";
+		userService.delete(lecturerToDelete);
+		return "redirect:/lecturer/viewLecturers";
 	}
 }
