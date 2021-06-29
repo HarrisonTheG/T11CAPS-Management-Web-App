@@ -64,13 +64,14 @@
                         </div>
                                                
                         <div th:each="lecturer,iter :${lecturers}" th:with="addLecturers=''" style="margin-left: 40px !important">
-                            <input th:if="${#lists.size(lecturers)}<=1" disabled type="text" class="form-control input-style no-input-border"
+                        <a th:href="@{'/account/others/' + ${lecturer.id}}">
+                            <input style="cursor: pointer !important; color:blue" th:if="${#lists.size(lecturers)}<=1" disabled type="text" class="form-control input-style no-input-border"
                                 id="description" name="description" th:value="${lecturer.firstname} + ' ' + ${lecturer.surname}">
-                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index >= 0) && (iter.index != (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
+                              <input style="cursor: pointer !important; color:blue" th:if="${(#lists.size(lecturers)>1) && (iter.index >= 0) && (iter.index != (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
                                 id="description" name="description" th:value="${lecturer.firstname} + ', '">
-                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index == (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
+                              <input style="cursor: pointer !important; color:blue" th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index == (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
                                 id="description" name="description" th:value="${lecturer.firstname}">
-                               
+                         </a>
                         </div>
                         
                         <!--

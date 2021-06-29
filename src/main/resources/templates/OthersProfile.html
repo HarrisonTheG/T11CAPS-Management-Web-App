@@ -26,16 +26,16 @@
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+								<img th:src="${user.imgUrl}"
 									class="img-circle rounded-circle" width="150" alt="Admin" />
 								<div class="mt-3">
-									<h3 th:text="${session.user.firstname} +' ' + ${session.user.surname}">John Doe</h3>
-									<p class="text-muted font-size-sm " th:text="${session.user.role}">Student</p>
+									<h3 th:text="${user.firstname} +' ' + ${user.surname}">John Doe</h3>
+									<p class="text-muted font-size-sm " th:text="${user.role}">Student</p>
 									
-									<!-- For link to student profile for admin and lecturer 
-									<button class="btn btn-link"><span style="font-size: small;">View Student
+									<!-- For link to student profile for admin and lecturer -->
+									<button th:if="${user.role==T(sg.edu.iss.caps.model.RoleType).STUDENT}" class="btn btn-link"><span style="font-size: small;">View Student
 											Performance</span></button>
-											-->
+											
 								</div>
 							</div>
 						</div>
@@ -62,7 +62,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0" >Firstname</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.firstname}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.firstname}">
 									John
 								</div>
 							</div>
@@ -73,7 +73,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0" >Surname</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.surname}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.surname}">
 									Doe
 								</div>
 							</div>
@@ -84,7 +84,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0">Email</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.email}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.email}">
 									plsDontAnyhao@gmail.com
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0" >Enrollment Date</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.enrollmentDate}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.enrollmentDate}">
 									15 Jan 2021 5:30 pm
 								</div>
 							</div>
