@@ -18,6 +18,7 @@ public interface IStudentCourse {
 	public void removeLecturerFromCourse(Course course, User user);
 	public List<User> listStudentsInCourse (Course course);
 	public List<Student_Course> listStudentsGradesInCourse(Course course);
+	public void deleteStudentCourse(Course course);
 	public void editStudentsGradesInCourse(Student_Course studentCourse);
 	public Student_Course findStudentCourseById(Integer id);
 }

@@ -74,6 +74,16 @@ import sg.edu.iss.caps.utility.UtilityManager;
 		  return screpo.listStudentsGradesInCourse(course);
 	  }
 	  
+	  @Transactional
+	  public void deleteStudentCourse(Course course){
+		  List<Student_Course> todelete=screpo.listStudentsGradesInCourse(course);
+		  if(todelete!=null) {
+			  for(Student_Course s:todelete) {
+			  }			  
+		  }
+
+	  }
+
 	  @Override
 	  @Transactional
 	  public void  editStudentsGradesInCourse(Student_Course selectedStudentCourse){
