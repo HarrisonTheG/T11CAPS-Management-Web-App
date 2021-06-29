@@ -36,7 +36,12 @@
                 </span>
             </div>
         </form>
+        
+        	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
+    			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/course/add/'}" th:text="${'Add Course'}">Default text</a>
+			</div>
     </section>
+	<br>
 
     <div class="container-style tableFixHead">
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">

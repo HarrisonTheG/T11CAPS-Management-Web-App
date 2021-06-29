@@ -40,6 +40,11 @@ public class UserService implements IUser,ILecturer {
 
 		return null;
 	}
+	
+	@Override
+	public User findUserById(int id) {
+		return urepo.findById(id).orElse(null);
+	}
 
 	@Override
 	public void sendEmailNotification(MailVo mail) {

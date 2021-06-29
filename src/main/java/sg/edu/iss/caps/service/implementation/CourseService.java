@@ -46,6 +46,29 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	  return foundCourse;
   	}
   
+  @Transactional
+  public void AddCourse(EditCourseDto addcourseDto) throws ParseException{
+	  Course newcourse=new Course();
+	  newcourse.setName(addcourseDto.getName());
+	  newcourse.setCredit(addcourseDto.getCredit());
+	  newcourse.setCode(addcourseDto.getCode());
+	  newcourse.setDescription(addcourseDto.getDescription());
+	  newcourse.setMaxSize(addcourseDto.getMaxSize());
+	  
+	  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	  Date startDate = dateFormat.parse(addcourseDto.getStartDate());
+	  long unixStartDate = (long) startDate.getTime()/1000;
+	  
+	  Date endDate = dateFormat.parse(addcourseDto.getEndDate());
+	  long unixEndDate = (long) endDate.getTime()/1000;
+	  
+	  newcourse.setStartDate(unixStartDate);
+	  newcourse.setEndDate(unixEndDate);
+	  
+	  crepo.save(newcourse);
+  }
+  
+  
   @Override
   @Transactional
   public void edit(EditCourseDto editCourseDto) throws ParseException {
@@ -67,7 +90,8 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	  crepo.save(editcourse);
 	  
   }
-  
+   
+  //delete individual course
   @Transactional
   public void delete(Course course) {
 	  screpo.deleteById(course.getId());
@@ -131,6 +155,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 		List<Course> c=crepo.findallUsersByCourse(course.getId());
 		for(Course i:c)
 			crepo.delete(i);
+		crepo.delete(course);
   }
 
 
