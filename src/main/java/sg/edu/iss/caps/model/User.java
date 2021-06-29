@@ -15,6 +15,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
@@ -37,6 +39,7 @@ public class User {
 	private RoleType role;
 	
 	@ManyToMany(mappedBy="User")
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Course> Course;
 	
 	public User(int id, String firstname, String surname, String email, String password, String imgUrl, long enrollmentDate) {

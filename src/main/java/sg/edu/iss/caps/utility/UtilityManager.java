@@ -6,6 +6,7 @@ import sg.edu.iss.caps.model.User;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class UtilityManager {
@@ -36,6 +37,12 @@ public class UtilityManager {
 
 	public static LocalDateTime UnixToDate (long unixTime) {
 		return LocalDateTime.ofEpochSecond(unixTime,0, ZoneOffset.ofHours(8));
+	}
+	
+	public static String ChangeDateTimeToString(LocalDateTime ldt) {
+		String DATE_FORMATTER="dd/MM/yyyy";
+		DateTimeFormatter formatter=DateTimeFormatter.ofPattern(DATE_FORMATTER);
+		return ldt.format(formatter);
 	}
 
 
