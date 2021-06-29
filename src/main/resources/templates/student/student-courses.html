@@ -27,6 +27,9 @@
 		<p><b th:text=" 'Cumulative GPA: '"></b><u><span th:text="${cgpa}"></span></u><span th:text="'/5.0'">Cumulative GPA</span></p>
 		</div>
 		<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}">
+		<div class="container" style="margin-top: 88px; padding-left: 22px">
+		<a href="javascript:history.back()">Go Back</a>
+		</div>
 		<b  th:text="'Student ID/Name: '" ></b> <span th:text="${id} + '/' + ${student.firstname} + ' ' + ${student.surname}" >Student Credentials</span>
 		<p><b th:text=" 'Cumulative GPA: '"></b><u><span th:text="${cgpa}"></span></u><span th:text="'/5.0'">Cumulative GPA</span></p>
 		</div>
