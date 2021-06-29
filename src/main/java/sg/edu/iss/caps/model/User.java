@@ -140,6 +140,8 @@ public class User {
 		Course = course;
 	}
 	
-	
+	public void removeCourse(Course course) {
+		this.Course.remove(course);
+	}
 	
 }

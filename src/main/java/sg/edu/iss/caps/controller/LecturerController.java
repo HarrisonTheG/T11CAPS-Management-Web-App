@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IStudentCourse;
 import sg.edu.iss.caps.service.interfaces.IUser;
+import sg.edu.iss.caps.utility.UtilityManager;
 
 @Controller
 @RequestMapping("/lecturer")
@@ -56,17 +58,17 @@ public class LecturerController {
 
 	@GetMapping("/student-list")
 	public String viewCourseStudentList(Model model, @Param("keyword") String keyword) {
-		List<User> listUsers = lecturerService.listAll(keyword);
-        model.addAttribute("listUsers", listUsers);
+		List<User> listStudents = userService.listStudents(keyword);
+        model.addAttribute("listStudents", listStudents);
         model.addAttribute("keyword", keyword);
 		return "lecturer/student-list";
 	}
 
 
-	@GetMapping("/{cid}/grade-student-list")
-	public String gradeStudentList(Model model, HttpSession session,@PathVariable("cid") int cid) {
+	@GetMapping("/{id}/grade-student-list")
+	public String gradeStudentList(Model model, HttpSession session,@PathVariable("id") int id) {
 		session.getAttribute("user");
-		Course course = courseService.findCourseById(cid);
+		Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
 		List<Student_Course> students = scService.listStudentsGradesInCourse(course);
         model.addAttribute("students", students);
@@ -79,18 +81,28 @@ public class LecturerController {
         model.addAttribute("course", course);
 		session.getAttribute("user");
 		Student_Course selectedStudentCourse = scService.findStudentCourseById(id);
-
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
 
 		return "lecturer/edit";
 	}
 
-	@PostMapping("/grade-student/save")
-	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model) {
+	@PostMapping("{cid}/grade-student-list")
+	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model,@PathVariable("cid") int cid) {
 		System.out.println(selectedStudentCourse.getGrade());
 		scService.editStudentsGradesInCourse(selectedStudentCourse);
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
-		return "lecturer/grade-student-list";
+		Course course = courseService.findCourseById(cid);
+        model.addAttribute("course", course);
+		return "redirect:/lecturer/"+cid+"/grade-student-list";
+	}
+	
+	@GetMapping("/studentCourses/{id}")
+	public String viewStudentPerformanceForLecturer(HttpSession session, Model model, @PathVariable("id") int id) {
+		session.getAttribute("user");
+		model.addAttribute("student", userService.findStudentById(id));
+		model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
+		model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
+		return "lecturer/student-list";
 	}
 
 	//View all lecturers
@@ -114,29 +126,37 @@ public class LecturerController {
 	}
 
 	@PostMapping("/save")
-	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult,Model model) {
+	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult, Model model) {
 
 		userService.edit(lecturer);
 		model.addAttribute("lecturer",lecturer);
 
 		return"admin/editLecturerSuccess";
 	}
+	
+	@GetMapping("/delete/{id}")
+	public String deleteLecturer(@PathVariable("id") int id, Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedlecturer = userService.findLecturerById(id);
+		model.addAttribute("lecturer",selectedlecturer);
+		return "admin/deleteLecturer";
+	}
 
 	//Delete lecturer
-	@RequestMapping(value = "/delete/{id}")
-	public String deleteLecturer(@PathVariable("id") Integer id) {
-		User lecturer = userService.findLecturerById(id);
+	@Transactional
+	@PostMapping("/delete")
+	public String delete(@ModelAttribute("lecturer") User lecturer, Model model, HttpSession session) {
+		User lecturerToDelete = userService.findLecturerById(lecturer.getId());
 		//Find courses that lecturer teaches
-		List<Course> coursesTaught = courseService.findCourseByLecturerId(id);
+		List<Course> coursesTaught = lecturerToDelete.getCourse();
 		//Delete lecturer from those courses
 		for (Course course: coursesTaught) {
-			List<User> lecturers = course.getUser();
-			lecturers.remove(lecturer);
-			course.setUser(lecturers);
+			List<User> courseLecturers = course.getUser();
+			courseLecturers.remove(lecturerToDelete);
+			course.setUser(courseLecturers);
 		}
-
 		//Delete lecturer from Users table
-		userService.delete(lecturer);
-		return "forward:/lecturer/lecturer-list";
+		userService.delete(lecturerToDelete);
+		return "redirect:/lecturer/viewLecturers";
 	}
 }
