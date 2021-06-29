@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1" />
+    <link type="text/css" rel="stylesheet" href="/css/ViewDetail.css" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    
+
+    <title>Course Detail</title>
+</head>
+<body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
+<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
+
+<section class="box-content" style="margin-top:88px">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Grade </strong></h3>
+                    <form th:action="@{/lecturer/grade-student/save}" method="post" th:object=${selectedStudentCourse}>
+						<input type="hidden" th:field="*{id}">
+                        <label style="display:inline-block;width:200px">Grade:</label>
+                        <input type="text" style="display:inline-block;width:200px" id="" name="grade"
+                         th:value="*{grade}">
+
+                                    
+                         
+                        
+						<input type="submit" class="btn btn-primary" value="Edit Grade">
+            			<a class="btn btn-primary">Back to Student List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+</body>
+</html>
