@@ -217,4 +217,6 @@ public class CourseController {
         model.addAttribute("lecturers", course.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
 		return "admin/course-lecturer-list";
 	}
+	
+	
 }
