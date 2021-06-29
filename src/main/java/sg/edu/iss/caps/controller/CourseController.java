@@ -37,7 +37,7 @@ public class CourseController {
 	@Autowired ICourse courseService;
 	@Autowired IUser userService;
 	@Autowired IStudentCourse scService;
-
+	
 	//view all courses
 	@GetMapping("/viewCourses")
 	public String viewAllCourses(Model model, HttpSession session) {
@@ -71,8 +71,19 @@ public class CourseController {
 		return "CourseDetail";
 	}
 
-
-
+	//Add Course
+	@GetMapping("/add")
+	public String AddCourse(Model model,HttpSession session) {
+		session.getAttribute("user");
+		return "admin/addCourse";
+	}
+	
+	@PostMapping("/add")
+	public String AddCourse(@ModelAttribute("course") @Valid EditCourseDto addCourseDto,BindingResult bindingResult,Model model) throws ParseException {
+		courseService.AddCourse(addCourseDto);
+		return"admin/AddSuccess";
+	}
+	
 	
 	//Edit Course
 	@GetMapping("/edit/{id}")
@@ -89,11 +100,7 @@ public class CourseController {
 
 	@PostMapping("/edit")
 	public String editCourse(@ModelAttribute("course") @Valid EditCourseDto editCourseDto,BindingResult bindingResult,Model model) throws ParseException {
-		model.getAttribute("course").toString();
-		//course.setStartDate(unix);
 		courseService.edit(editCourseDto);
-//		model.addAttribute("course",editCourseDto);
-
 		return"admin/editSuccess";
 	}
 
@@ -102,6 +109,8 @@ public class CourseController {
 		session.getAttribute("user");
 		Course selectedCourse=courseService.findCourse(id).orElse(null);
 		model.addAttribute("course",selectedCourse);
+		model.addAttribute("startdate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getStartDate())));
+		model.addAttribute("enddate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getEndDate())));
 		return "admin/deletecourse";
 	}
 
@@ -110,7 +119,8 @@ public class CourseController {
 	public String deleteCourse(@ModelAttribute("course") Course course,Model model,HttpSession session) {
 		Course todelete=courseService.findCourseById(course.getId());
 		courseService.deleteCourse(todelete);
-
+		session.getAttribute("user");
+		model.addAttribute("courses", courseService.listAllCourses());
 		return "Courses";
 	}
 
