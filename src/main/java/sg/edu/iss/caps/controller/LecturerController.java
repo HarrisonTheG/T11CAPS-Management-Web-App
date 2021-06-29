@@ -1,5 +1,7 @@
 package sg.edu.iss.caps.controller;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import sg.edu.iss.DTO.manageCourse.EditCourseDto;
+import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
@@ -176,4 +180,5 @@ public class LecturerController {
 		userService.delete(lecturerToDelete);
 		return "redirect:/lecturer/viewLecturers";
 	}
+	
 }
