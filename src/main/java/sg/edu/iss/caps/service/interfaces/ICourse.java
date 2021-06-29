@@ -18,6 +18,8 @@ public interface ICourse {
 	public void edit(EditCourseDto editCourseDto) throws ParseException;
 	public void delete(Course course);
 	public Course findCourseById(Integer id);
+	
+	public List<Course> findNewCoursesForStudents(int id);
 
 	//search bar keyword
 	public List<Course> listAll(String keyword);

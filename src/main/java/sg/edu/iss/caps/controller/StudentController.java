@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 
 import sg.edu.iss.caps.service.interfaces.ICourse;
 import sg.edu.iss.caps.service.interfaces.IStudent;
@@ -28,6 +30,12 @@ public class StudentController {
 		model.addAttribute("user", session.getAttribute("user"));
 
 		return "Profile";
+	}
+	
+	@GetMapping("/enroll") @ResponseBody
+	public RedirectView enrollCourse(HttpSession session, Model model, @RequestParam("studentId") int sId, @RequestParam("courseId") int cId) {
+		studentService.enrollStudentToCourse(sId, cId);
+		return new RedirectView ("/course/viewCourses/" + sId);
 	}
 	
 	

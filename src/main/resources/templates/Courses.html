@@ -23,6 +23,8 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
+	<input type="hidden" id="studentId" th:value="${session.user.id}" />
+	
 	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
         <form th:action="@{/course/search}" method="get">
             <div class="input-group rounded">
