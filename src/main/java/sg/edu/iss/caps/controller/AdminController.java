@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.DTO.manageCourse.EditUserDto;
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.User;
 //import sg.edu.iss.caps.service.interfaces.IAdmin;
 import sg.edu.iss.caps.utility.UtilityManager;
@@ -55,6 +56,32 @@ public class AdminController {
 			return "admin/addUserSuccess";
 		}
 
+		//get delete student by admin
+		@GetMapping("/delete/{id}")
+		public String deleteStudent(@PathVariable("id")int id,Model model,HttpSession session) {
+			session.getAttribute("user");
+			User selecteduser=userService.findUserById(id);
+			model.addAttribute("user",selecteduser);
+			model.addAttribute("enrolment",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selecteduser.getEnrollmentDate())));
+			return "admin/deletestudent";
+		}
+		
+	//post delete student by admin
+		@PostMapping("/deleteStudent")
+		public String editStudent(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,Model model) throws ParseException{
+			userService.adminDeleteStudent(user);
+			model.addAttribute("listStudents", userService.listStudents(""));
+			return "admin/viewStudentList";
+		}
+		
+		//view student list
+		@RequestMapping("/student-list")
+		public String viewStudentList(Model model, @Param("keyword") String keyword) {
+			List<User> listStudents = userService.listStudents(keyword);
+	        model.addAttribute("listStudents", listStudents);
+	        model.addAttribute("keyword", keyword);
+			return "admin/viewStudentList";
+		}
 	//Edit User
 	@GetMapping("/edit/{id}")
 	public String EditUserDetails(@PathVariable("id") int id, Model model, HttpSession session) {
