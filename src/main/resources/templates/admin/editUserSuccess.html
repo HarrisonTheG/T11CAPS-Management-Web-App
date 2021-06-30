@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     
 
-    <title>Edit user success</title>
+    <title>Edit User Success</title>
 </head>
 
 <body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
@@ -50,11 +50,12 @@
                          th:value="*{enrollmentDate}"></br>     
                                                            			
                     </form>
-                    
                     <div th:if="${user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}">
             			<a class="btn btn-primary" href="/lecturer/viewLecturers">Back to Lecturer List</a>
             		</div>
-            		
+                    <div th:if="${user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}">
+            			<a class="btn btn-primary" href="/lecturer/viewLecturers">Back to Student List</a>
+            		</div>            		
                 </div>
             </div>
         </div>
