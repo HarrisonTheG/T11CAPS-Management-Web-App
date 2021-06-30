@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 //import sg.edu.iss.caps.service.interfaces.IAdmin;
 import sg.edu.iss.caps.utility.UtilityManager;
@@ -57,6 +58,8 @@ public class AdminController {
 
 		@PostMapping("/saveNewUser")
 		public String saveNewUser(@ModelAttribute("user") @Valid EditUserDto addUserDto, BindingResult bindingResult, Model model) throws ParseException {
+			if(addUserDto.getRole()==null)
+				addUserDto.setRole(RoleType.STUDENT);
 			userService.AddUser(addUserDto);
 			return "admin/addUserSuccess";
 		}
