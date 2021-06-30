@@ -43,12 +43,12 @@ public class EditUserDto {
 	@URL
 	private String imgUrl;
 	private String enrollmentDate;
-	private String role;
+	private RoleType role;
 	
 	private List<Course> Course;
 	
 	public EditUserDto(@NotBlank String firstname, @NotBlank String surname, @Email String email, @NotBlank String password,
-			@URL String imgUrl, String enrollmentDate, @NotBlank String code, String role) {
+			@URL String imgUrl, String enrollmentDate, @NotBlank String code, RoleType role) {
 		super();
 		this.firstname = firstname;
 		this.surname = surname;
@@ -132,11 +132,11 @@ public class EditUserDto {
 		this.imgUrl = imgUrl;
 	}
 
-	public String getRole() {
+	public RoleType getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RoleType role) {
 		this.role = role;
 	}
 
