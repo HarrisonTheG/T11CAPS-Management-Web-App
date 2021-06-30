@@ -195,11 +195,13 @@ public class CourseController {
 	@GetMapping("/{cid}/edit-student-list")
 	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
 		session.getAttribute("user");
+		//get full list of students
 		List<User> listUsers = userService.listStudents(keyword);
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("keyword", keyword);
         Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
+        //Add students in course
         List<User> listStudentsInCourse = scService.listStudentsInCourse(course);
         model.addAttribute("students", listStudentsInCourse);
 		return "admin/course-student-list";
