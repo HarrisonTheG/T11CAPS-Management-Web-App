@@ -32,9 +32,10 @@
 									<h3 th:text="${user.firstname} +' ' + ${user.surname}">John Doe</h3>
 									<p class="text-muted font-size-sm " th:text="${user.role}">Student</p>
 									
-									<!-- For link to student profile for admin and lecturer -->
-									<button th:if="${user.role==T(sg.edu.iss.caps.model.RoleType).STUDENT}" class="btn btn-link"><span style="font-size: small;">View Student
-											Performance</span></button>
+									<!-- For link to student profile for everyone -->
+									<a th:href="@{'/course/studentCourses/' + ${user.id}} "><button th:if="${user.role==T(sg.edu.iss.caps.model.RoleType).STUDENT}" class="btn btn-link"><span style="font-size: small;">View Student
+											Performance</span></button></a>
+									
 											
 								</div>
 							</div>

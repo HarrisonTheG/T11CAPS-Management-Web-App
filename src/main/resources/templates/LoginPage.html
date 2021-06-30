@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -21,23 +21,37 @@
                 <div style="margin-top:30px;margin-bottom:20px;text-align:center;">
                   <img src='/image/logo-welcome.png'width="20%" height="20%" Alt="Logo Picture"></IMG>
                 </div>
+                
                 <div style="text-align:center; ">
-                <form action="/account/authenticate" method="post" style="display: inline-block">
+                <form th:action="@{/account/authenticate}" method="post" style="display: inline-block" th:object="${loginUser}">
                 <div style="text-align:center;">
-                <table>
+                
+                <table >
                 <tr>
-                <th>Email</th><th><input type="text" id="email" name="email"></th>
+                <th style="text-align: left">Email</th>
+                <th><input type="text" id="email" name="email" th:field="*{email}"></th>
                 </tr>
+               
                 <tr>
-                <th>Password</th><th><input type="password" id="password" name="password"></th>
+                <th style="text-align: left">Password</th><th><input type="password" id="password" name="password" th:field="*{password}"></th>
                 </tr>
+               
                 <tr>
-                <th>Identity</th>
-                <th><select name="identity"> 
+                <th style="text-align: left">Identity</th>
+                <th style="text-align: left"><select name="identity"> 
                  <option value="student" selected>student</option>
                  <option value="lecturer">lecturer</option>
                  <option value="admin">admin</option>
                 </select></th>
+                </tr>
+                <tr>
+                	<td colspan=2 style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></td>
+                </tr>
+                <tr>
+                	<td colspan=2 style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
+                </tr>
+                <tr>
+                	<td colspan=2 style="color:red" th:text="${errorMsg}"></td>
                 </tr>
                 </table> 
                
@@ -51,6 +65,7 @@
                 </div>
                  </form> 
                 </div>
+                
                 </div>             
         </section>
     </main>

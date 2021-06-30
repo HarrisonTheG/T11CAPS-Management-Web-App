@@ -53,7 +53,7 @@
 			<tr th:each="user : ${listStudents}">
                 	<td><a th:href="@{'/account/others/' + ${user.id}} "><span th:text="${user.firstname}"></span></a></td>
                     <td><a th:href="@{'/account/others/' + ${user.id}} "><span th:text="${user.surname}"></span></a></td>
-                    <td><a th:href="@{'/course/studentCourses/' + ${user.id}} " class="btn btn-primary">View Student Performance</a></td>
+                    
               </tr>
                 </tbody>
 
