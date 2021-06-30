@@ -34,7 +34,7 @@
                         
                         <div class="form-group">
                             <input disabled type="text" class="form-control input-style no-input-border"
-                                id="description" name="description" th:value="'Start Date (duration): '">
+                                id="description" name="description" th:value="'Start Date (duration): ' + ${startDateString} + ' (' + ${duration} + ' days)'">
                         </div>
                         
                         <hr>
@@ -74,18 +74,6 @@
                          </a>
                         </div>
                         
-                        <!--
-                        <div class="form-group" th:each="lecturer,iter :${lecturers}" th:with="addLecturers=''">
-                            <input th:if="${#lists.size(lecturers)}<=1" disabled type="text" class="form-control input-style no-input-border"
-                                id="description" name="description" th:value="'Lecturer: ' + ${lecturer.firstname} + ' ' + ${lecturer.surname}">
-                             <input th:if="${(#lists.size(lecturers)>1) && (iter.index == 0)}" disabled type="text" class="form-control input-style no-input-border"
-                                id="description" name="description" th:value="'Lecturer: ' + ${lecturer.firstname} + ', '">
-                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index != (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
-                                id="description" name="description" th:value="${lecturer.firstname} + ', '">
-                              <input th:if="${(#lists.size(lecturers)>1) && (iter.index > 0) && (iter.index == (#lists.size(lecturers)-1))}" disabled type="text" class="form-control input-style no-input-border"
-                                id="description" name="description" th:value="${lecturer.firstname}">
-                                 
-                        </div>-->
                         
                         
                         <div class="form-group" style="margin-top: 14px !important">
