@@ -66,7 +66,7 @@ import sg.edu.iss.caps.utility.UtilityManager;
 
 	  @Transactional
 	  public List<User> listStudentsInCourse(Course course){
-		  return screpo.listStudentsInCourse(course);
+			  return screpo.listStudentsInCourse(course);
 	  }
 	  
 	  @Transactional

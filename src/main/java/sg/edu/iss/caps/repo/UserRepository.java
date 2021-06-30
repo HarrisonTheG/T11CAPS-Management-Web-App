@@ -30,12 +30,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 	@Query("SELECT u FROM User u WHERE u.role = :role AND CONCAT(u.id, ' ', u.firstname, ' ', u.surname, ' ', u.email) LIKE %:keyword%")
 	public List<User> searchByRoleType(@Param("role") RoleType role, @Param("keyword") String keyword);
 	
-	@Query("SELECT u FROM User u WHERE u.role = STUDENT AND CONCAT(u.id, ' ', u.firstname, ' ', u.surname, ' ', u.email) LIKE %?1%")
-	public List<User> findStudent(String keyword);
-	
-	@Query("SELECT u FROM User u WHERE u.role = LECTURER AND CONCAT(u.id, ' ', u.firstname, ' ', u.surname, ' ', u.email) LIKE %?1%")
-	public List<User> findLecturer(String keyword);
-	
 	@Query("SELECT u FROM User u WHERE u.role = :role")
 	public List<User> listAllInRole(@Param("role") RoleType role);
 	

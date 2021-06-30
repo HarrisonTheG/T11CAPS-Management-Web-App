@@ -10,6 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/ListTableView.css">
     <script src="/js/ListTableView.js"></script>
+    <script src="/js/searchStudentsInCourse.js"></script>
+    
      <link rel="stylesheet" href="/css/bootstrap.css">
     <title>Student List</title>
 </head>
@@ -19,14 +21,18 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
+	<input type="hidden" id="courseId" th:value="${course.id}" />
+	
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 		<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
 		<p th:text="${course.code} + ' ' + ${course.name}">Course</p>
 		
         <form th:action="@{/course/}+${course.id}+@{/edit-student-list}">
             <div class="input-group rounded">
-                <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
-                    placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
+            	<input th:value="${keyword}"
+	                id="keyword" name="keyword" type="search" class="form-control rounded"
+	                    placeholder="Search for a student" aria-label="Search" aria-describedby="search-addon" />
+	                    
                 <span class="input-group-text border-0" id="search-addon">
                     <button class="fa fa-search" type="submit"></button>
                 </span>
