@@ -89,7 +89,7 @@ public class AdminController {
 		User selectedUser=userService.findUserById(id);
 
 		model.addAttribute("user",selectedUser);
-
+		model.addAttribute("enrolmentDate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedUser.getEnrollmentDate())));
 		return "admin/editUser";
 	}
 

@@ -36,8 +36,8 @@
                 </span>
             </div>
                     	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
-    			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/course/add/'}" th:text="${'Add Course'}">Default text</a>
-			</div>
+    			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/admin/add'}" th:text="${'Register Student'}">Default text</a>
+			</div></br>
         </form>
     </section>
     
@@ -49,7 +49,7 @@
                     </th>
                     <th class="th-sm">Surname
                     </th>
-                    <th class="th-sm">Manage Students
+                    <th class="th-sm col-sm-3" >Manage Students
                     </th>
                 </tr>
             </thead>
