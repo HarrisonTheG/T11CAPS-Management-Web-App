@@ -20,6 +20,8 @@ import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.model.RoleType;
+import sg.edu.iss.caps.model.Student_Course;
+import sg.edu.iss.caps.repo.StudentCourseRepository;
 import sg.edu.iss.caps.repo.UserRepository;
 import sg.edu.iss.caps.service.interfaces.ILecturer;
 import sg.edu.iss.caps.service.interfaces.IUser;
@@ -29,6 +31,7 @@ import sg.edu.iss.caps.utility.UtilityManager;
 public class UserService implements IUser,ILecturer {
 
 	@Autowired UserRepository urepo;
+	@Autowired StudentCourseRepository screpo;
 
 	@Autowired JavaMailSenderImpl javaMailSender;
 
@@ -138,7 +141,11 @@ public class UserService implements IUser,ILecturer {
 	  }
 	
 	@Transactional
-	public void editUser(EditUserDto edituserDto) throws ParseException{
+	public void adminDeleteStudent(User user){
+		List<Student_Course> EnrolledCoursesToDelete=screpo.findStudentCoursesByStudent(user);
+		for(Student_Course eachline:EnrolledCoursesToDelete)
+			screpo.delete(eachline);
+		urepo.delete(user);
 	}
 	
 }

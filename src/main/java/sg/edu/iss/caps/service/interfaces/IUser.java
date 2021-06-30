@@ -16,7 +16,7 @@ public interface IUser {
 	public User findUserById(int id);
 	public User findUser(@Valid String email, String password, String identity);
 	public void AddUser(EditUserDto adduserDto) throws ParseException;
-	public void editUser(EditUserDto edituserDto) throws ParseException;
+	public void adminDeleteStudent(User user);	
 	public User findStudentById(Integer id);
 	public User findLecturerById(Integer id);
 	public List<User> listStudents(String keyword);
