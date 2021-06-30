@@ -67,11 +67,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/save")
-	public String saveUserForm(@ModelAttribute("user") @Valid EditUserDto editUserDto, BindingResult bindingResult, Model model) throws ParseException {
+	public String saveUserForm(@ModelAttribute("user") @Valid EditUserDto editUserDto, BindingResult bindingResult, Model model, HttpSession session) throws ParseException {
 
 		userService.editUser(editUserDto);
 		model.addAttribute("user",editUserDto);
-
 		return"admin/editUserSuccess";
 	}
 
