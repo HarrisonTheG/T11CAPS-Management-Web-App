@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     
 
-    <title>Lecturer Details</title>
+    <title>Course Detail</title>
 </head>
 
 <body class="bg-gray-300" th:href="@{/css/ViewDetail.css}">
@@ -21,38 +21,39 @@
         <div class="container">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Lecturer </strong></h3>
-                    <form th:action="@{/lecturer/save}" method="post" th:object=${lecturer}>
+                    <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Add User Success! </strong></h3>
+                    <form th:action="@{/admin/saveNewUser}" method="post" th:object=${user}>
 						<input type="hidden" th:field="*{id}">
 						
                         <label style="display:inline-block;width:200px">First Name:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="firstname"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="firstname"
                          th:value="*{firstname}"></br>
-                         
+
                          <label style="display:inline-block;width:200px">Surname:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="surname"
-                         th:value="*{surname}"></br>
+                        <input  disabled class="form-control no-input-border" type="text" style="display:inline-block;width:300px" id="" name="surname"
+                         th:value="*{surname}"></br>                      
                          
                          <label style="display:inline-block;width:200px">Email:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="email"
+                         <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="email"
                          th:value="*{email}"></br>
-                         
+                                                  
                          <label style="display:inline-block;width:200px">Password:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="password"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="password"
                          th:value="*{password}"></br>
                          
                          <label style="display:inline-block;width:200px">Image:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="imgUrl"
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="image"
                          th:value="*{imgUrl}"></br>
                          
                          <label style="display:inline-block;width:200px">Enrollment Date:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="enrollmentDate"
-                         th:value="*{enrollmentDate}"></br>
-
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="enrollmentDate"
+                         th:value="*{enrollmentDate}"></br>               
                          
-						<input type="submit" class="btn btn-primary" value="Submit">
-            			<a class="btn btn-primary" href="/lecturer/viewLecturers">Cancel</a>
-                    </form>
+                         <label style="display:inline-block;width:200px">Role:</label>
+                        <input disabled class="form-control no-input-border" type="text" style="display:inline-block;width:200px" id="" name="role"
+                         th:value="*{role}"></br>
+                        
+                        </form>
                 </div>
             </div>
         </div>

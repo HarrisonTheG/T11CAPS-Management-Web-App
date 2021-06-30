@@ -1,30 +1,37 @@
-package sg.edu.iss.caps.model;
+package sg.edu.iss.DTO.manageCourse;
 
-import java.beans.Transient;
 import java.util.List;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
-@Entity
-public class User {
+import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.RoleType;
+import sg.edu.iss.caps.model.Student_Course;
+import sg.edu.iss.caps.model.User;
+
+
+public class EditUserDto {
 	
-	@Id 
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private int id;
+	@NotBlank
+	private String code;
 	@Size(max=30) @NotBlank
 	private String firstname;
 	@Size(max=30) @NotBlank
@@ -35,42 +42,49 @@ public class User {
 	private String password;
 	@URL
 	private String imgUrl;
-	private long enrollmentDate;
-	private RoleType role;
+	private String enrollmentDate;
+	private String role;
 	
-	@ManyToMany(mappedBy="User")
-	@OnDelete(action=OnDeleteAction.CASCADE)
 	private List<Course> Course;
 	
-	public User(int id, String firstname, String surname, String email, String password, String imgUrl, long enrollmentDate) {
+	public EditUserDto(@NotBlank String firstname, @NotBlank String surname, @Email String email, @NotBlank String password,
+			@URL String imgUrl, String enrollmentDate, @NotBlank String code, String role) {
 		super();
-		this.id = id;
 		this.firstname = firstname;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
 		this.imgUrl = imgUrl;
 		this.enrollmentDate = enrollmentDate;
+		this.role = role;
+		this.code = code;
+	}
+	
+	public EditUserDto() {
+		super();
 	}
 
-	public User(String firstname, String surname, String email, String password, String imgUrl, long enrollmentDate) {
-		super();
-		this.firstname = firstname;
-		this.surname = surname;
-		this.email = email;
-		this.password = password;
-		this.imgUrl = imgUrl;
-		this.enrollmentDate = enrollmentDate;
-	}
 	
-	public User() {
-		super();
+
+	public String getCode() {
+		return code;
 	}
+
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	
-	@Transient
-	public String getDiscriminatorValue() {
-		return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+	public List<Course> getCourse() {
+		return Course;
 	}
+
+
+	public void setCourse(List<Course> Course) {
+		this.Course = Course;
+	}
+
 
 	public int getId() {
 		return id;
@@ -102,18 +116,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public long getEnrollmentDate() {
+	public String getEnrollmentDate() {
 		return enrollmentDate;
 	}
-	public void setEnrollmentDate(long enrollmentDate) {
+	
+	public void setEnrollmentDate(String enrollmentDate) {
 		this.enrollmentDate = enrollmentDate;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstname=" + firstname + ", surname=" + surname + ", email=" + email + "]";
 	}
 
 	public String getImgUrl() {
@@ -124,24 +132,12 @@ public class User {
 		this.imgUrl = imgUrl;
 	}
 
-	public RoleType getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(RoleType role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
-	public List<Course> getCourse() {
-		return Course;
-	}
-
-	public void setCourse(List<Course> course) {
-		Course = course;
-	}
-	
-	public void removeCourse(Course course) {
-		this.Course.remove(course);
-	}
-	
 }

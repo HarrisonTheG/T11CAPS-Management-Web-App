@@ -20,17 +20,17 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Edit Grade </strong></h3>
-                    <form th:action="@{/lecturer/grade-student/save}" method="post" th:object=${selectedStudentCourse}>
+                    <form th:action="@{/lecturer/}+${selectedStudentCourse.course.id}+@{/grade-student-list}" method="POST" th:object=${selectedStudentCourse}>
 						<input type="hidden" th:field="*{id}">
                         <label style="display:inline-block;width:200px">Grade:</label>
                         <input type="text" style="display:inline-block;width:200px" id="" name="grade"
-                         th:value="*{grade}">
+                         th:value="*{grade}" required>
 
                                     
                          
                         
 						<input type="submit" class="btn btn-primary" value="Edit Grade">
-            			<a class="btn btn-primary">Back to Student List</a>
+            			<a class="btn btn-primary" th:href="@{/lecturer/}+${selectedStudentCourse.course.id}+@{/grade-student-list}" >Back to Student List</a>
                     </form>
                 </div>
             </div>

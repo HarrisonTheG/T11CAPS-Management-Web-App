@@ -2,6 +2,10 @@ package sg.edu.iss.caps.service.implementation;
 
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -12,7 +16,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.model.RoleType;
@@ -39,6 +43,11 @@ public class UserService implements IUser,ILecturer {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public User findUserById(int id) {
+		return urepo.findById(id).orElse(null);
 	}
 
 	@Override
@@ -94,6 +103,7 @@ public class UserService implements IUser,ILecturer {
 		edituser.setFirstname(user.getFirstname());
 		edituser.setSurname(user.getSurname());
 		edituser.setEmail(user.getEmail());
+		edituser.setImgUrl(user.getImgUrl());
 		edituser.setPassword(user.getPassword());
 		edituser.setEnrollmentDate(user.getEnrollmentDate());
 		  urepo.save(edituser);
@@ -104,4 +114,31 @@ public class UserService implements IUser,ILecturer {
 	public void delete(User user) {
 		 urepo.delete(user);
 	}
+	
+	//Add new user
+	@Transactional
+	  public void AddUser(EditUserDto adduserDto) throws ParseException{
+		  User newuser = new User();
+		  newuser.setFirstname(adduserDto.getFirstname());
+		  newuser.setSurname(adduserDto.getSurname());
+		  newuser.setEmail(adduserDto.getEmail());
+		  newuser.setImgUrl(adduserDto.getImgUrl());
+		  newuser.setPassword(adduserDto.getPassword());
+		  
+		  String role = adduserDto.getRole();
+		  RoleType roletype = RoleType.valueOf(role.toUpperCase());
+		  newuser.setRole(roletype);
+		  
+		  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  Date enrollmentDate = dateFormat.parse(adduserDto.getEnrollmentDate());
+		  long unixEnrollmentDate = (long) enrollmentDate.getTime()/1000;
+		  newuser.setEnrollmentDate(unixEnrollmentDate);
+			
+		  urepo.save(newuser);
+	  }
+	
+	@Transactional
+	public void editUser(EditUserDto edituserDto) throws ParseException{
+	}
+	
 }

@@ -15,23 +15,26 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 	
-	<div class="container" style="margin-top: 88px">
+	<div class="container" style="margin-top: 88px; padding-left: 22px">
+		<a href="javascript:history.back()">Go Back</a>
+	</div>
+	
+	<div class="container">
 		<div class="main-body">
 			<div class="row gutters-sm">
 				<div class="col-md-4 mb-3">
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
-								<img th:src="${session.user.imgUrl}"
+								<img th:src="${user.imgUrl}"
 									class="img-circle rounded-circle" width="150" alt="Admin" />
 								<div class="mt-3">
-									<h3 th:text="${session.user.firstname} +' ' + ${session.user.surname}">John Doe</h3>
-									<p class="text-muted font-size-sm " th:text="${session.user.role}">Student</p>
+									<h3 th:text="${user.firstname} +' ' + ${user.surname}">John Doe</h3>
+									<p class="text-muted font-size-sm " th:text="${user.role}">Student</p>
 									
-									<!-- For link to student profile for admin and lecturer 
-									<button class="btn btn-link"><span style="font-size: small;">View Student
+									<!-- For link to student profile for admin and lecturer -->
+									<button th:if="${user.role==T(sg.edu.iss.caps.model.RoleType).STUDENT}" class="btn btn-link"><span style="font-size: small;">View Student
 											Performance</span></button>
-											-->
 											
 								</div>
 							</div>
@@ -59,7 +62,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0" >Firstname</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.firstname}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.firstname}">
 									John
 								</div>
 							</div>
@@ -70,7 +73,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0" >Surname</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.surname}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.surname}">
 									Doe
 								</div>
 							</div>
@@ -81,7 +84,7 @@
 								<div class="col-sm-3">
 									<h6 class="mb-0">Email</h6>
 								</div>
-								<div class="col-sm-9 text-secondary margin" th:text="${session.user.email}">
+								<div class="col-sm-9 text-secondary margin" th:text="${user.email}">
 									plsDontAnyhao@gmail.com
 								</div>
 							</div>

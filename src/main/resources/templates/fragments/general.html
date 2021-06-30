@@ -12,7 +12,7 @@
 
 	<!-- Student navigation bar -->
 	<div th:fragment="navBar" id="navBar">
-		<nav style="justify-content: center !important"
+		<nav style="justify-content: center !important; background-color: #ADD8E6 !important"
 			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
 			<div class="container" style="text-align: center; width: 100%; margin-right: 15px !important; margin-left: 0px !important">
 				<div class="collapse navbar-collapse" id="navcol-1" style=" justify-content: center !important">
@@ -21,13 +21,13 @@
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							th:href="@{/student/profile}" style="font-size: 14px !important">My Account</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							th:href="@{/course/studentCourses/} + ${session.user.id}" style="font-size: 14px !important">My Courses</a></li>
+							th:href="@{'/course/studentCourses/' + ${session.user.id}}" style="font-size: 14px !important">My Courses</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							th:href="@{/course/viewCourses/} + ${session.user.id}" style="font-size: 14px !important">Find Courses</a></li>
+							th:href="@{'/course/viewCourses/' + ${session.user.id}}" style="font-size: 14px !important">Find Courses</a></li>
 						<li class="nav-item" style="flex-grow: 8"></li>
 						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" th:href="@{/account/logout}" style="font-size: 14px !important">
 						Log Out</a></li>
-						
+						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-student.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>										
 					</ul>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 	
 	<!-- Navbar for lecturer -->
 	<div th:fragment="navBar-lecturer" id="navBar">
-		<nav style="justify-content: center !important"
+		<nav style="justify-content: center !important; background-color: rgb(183, 238, 183) !important"
 			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
 			<div class="container" style="text-align: center; width: 100%; margin-right: 15px !important; margin-left: 0px !important">
 				<div class="collapse navbar-collapse" id="navcol-1" style=" justify-content: center !important">
@@ -45,10 +45,13 @@
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							th:href="@{/lecturer/profile}" style="font-size: 14px !important">My Account</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							th:href="@{'/lecturer/courses/' + ${session.user.id}} "  style="font-size: 14px !important">Courses Taught</a></li>
+							th:href="@{'/lecturer/courses/' + ${session.user.id}} "  style="font-size: 14px !important">Course Enrolment</a></li>
+						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
+							th:href="@{/lecturer/student-list}"  style="font-size: 14px !important">View Student List</a></li>
 						<li class="nav-item" style="flex-grow: 8"></li>
 						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" th:href="@{/account/logout}" style="font-size: 14px !important">
 						Log Out</a></li>
+						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-lecturer.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>	
 						
 					</ul>
 				</div>
@@ -58,7 +61,7 @@
 	
 		<!-- Navbar for admin -->
 	<div th:fragment="navBar-admin" id="navBar">
-		<nav style="justify-content: center !important"
+		<nav style="justify-content: center !important; background-color: rgb(206, 181, 135) !important"
 			class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
 			<div class="container" style="text-align: center; width: 100%; margin-right: 15px !important; margin-left: 0px !important">
 				<div class="collapse navbar-collapse" id="navcol-1" style=" justify-content: center !important">
@@ -71,10 +74,11 @@
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							href="courses" th:href="@{/course/viewStudents}" style="font-size: 14px !important">Manage Students</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							href="courses" style="font-size: 14px !important">Manage Lecturers</a></li>
+							href="courses" th:href="@{/lecturer/viewLecturers}" style="font-size: 14px !important">Manage Lecturers</a></li>
 						<li class="nav-item" style="flex-grow: 8"></li>
 						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" th:href="@{/account/logout}" style="font-size: 14px !important">
 						Log Out</a></li>
+<!-- 						<li class="nav-item" style="flex-grow: 1"><img src='/image/logo-administrator.png' align="right" width="90px" height="30px" Alt="Logo Picture"></IMG></li>	 -->
 						
 					</ul>
 				</div>

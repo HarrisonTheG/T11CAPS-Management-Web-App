@@ -59,16 +59,30 @@ public class CourseController {
 
 	@GetMapping("/details/{id}")
 	public String viewCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
-		System.out.println(id);
+		//System.out.println(id);
 		session.getAttribute("user");
 		Course selectedCourse = courseService.findCourse(id).orElse(null);
-		System.out.println(courseService.findCourse(id).orElse(null));
+	
 
 		model.addAttribute("course", selectedCourse);
 		model.addAttribute("lecturers", selectedCourse.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
 		model.addAttribute("students", selectedCourse.getStudentCourses().stream().map(x -> x.getUser()).collect(Collectors.toList()));
 
 		return "CourseDetail";
+	}
+
+	
+	@GetMapping("/enrolledDetails/{id}")
+	public String viewEnrolledCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
+		
+		session.getAttribute("user");
+		Course selectedCourse = courseService.findCourse(id).orElse(null);
+
+		model.addAttribute("course", selectedCourse);
+		model.addAttribute("lecturers", selectedCourse.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
+		model.addAttribute("students", selectedCourse.getStudentCourses().stream().map(x -> x.getUser()).collect(Collectors.toList()));
+
+		return "student/enrolled-courseDetail";
 	}
 
 	//Add Course
@@ -116,7 +130,7 @@ public class CourseController {
 
 	@Transactional
 	@PostMapping("/delete")
-	public String deleteCourse(@ModelAttribute("course") Course course,Model model,HttpSession session) {
+	public String deleteCourse(@ModelAttribute("course") Course course,Model model, HttpSession session) {
 		Course todelete=courseService.findCourseById(course.getId());
 		courseService.deleteCourse(todelete);
 		session.getAttribute("user");
@@ -127,9 +141,12 @@ public class CourseController {
 	//WORKING ON THIS
 		@GetMapping("/studentCourses/{id}")
 		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
-
+			System.out.println(id);
+			User student = userService.findUserById(id);
+			model.addAttribute("student", student);
 			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
 			model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
+			System.out.println(UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 			return "student/student-courses";
 		}
 
@@ -213,4 +230,6 @@ public class CourseController {
         model.addAttribute("lecturers", course.getUser().stream().filter(x -> x.getRole() == RoleType.LECTURER).collect(Collectors.toList()));
 		return "admin/course-lecturer-list";
 	}
+	
+	
 }

@@ -48,9 +48,9 @@
                 </tr>
             </thead>
             <tbody>
-			<tr th:each="user : ${listUsers}">
-                	<td th:text="${user.firstname}"></td>
-                	<td th:text="${user.surname}"></td>
+			<tr th:each="user : ${listStudents}">
+                	<td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.firstname}"></span></a></td>
+                    <td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.surname}"></span></a></td>
               </tr>
                 </tbody>
 
