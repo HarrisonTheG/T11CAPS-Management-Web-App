@@ -16,6 +16,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import sg.edu.iss.DTO.manageCourse.EditCourseDto;
 import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.User;
@@ -96,18 +97,22 @@ public class UserService implements IUser,ILecturer {
 	}
 	
 	//edit user
-	@Override
+	
 	  @Transactional
-	  public void edit(User user) {
-		User edituser=urepo.findById(user.getId()).get();
-		edituser.setFirstname(user.getFirstname());
-		edituser.setSurname(user.getSurname());
-		edituser.setEmail(user.getEmail());
-		edituser.setImgUrl(user.getImgUrl());
-		edituser.setPassword(user.getPassword());
-		edituser.setEnrollmentDate(user.getEnrollmentDate());
-		  urepo.save(edituser);
+	  public void editUser(EditUserDto editUserDto) throws ParseException {
+		User edituser=urepo.findById(editUserDto.getId()).get();
+		edituser.setFirstname(editUserDto.getFirstname());
+		edituser.setSurname(editUserDto.getSurname());
+		edituser.setEmail(editUserDto.getEmail());
+		edituser.setImgUrl(editUserDto.getImgUrl());
+		edituser.setPassword(editUserDto.getPassword());
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		  Date enrollmentDate = dateFormat.parse(editUserDto.getEnrollmentDate());
+		  long unixEnrollmentDate = (long) enrollmentDate.getTime()/1000;
+		  edituser.setEnrollmentDate(unixEnrollmentDate);
 		  
+		  urepo.save(edituser); 
 	  }
 
 	@Transactional
@@ -137,8 +142,6 @@ public class UserService implements IUser,ILecturer {
 		  urepo.save(newuser);
 	  }
 	
-	@Transactional
-	public void editUser(EditUserDto edituserDto) throws ParseException{
-	}
+
 	
 }

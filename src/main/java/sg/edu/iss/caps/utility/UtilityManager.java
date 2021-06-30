@@ -28,10 +28,18 @@ public class UtilityManager {
 		double grades=0;
 		double credits=0;
 		for (Student_Course course:courses){
-			credits+=course.getCourse().getCredit();
+			if(course.getGrade() != 0.0)
+				credits+=course.getCourse().getCredit();
+			
 			grades+=course.getGrade()/100 * course.getCourse().getCredit();
 		}
 		return grades/credits * 5.0;
+	}
+	
+	public static String CalculateCourseDuration (long start, long end) {
+		long durationInSeconds = end - start;
+		long durationInDays = durationInSeconds/(3600*24);
+		return String.valueOf(durationInDays);
 	}
 	
 
@@ -54,6 +62,7 @@ public class UtilityManager {
 	public static void main(String[] args) {
 
 	}
+
  
 }
  
