@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -54,5 +55,24 @@ public class AdminController {
 			return "admin/addUserSuccess";
 		}
 
+	//Edit User
+	@GetMapping("/edit/{id}")
+	public String EditUserDetails(@PathVariable("id") int id, Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedUser=userService.findUserById(id);
+
+		model.addAttribute("user",selectedUser);
+
+		return "admin/editUser";
+	}
+
+	@PostMapping("/save")
+	public String saveUserForm(@ModelAttribute("user") @Valid EditUserDto editUserDto, BindingResult bindingResult, Model model) throws ParseException {
+
+		userService.editUser(editUserDto);
+		model.addAttribute("user",editUserDto);
+
+		return"admin/editUserSuccess";
+	}
 
 }
