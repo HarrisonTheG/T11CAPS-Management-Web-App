@@ -85,7 +85,7 @@ public class UserService implements IUser,ILecturer {
 	public List<User> listStudents(String keyword) {
 		// TODO Auto-generated method stub
 		if (keyword != null) {
-			urepo.searchByRoleType(RoleType.STUDENT, keyword);
+	        return urepo.searchByRoleType(RoleType.STUDENT, keyword);
 	    }
 	    return urepo.listAllInRole(RoleType.STUDENT);
 	}
