@@ -82,4 +82,24 @@ public class AdminController {
 	        model.addAttribute("keyword", keyword);
 			return "admin/viewStudentList";
 		}
+	//Edit User
+	@GetMapping("/edit/{id}")
+	public String EditUserDetails(@PathVariable("id") int id, Model model, HttpSession session) {
+		session.getAttribute("user");
+		User selectedUser=userService.findUserById(id);
+
+		model.addAttribute("user",selectedUser);
+
+		return "admin/editUser";
+	}
+
+	@PostMapping("/save")
+	public String saveUserForm(@ModelAttribute("user") @Valid EditUserDto editUserDto, BindingResult bindingResult, Model model) throws ParseException {
+
+		userService.editUser(editUserDto);
+		model.addAttribute("user",editUserDto);
+
+		return"admin/editUserSuccess";
+	}
+
 }

@@ -60,8 +60,8 @@
                 	<td th:text="${lecturer.surname}"></td>
                     <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}">
                     	<td class="th-sm">
-                        <a type="submit" th:href="@{'/lecturer/edit/'+${lecturer.id}}" th:text="${'Edit'}">Edit</a>
-                       	<a type="submit" th:href="@{'/lecturer/delete/'+${lecturer.id}}" th:text="${'Delete'}">Delete</a>
+                        <a type="submit" th:href="@{'/admin/edit/'+${lecturer.id}}" th:text="${'Edit'}">Edit</a>
+                       	<a type="submit" th:href="@{'/admin/delete/'+${lecturer.id}}" th:text="${'Delete'}">Delete</a>
                     	</td>
                     </div>
                 </tr>

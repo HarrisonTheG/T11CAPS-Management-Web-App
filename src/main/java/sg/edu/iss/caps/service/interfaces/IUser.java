@@ -21,7 +21,6 @@ public interface IUser {
 	public User findLecturerById(Integer id);
 	public List<User> listStudents(String keyword);
 	public List<User> listLecturers(String keyword);
-	public void edit(User user);
 	public void delete(User user);
 	
 	public void sendEmailNotification(MailVo mailVo);

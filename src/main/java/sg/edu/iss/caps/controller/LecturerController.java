@@ -82,7 +82,7 @@ public class LecturerController {
 
 	//Get list of students to grade for a course
 	@GetMapping("/{id}/grade-student-list")
-	public String gradeStudentList(Model model, HttpSession session,@PathVariable("id") int id) {
+	public String gradeStudentList(Model model, HttpSession session, @PathVariable("id") int id) {
 		session.getAttribute("user");
 		Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
@@ -135,25 +135,6 @@ public class LecturerController {
 		return "lecturer/lecturer-list";
 	}
 
-	//Edit Lecturer
-	@GetMapping("/edit/{id}")
-	public String EditLecturerDetails(@PathVariable("id") int id,Model model, HttpSession session) {
-		session.getAttribute("user");
-		User selectedLecturer=userService.findLecturerById(id);
-
-		model.addAttribute("lecturer",selectedLecturer);
-
-		return "admin/editlecturer";
-	}
-
-	@PostMapping("/save")
-	public String saveLecturerForm(@ModelAttribute("lecturer") @Valid User lecturer, BindingResult bindingResult, Model model) {
-
-		userService.edit(lecturer);
-		model.addAttribute("lecturer",lecturer);
-
-		return"admin/editLecturerSuccess";
-	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteLecturer(@PathVariable("id") int id, Model model, HttpSession session) {
