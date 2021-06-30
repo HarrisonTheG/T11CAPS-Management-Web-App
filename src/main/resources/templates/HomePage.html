@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+</head>
+<body>
+
+<div class="header">
+  <h1>Welcome to Team 11</h1>
+  <p>Course Application Processing System</p>
+</div>
+
+<div class="topnav">
+  <a href="@{account/login}" style="float:right">Login</a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2>HightLight</h2>
+      <h5>2021/07/01</h5>
+      <div class="fakeimg" style="height:200px;"><img src="/image/NUS.PNG"></div>
+      <p>The Graduate Diploma in Systems Analysis programme (GDipSA) is designed for non-IT graduates intending to craft a new career path in the IT industry. IT graduates and professionals who wish to advance their careers in their current field and recognise the need to equip themselves with the latest IT knowledge and skills to stay relevant may apply as well.
+This is a full-time one-year programme. You can also explore the stackable pathway via the graduate certificate programme for Digital Solutions Development. This is a series of five certificates which will stack up toward the Graduate Diploma of Systems Analysis</p>
+      <table>
+      <tr>
+      <td><h3>Technical learning outcomes:</h3>
+      <ul>
+      <li>User experience design</li>
+      <li>Gather user requirements</li>
+      <li>Systematically analyse and design feasible IT solutions</li>
+      <li>Select the right technology</li>
+      <li>Agile and CI/CD Practices</li>
+      <li>Code, test and implement proposed solution in C#, ASP MVC, Java, Python and Android</li>
+      <li>Trouble-shoot problems</li>
+      </ul>
+      </td>
+      </tr>
+      <tr>
+      <td><h3>Non-technical learning outcomes:</h3>
+      <ul>
+      <li>Problem solving</li>
+      <li>Project management</li>
+      <li>Teamwork</li>
+      <li>Leadershipy</li>
+      </ul>
+      </td>
+      </tr>
+      </table>      
+    </div>
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>About Us</h2>
+      <div class="fakeimg" style="height:100px;">
+      <img src="/image/logo-T11CAPS.png">
+      </div>
+      <p>This CAPS software is a typical management information system for course enrolment and award of grades in academic institutions that has automated selective administrative functions.</p>
+    </div>
+    <div class="card">
+      <h3>Relevant Links</h3>
+      <div class="fakeimg"><a href="https://www.nus.edu.sg/"><img src="/image/logo-NUS.png"/></a></div>
+      <div class="fakeimg"><a href="https://www.iss.nus.edu.sg/"><img src="/image/logo-ISS.png"/></a></div>
+    </div>
+  </div>
+</div>
+
+<footer th:insert="fragements/general.html::footer"></footer>
+</body>
+</html>
