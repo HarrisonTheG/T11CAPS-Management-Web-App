@@ -27,7 +27,7 @@
 			<p th:text="${course.code} + ' ' + ${course.name}">Course Name</p>
 		</div>
 		
-        <form th:action="@{/lecturer/student-list}">
+        <form th:action="@{/admin/student-list}">
             <div class="input-group rounded">
                 <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
                     placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
@@ -35,6 +35,9 @@
                     <button class="fa fa-search" type="submit"></button>
                 </span>
             </div>
+                    	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
+    			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/course/add/'}" th:text="${'Add Course'}">Default text</a>
+			</div>
         </form>
     </section>
     
@@ -44,16 +47,22 @@
                 <tr>
                     <th class="th-sm">First Name
                     </th>
-                    <th class="th-sm">Surname</th>
-                     
-                    
+                    <th class="th-sm">Surname
+                    </th>
+                    <th class="th-sm">Manage Students
+                    </th>
                 </tr>
             </thead>
             <tbody>
 			<tr th:each="user : ${listStudents}">
-                	<td><a th:href="@{'/account/others/' + ${user.id}} "><span th:text="${user.firstname}"></span></a></td>
-                    <td><a th:href="@{'/account/others/' + ${user.id}} "><span th:text="${user.surname}"></span></a></td>
-                    
+                	<td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.firstname}"></span></a></td>
+                    <td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.surname}"></span></a></td>
+                    <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
+                    <td align="center" class="th-sm" >
+                        <a type="submit" class="btn btn-primary" style="margin:auto;" th:href="@{'/admin/edit/'+${user.id}}" th:text="${'Edit'}">Default text</a>
+                       	<a type="submit" class="btn btn-danger" style="margin:auto;" th:href="@{'/admin/delete/'+${user.id}}" th:text="${'Delete'}">Default text</a>
+                    </td>
+                    </div>
               </tr>
                 </tbody>
 

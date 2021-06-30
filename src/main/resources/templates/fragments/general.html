@@ -27,7 +27,7 @@
 						<li class="nav-item" style="flex-grow: 8"></li>
 						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" th:href="@{/account/logout}" style="font-size: 14px !important">
 						Log Out</a></li>
-						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-student.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>										
+<!-- 						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-student.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>										 -->
 					</ul>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 						<li class="nav-item" style="flex-grow: 8"></li>
 						<li class="nav-item" style="flex-grow: 1; text-align: right"><a class="nav-link" th:href="@{/account/logout}" style="font-size: 14px !important">
 						Log Out</a></li>
-						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-lecturer.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>	
+<!-- 						<li class="nav-item" style="flex-grow: 2"><img src='/image/logo-lecturer.png' align="right" width="100px" height="30px" Alt="Logo Picture"></IMG></li>	 -->
 						
 					</ul>
 				</div>
@@ -72,7 +72,7 @@
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							href="courses" th:href="@{/course/viewCourses}" style="font-size: 14px !important">Manage Courses</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
-							href="courses" style="font-size: 14px !important">Manage Students</a></li>
+							href="courses" th:href="@{/admin/student-list}" style="font-size: 14px !important">Manage Students</a></li>
 						<li class="nav-item" style="flex-grow: 1"><a class="nav-link"
 							href="courses" th:href="@{/lecturer/viewLecturers}" style="font-size: 14px !important">Manage Lecturers</a></li>
 						<li class="nav-item" style="flex-grow: 8"></li>
