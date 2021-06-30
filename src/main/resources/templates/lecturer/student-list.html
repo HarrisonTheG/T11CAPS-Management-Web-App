@@ -12,7 +12,7 @@
     <script src="/js/ListTableView.js"></script>
      <link rel="stylesheet" href="/css/bootstrap.css">
      
-     <script src="/js/searchStudents.js"></script>
+     <script src="/js/lecturerSearchStudents.js"></script>
     <title>Student List</title>
 </head>
 
@@ -21,13 +21,15 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
+	<input type="hidden" id="courseId" th:value="${course.id}" />
+	
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 		<div th:if="${course != null}">
 			<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
 			<p th:text="${course.code} + ' ' + ${course.name}">Course Name</p>
 		</div>
 		
-        <form th:action="@{/lecturer/student-list}">
+        <form th:action="@{/lecturer/} + ${course.id} + @{/student-list}">
             <div class="input-group rounded">
                 <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
                     placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
