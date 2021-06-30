@@ -44,7 +44,7 @@
             </thead>
             <tbody>
             	<tr th:each="student : ${students}">
-            	<td th:text="${student.user.firstname} + ' ' + ${student.user.surname}"></td>
+            	<td><a th:href="@{'/account/others/' + ${student.user.id}}"> <span th:text="${student.user.firstname} + ' ' + ${student.user.surname}"></span></a></td>
             	<td th:text="${student.course.credit}"></td>
                 <td th:with="grade=${student.grade}" th:text="(${grade==0.0})? 'N.A.' : ${grade}"></td>
 				<td><a th:href="@{/lecturer/}+${student.course.id}+@{/grade-student-list/edit/}+${student.id}" class="btn btn-primary">Edit</a>
