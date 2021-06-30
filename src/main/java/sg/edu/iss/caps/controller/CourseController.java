@@ -171,10 +171,10 @@ public class CourseController {
 		session.getAttribute("user");
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
-        List<User> listUsers = scService.listStudentsInCourse(course);
+        List<User> listUsers = scService.listStudentsInCourse(course, keyword);
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("keyword", keyword);
-		return "lecturer/student-list";
+		return "admin/course-student-list-nonEdit";
 	}
 
 	//Manage students
@@ -202,7 +202,7 @@ public class CourseController {
         Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
         //Add students in course
-        List<User> listStudentsInCourse = scService.listStudentsInCourse(course);
+        List<User> listStudentsInCourse = scService.listStudentsInCourse(course, keyword);
         model.addAttribute("students", listStudentsInCourse);
 		return "admin/course-student-list";
 	}
