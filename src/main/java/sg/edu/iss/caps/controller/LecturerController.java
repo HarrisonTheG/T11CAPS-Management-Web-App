@@ -82,7 +82,7 @@ public class LecturerController {
 
 	//Get list of students to grade for a course
 	@GetMapping("/{id}/grade-student-list")
-	public String gradeStudentList(Model model, HttpSession session,@PathVariable("id") int id) {
+	public String gradeStudentList(Model model, HttpSession session, @PathVariable("id") int id) {
 		session.getAttribute("user");
 		Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
