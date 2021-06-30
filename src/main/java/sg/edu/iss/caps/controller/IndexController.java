@@ -14,8 +14,7 @@ public class IndexController {
 	@GetMapping("")
 	public String login(Model model) {
 		
-		model.addAttribute("user", new LoginUser());
 		
-		return "LoginPage";
+		return "redirect:/account/login";
 	}
 }
