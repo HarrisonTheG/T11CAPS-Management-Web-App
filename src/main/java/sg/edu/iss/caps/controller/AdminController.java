@@ -38,6 +38,11 @@ public class AdminController {
 	public String viewProfile(HttpSession session, Model model) {
 
 		User user = (User) session.getAttribute("user");
+		//this is if the details are edited by admin
+		if(user!=null) {
+			user=userService.findUserById(user.getId());
+			session.setAttribute("user", user);
+		}
 		long start = user.getEnrollmentDate();
 		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 		return "Profile";
