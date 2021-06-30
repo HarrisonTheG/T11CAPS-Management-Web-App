@@ -16,7 +16,7 @@ public interface IStudentCourse {
 	public void removeStudentFromCourse(Course course, User user);
 	public void addLecturerToCourse(Course course, User user);
 	public void removeLecturerFromCourse(Course course, User user);
-	public List<User> listStudentsInCourse (Course course);
+	public List<User> listStudentsInCourse (Course course, String keyword);
 	public List<Student_Course> listStudentsGradesInCourse(Course course);
 	public void deleteStudentCourse(Course course);
 	public void editStudentsGradesInCourse(Student_Course studentCourse);

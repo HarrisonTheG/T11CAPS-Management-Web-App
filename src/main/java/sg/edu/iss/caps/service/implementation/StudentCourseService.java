@@ -65,8 +65,11 @@ import sg.edu.iss.caps.utility.UtilityManager;
 		}
 
 	  @Transactional
-	  public List<User> listStudentsInCourse(Course course){
-			  return screpo.listStudentsInCourse(course);
+	  public List<User> listStudentsInCourse(Course course, String keyword){
+		  if (keyword != null) {
+		  	return screpo.searchStudentsInCourse(course, keyword);
+		  }
+		  return screpo.listStudentsInCourse(course);
 	  }
 	  
 	  @Transactional
