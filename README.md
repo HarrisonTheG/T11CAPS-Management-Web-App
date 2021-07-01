@@ -15,7 +15,7 @@ Project is created with:
 To import and run this project, you will need Spring Tool Suite 4 and any tools that use MySQL such as HeidiSQL
 * Import project from Git in STS
 * Clone the URI from this repository https://github.com/HarrisonTheG/T11CAPS.git
-* Create application.properties file under Resources folder and include these properties.Include your own username and password for the connection to database
+* Create <b> application.properties </b> file under Resources folder and include these properties. Include your own username and password for the connection to MySQL database
 
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/t11caps?useSSL=false&serverTimezone=Asia/Singapore
@@ -51,3 +51,14 @@ USE t11caps;
 					
 ```
 * For subsequent runs, re-comment the codes to disable futher seeding of database
+
+## Logging In
+In the Seed Database, we created dummy names and details. As these is management system involving many identities, for testing purpose:
+1. Login as Students using: e0696695@u.nus.edu (Email) and 123 (password)
+2. Login as Lecturer using: Tin@nus.edu.sg (Email) and 123 (password)
+3. Login as Admin using: megan@nus.edu.sg (Email) and 123 (password)
+* they are case-sensitive
+
+##Email Notification
+Email Notification works only for STUDENT in the scenario of a successful course enrollment or dismissal of student enrollment by admin.
+For email notification to work, please modify the student's email to legitimate real email address or enrollment and dismissal will result in an error.
