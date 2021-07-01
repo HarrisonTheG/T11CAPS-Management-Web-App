@@ -34,11 +34,21 @@ public class AccountController {
 	}
 	
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(Model model,HttpSession session) {
+		User checklogin=(User) session.getAttribute("user");
+		if(checklogin!=null) {
+			model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(checklogin.getEnrollmentDate())));
+			return "Profile";
+		}
+			
 		
+			
+	
 		if (model.getAttribute("loginUser") == null) {
 		model.addAttribute("loginUser", new LoginUser());
 		}
+		
+	
 		
 		return "LoginPage";
 	}
@@ -65,12 +75,6 @@ public class AccountController {
 				//System.out.println(UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 				model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 			return "Profile";
-//			if(user.getRole() == RoleType.STUDENT)
-//				return "student/student-profile";
-//			else if(user.getRole() == RoleType.LECTURER)
-//				return "lecturer/lecturer-profile";
-//			else
-//				return "admin/admin-profile";
 		}
 		System.out.println(2);
 		model.addAttribute("errorMsg", "Information above is incorrect!");

@@ -17,4 +17,9 @@ public class IndexController {
 		
 		return "redirect:/account/login";
 	}
+	
+	@GetMapping("/error")
+	public String ErrorPage() {
+		return "error";
+	}
 }
