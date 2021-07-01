@@ -79,8 +79,7 @@
         
     </section>
 
-
-	<section>
+	<section th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}">
         <div class="text-content-style" style="color:seagreen;"> - You are a participant of this course! - </div>
     </section>
 	

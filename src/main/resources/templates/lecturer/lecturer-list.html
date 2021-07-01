@@ -14,8 +14,7 @@
     <script src="/js/searchLecturers.js"></script>
     
      <link rel="stylesheet" href="/css/bootstrap.css">
-    <title>Insert title here</title>
-<title>Insert title here</title>
+    <title>Lecturer List</title>
 </head>
 <body style="background-color: #e2e8f0" th:href="@{/css/ListTableView.css}">
 
@@ -35,7 +34,7 @@
                     <button class="fa fa-search" type="submit"></button>
                 </span>
             </div>
-        </form>
+        </form></br>
         
         <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
     		<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/admin/add/'}" th:text="${'Register Lecturer'}">Default text</a>

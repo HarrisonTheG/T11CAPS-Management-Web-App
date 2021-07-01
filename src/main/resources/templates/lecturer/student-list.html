@@ -21,7 +21,7 @@
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
 
-	<input type="hidden" id="courseId" th:value="${course.id}" />
+	<input type="hidden" id="courseId" th:value="${course?.id}" />
 	
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
 		<div th:if="${course != null}">
@@ -29,7 +29,7 @@
 			<p th:text="${course.code} + ' ' + ${course.name}">Course Name</p>
 		</div>
 		
-        <form th:action="@{/lecturer/} + ${course.id} + @{/student-list}">
+        <form th:if="${course != null}" th:action="@{/lecturer/} + ${course.id} + @{/student-list}">
             <div class="input-group rounded">
                 <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
                     placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
@@ -38,6 +38,17 @@
                 </span>
             </div>
         </form>
+        
+        <form th:unless="${course != null}" th:action="@{/lecturer/student-list}">
+            <div class="input-group rounded">
+                <input th:value="${keyword}" required type="text" name="keyword" id="keyword" class="form-control rounded"
+                    placeholder="Search for student" aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <button class="fa fa-search" type="submit"></button>
+                </span>
+            </div>
+        </form>
+        
     </section>
     
 <div class="container-style tableFixHead">
