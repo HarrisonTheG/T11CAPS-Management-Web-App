@@ -52,7 +52,7 @@ public class AdminController {
 	//Add new user
 		@RequestMapping("/add")
 		public String addUser(Model model, HttpSession session) {
-			session.getAttribute("user");
+			User user=(User)session.getAttribute("user");
 			model.addAttribute("user",new EditUserDto());
 			return "admin/addUserForm";
 		}
