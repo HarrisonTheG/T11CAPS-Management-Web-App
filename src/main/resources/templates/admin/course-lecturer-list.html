@@ -55,9 +55,9 @@
                 	<td th:text="${user.surname}"></td>
                 	<td>
                 		<span th:unless="${#lists.contains(lecturers, user)}">
-                			<a href="AddLecturer.html" th:href="@{~/course/}+${course.id}+@{/addLecturerToCourse/}+${user.id}">Add</a></span>
+                			<a href="AddLecturer.html" th:href="@{~/course/}+${course.id}+@{/addLecturerToCourse(msgHeader=#{email.header.enroll.lecturer}, msgBody=#{email.body.enroll.lecturer(${user.firstname}, ${course.code})}, uid=${user.id})}">Add</a></span>
                			<span th:if="${#lists.contains(lecturers, user)}">
-                			<a href="DeleteLecturer.html" th:href="@{~/course/}+${course.id}+@{/deleteLecturerFromCourse/}+${user.id}">Delete</a></span>
+                			<a href="DeleteLecturer.html" th:href="@{~/course/}+${course.id}+@{/deleteLecturerFromCourse(msgHeader=#{email.header.dismiss.lecturer}, msgBody=#{email.body.dismiss.lecturer(${user.firstname}, ${course.code})}, uid=${user.id})}">Delete</a></span>
                 	</td>	
               </tr>
                 </tbody>
