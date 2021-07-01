@@ -364,24 +364,30 @@ public class DbSeeding {
 		Student_Course sc1=new Student_Course();
 		sc1.setCourse(crepo.getById(1));
 		sc1.setUser(urepo.getById(1));
+		sc1.setGrade(88);
 		Student_Course sc2=new Student_Course();
 		sc2.setCourse(crepo.getById(1));
 		sc2.setUser(urepo.getById(2));
+		sc2.setGrade(76);
 		Student_Course sc3=new Student_Course();
 		sc3.setCourse(crepo.getById(1));
 		sc3.setUser(urepo.getById(3));
+		sc3.setGrade(55);
 
 		screpo.save(sc1);screpo.save(sc2); screpo.save(sc3);
 		//set student for course 2
 		Student_Course sc4=new Student_Course();
 		sc4.setCourse(crepo.getById(2));
 		sc4.setUser(urepo.getById(1));
+		sc4.setGrade(92);
 		Student_Course sc5=new Student_Course();
 		sc5.setCourse(crepo.getById(2));
 		sc5.setUser(urepo.getById(2));
+		sc5.setGrade(53);
 		Student_Course sc6=new Student_Course();
 		sc6.setCourse(crepo.getById(2));
 		sc6.setUser(urepo.getById(3));
+		sc6.setGrade(85);
 		
 		screpo.save(sc4);screpo.save(sc5); screpo.save(sc6);
 		
@@ -389,12 +395,15 @@ public class DbSeeding {
 		Student_Course sc7=new Student_Course();
 		sc7.setCourse(crepo.getById(3));
 		sc7.setUser(urepo.getById(1));
+		sc7.setGrade(77);
 		Student_Course sc8=new Student_Course();
 		sc8.setCourse(crepo.getById(3));
 		sc8.setUser(urepo.getById(2));
+		sc8.setGrade(50);
 		Student_Course sc9=new Student_Course();
 		sc9.setCourse(crepo.getById(3));
 		sc9.setUser(urepo.getById(3));
+		sc9.setGrade(62);
 
 		screpo.save(sc7);screpo.save(sc8); screpo.save(sc9);
 		
@@ -402,12 +411,15 @@ public class DbSeeding {
 		Student_Course sc10=new Student_Course();
 		sc10.setCourse(crepo.getById(4));
 		sc10.setUser(urepo.getById(1));
+		sc10.setGrade(95);
 		Student_Course sc11=new Student_Course();
 		sc11.setCourse(crepo.getById(4));
 		sc11.setUser(urepo.getById(2));
+		sc11.setGrade(43);
 		Student_Course sc12=new Student_Course();
 		sc12.setCourse(crepo.getById(4));
 		sc12.setUser(urepo.getById(3));
+		sc12.setGrade(65);
 
 		screpo.save(sc10);screpo.save(sc11); screpo.save(sc12);
 		
