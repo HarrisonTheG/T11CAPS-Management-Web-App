@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -30,9 +31,8 @@ public class EditUserDto {
 	
 	
 	private int id;
-	@NotBlank
-	private String code;
 	@Size(max=30) @NotBlank
+	@Valid
 	private String firstname;
 	@Size(max=30) @NotBlank
 	private String surname;
@@ -42,13 +42,14 @@ public class EditUserDto {
 	private String password;
 	@URL
 	private String imgUrl;
+	@NotBlank
 	private String enrollmentDate;
 	private RoleType role;
 	
 	private List<Course> Course;
 	
 	public EditUserDto(@NotBlank String firstname, @NotBlank String surname, @Email String email, @NotBlank String password,
-			@URL String imgUrl, String enrollmentDate, @NotBlank String code, RoleType role) {
+			@URL String imgUrl, String enrollmentDate, RoleType role) {
 		super();
 		this.firstname = firstname;
 		this.surname = surname;
@@ -57,22 +58,10 @@ public class EditUserDto {
 		this.imgUrl = imgUrl;
 		this.enrollmentDate = enrollmentDate;
 		this.role = role;
-		this.code = code;
 	}
 	
 	public EditUserDto() {
 		super();
-	}
-
-	
-
-	public String getCode() {
-		return code;
-	}
-
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 	

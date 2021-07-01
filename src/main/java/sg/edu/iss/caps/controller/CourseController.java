@@ -96,11 +96,16 @@ public class CourseController {
 	@GetMapping("/add")
 	public String AddCourse(Model model,HttpSession session) {
 		session.getAttribute("user");
+		model.addAttribute("course",new EditCourseDto());
 		return "admin/addCourse";
 	}
 	
 	@PostMapping("/add")
 	public String AddCourse(@ModelAttribute("course") @Valid EditCourseDto addCourseDto,BindingResult bindingResult,Model model) throws ParseException {
+		if(bindingResult.hasErrors()){
+			return "admin/addCourse";
+		}
+		
 		courseService.AddCourse(addCourseDto);
 		return"admin/AddSuccess";
 	}
