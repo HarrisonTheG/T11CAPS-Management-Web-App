@@ -95,7 +95,7 @@ public class DbSeeding {
 		u7.setFirstname("Megan");
 		u7.setEmail("megan@nus.edu.sg");
 		u7.setEnrollmentDate(epoch);
-		u7.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar7.png");
+		u7.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
 		u7.setRole(RoleType.ADMIN);
 		u7.setSurname("Lee");
 		u7.setPassword("123");
@@ -128,9 +128,100 @@ public class DbSeeding {
 		u10.setSurname("Zhang");
 		u10.setPassword("123");
 		
+		User u11=new User();
+		u11.setFirstname("Vanessa");
+		u11.setEmail("vanessalim@nus.edu.sg");
+		u11.setEnrollmentDate(epoch);
+		u11.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar11.png");
+		u11.setRole(RoleType.STUDENT);
+		u11.setSurname("Lim");
+		u11.setPassword("123");
+		
+		User u12=new User();
+		u12.setFirstname("Kimberly");
+		u12.setEmail("kimberlytan@nus.edu.sg");
+		u12.setEnrollmentDate(epoch);
+		u12.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
+		u12.setRole(RoleType.STUDENT);
+		u12.setSurname("Tan");
+		u12.setPassword("123");
+		
+		User u13=new User();
+		u13.setFirstname("Sarah");
+		u13.setEmail("sarahlee@nus.edu.sg");
+		u13.setEnrollmentDate(epoch);
+		u13.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
+		u13.setRole(RoleType.STUDENT);
+		u13.setSurname("Lee");
+		u13.setPassword("123");
+		
+		User u14=new User();
+		u14.setFirstname("Vallei");
+		u14.setEmail("valleichopra@nus.edu.sg");
+		u14.setEnrollmentDate(epoch);
+		u14.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
+		u14.setRole(RoleType.STUDENT);
+		u14.setSurname("Chopra");
+		u14.setPassword("123");
+		
+		User u15=new User();
+		u15.setFirstname("Nadia");
+		u15.setEmail("nadiaahmed@nus.edu.sg");
+		u15.setEnrollmentDate(epoch);
+		u15.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
+		u15.setRole(RoleType.STUDENT);
+		u15.setSurname("Ahmed");
+		u15.setPassword("123");
+		
+		User u16=new User();
+		u16.setFirstname("Rahul");
+		u16.setEmail("rahulvaidya@nus.edu.sg");
+		u16.setEnrollmentDate(epoch);
+		u16.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar1.png");
+		u16.setRole(RoleType.STUDENT);
+		u16.setSurname("Vaidya");
+		u16.setPassword("123");
+		
+		User u17=new User();
+		u17.setFirstname("Bo Gum");
+		u17.setEmail("parkbogum@nus.edu.sg");
+		u17.setEnrollmentDate(epoch);
+		u17.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar1.png");
+		u17.setRole(RoleType.STUDENT);
+		u17.setSurname("Park");
+		u17.setPassword("123");
+		
+		User u18=new User();
+		u18.setFirstname("Aziz");
+		u18.setEmail("azizansari@nus.edu.sg");
+		u18.setEnrollmentDate(epoch);
+		u18.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar1.png");
+		u18.setRole(RoleType.STUDENT);
+		u18.setSurname("Ansari");
+		u18.setPassword("123");
+		
+		User u19=new User();
+		u19.setFirstname("Henry");
+		u19.setEmail("henryliu@nus.edu.sg");
+		u19.setEnrollmentDate(epoch);
+		u19.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar1.png");
+		u19.setRole(RoleType.STUDENT);
+		u19.setSurname("Liu");
+		u19.setPassword("123");
+		
+		User u20=new User();
+		u20.setFirstname("Hasan");
+		u20.setEmail("hasanafzal@nus.edu.sg");
+		u20.setEnrollmentDate(epoch);
+		u20.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar1.png");
+		u20.setRole(RoleType.STUDENT);
+		u20.setSurname("Afzal");
+		u20.setPassword("123");
 		
 		urepo.save(u1);urepo.save(u2);urepo.save(u3);urepo.save(u4);urepo.save(u5);urepo.save(u6);urepo.save(u7);
 		urepo.save(u8);urepo.save(u9);urepo.save(u10);
+		urepo.save(u11);urepo.save(u12);urepo.save(u13);urepo.save(u14);urepo.save(u15);
+		urepo.save(u16);urepo.save(u17);urepo.save(u18);urepo.save(u19);urepo.save(u20);
 		//Start Date of Sem1 and 2
 		LocalDateTime Sem1ModuleStart=LocalDateTime.of(2021,2,1,0,0,0);
 		LocalDateTime Sem2ModuleStart=LocalDateTime.of(2021,5,1,0,0,0);
@@ -256,6 +347,15 @@ public class DbSeeding {
 		c10.setName("SQL and Databases");
 		crepo.save(c10);		
 		
+		Course c11=new Course();
+		c11.setCredit(4);
+		c11.setDescription("This module teaches Students the common principles and concepts in computer systems");
+		c11.setCode("SA4115");
+		c11.setStartDate(Sem2EpochStart);
+		c11.setEndDate(Sem2EpochEnd);
+		c11.setMaxSize(3);
+		c11.setName("Computer Systems and Applications");
+		crepo.save(c11);	
 	}
 	
 	@Transactional
@@ -264,24 +364,30 @@ public class DbSeeding {
 		Student_Course sc1=new Student_Course();
 		sc1.setCourse(crepo.getById(1));
 		sc1.setUser(urepo.getById(1));
+		sc1.setGrade(88);
 		Student_Course sc2=new Student_Course();
 		sc2.setCourse(crepo.getById(1));
 		sc2.setUser(urepo.getById(2));
+		sc2.setGrade(76);
 		Student_Course sc3=new Student_Course();
 		sc3.setCourse(crepo.getById(1));
 		sc3.setUser(urepo.getById(3));
+		sc3.setGrade(55);
 
 		screpo.save(sc1);screpo.save(sc2); screpo.save(sc3);
 		//set student for course 2
 		Student_Course sc4=new Student_Course();
 		sc4.setCourse(crepo.getById(2));
 		sc4.setUser(urepo.getById(1));
+		sc4.setGrade(92);
 		Student_Course sc5=new Student_Course();
 		sc5.setCourse(crepo.getById(2));
 		sc5.setUser(urepo.getById(2));
+		sc5.setGrade(53);
 		Student_Course sc6=new Student_Course();
 		sc6.setCourse(crepo.getById(2));
 		sc6.setUser(urepo.getById(3));
+		sc6.setGrade(85);
 		
 		screpo.save(sc4);screpo.save(sc5); screpo.save(sc6);
 		
@@ -289,12 +395,15 @@ public class DbSeeding {
 		Student_Course sc7=new Student_Course();
 		sc7.setCourse(crepo.getById(3));
 		sc7.setUser(urepo.getById(1));
+		sc7.setGrade(77);
 		Student_Course sc8=new Student_Course();
 		sc8.setCourse(crepo.getById(3));
 		sc8.setUser(urepo.getById(2));
+		sc8.setGrade(50);
 		Student_Course sc9=new Student_Course();
 		sc9.setCourse(crepo.getById(3));
 		sc9.setUser(urepo.getById(3));
+		sc9.setGrade(62);
 
 		screpo.save(sc7);screpo.save(sc8); screpo.save(sc9);
 		
@@ -302,12 +411,15 @@ public class DbSeeding {
 		Student_Course sc10=new Student_Course();
 		sc10.setCourse(crepo.getById(4));
 		sc10.setUser(urepo.getById(1));
+		sc10.setGrade(95);
 		Student_Course sc11=new Student_Course();
 		sc11.setCourse(crepo.getById(4));
 		sc11.setUser(urepo.getById(2));
+		sc11.setGrade(43);
 		Student_Course sc12=new Student_Course();
 		sc12.setCourse(crepo.getById(4));
 		sc12.setUser(urepo.getById(3));
+		sc12.setGrade(65);
 
 		screpo.save(sc10);screpo.save(sc11); screpo.save(sc12);
 		
