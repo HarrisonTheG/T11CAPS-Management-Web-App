@@ -13,7 +13,7 @@ Project is created with:
 	
 ## Setup
 To import and run this project, you will need Spring Tool Suite 4 and HeidiSQL.
-* Import project from Git
+* Import project from Git in STS
 * Clone the URI from this repository https://github.com/HarrisonTheG/T11CAPS.git
 * Create application.properties file under Resources folder and include these properties.Include your own username and password for the connection to database.
 
