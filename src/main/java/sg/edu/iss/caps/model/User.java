@@ -111,13 +111,22 @@ public class User {
 
 
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstname=" + firstname + ", surname=" + surname + ", email=" + email + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", firstname=" + firstname + ", surname=" + surname + ", email=" + email + "]";
+//	}
+	
 
 	public String getImgUrl() {
 		return imgUrl;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstname=" + firstname + ", surname=" + surname + ", email=" + email
+				+ ", password=" + password + ", imgUrl=" + imgUrl + ", enrollmentDate=" + enrollmentDate + "]";
 	}
 
 	public void setImgUrl(String imgUrl) {
@@ -144,4 +153,16 @@ public class User {
 		this.Course.remove(course);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof User) {
+			User user=(User)obj;
+			if(user.getId()==this.getId()&&user.getFirstname().equals(getFirstname())&&user.getSurname().equals(this.getSurname())
+					&&user.getEmail().equals(this.getEmail())&&user.getPassword().equals(this.getPassword())&&user.getImgUrl().equals(this.getImgUrl())
+					&&user.getEnrollmentDate()==this.getEnrollmentDate())
+				
+			return true;
+		}
+		return false;
+	}
 }
