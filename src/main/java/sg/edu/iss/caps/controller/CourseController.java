@@ -251,7 +251,7 @@ public class CourseController {
 			return "Error";
 		}
 		
-		return "forward:/course/"+cid+"/lecturer-list";
+		return "forward:/course/"+cid+"/edit-lecturer-list";
 	}
 
 	@GetMapping(value = "/{cid}/deleteLecturerFromCourse")
@@ -268,7 +268,7 @@ public class CourseController {
 		return "Error";
 		}
 
-		return "forward:/course/"+cid+"/lecturer-list";
+		return "forward:/course/"+cid+"/edit-lecturer-list";
 	}
 
 	@GetMapping("/{cid}/edit-lecturer-list")
