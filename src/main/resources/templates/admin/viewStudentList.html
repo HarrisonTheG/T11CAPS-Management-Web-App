@@ -35,6 +35,7 @@
                     <button class="fa fa-search" type="submit"></button>
                 </span>
             </div>
+            </br>
                     	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
     			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/admin/add'}" th:text="${'Register Student'}">Default text</a>
 			</div></br>
@@ -45,18 +46,24 @@
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                	<th class="th-sm">#
+                    </th>
                     <th class="th-sm">First Name
                     </th>
                     <th class="th-sm">Surname
                     </th>
-                    <th class="th-sm col-sm-3" >Manage Students
+                    <th class="th-sm">Email
+                    </th>
+                    <th class="th-sm col-sm-2" >Manage Students
                     </th>
                 </tr>
             </thead>
             <tbody>
-			<tr th:each="user : ${listStudents}">
-                	<td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.firstname}"></span></a></td>
-                    <td><a th:href="@{'/course/studentCourses/' + ${user.id}} "><span th:text="${user.surname}"></span></a></td>
+			<tr th:each="user , iter:${listStudents}">
+					<td th:text="${iter.index+1}">1</td>
+                	<td><a><span th:text="${user.firstname}"></span></a></td>
+                    <td><a><span th:text="${user.surname}"></span></a></td>
+                    <td><a><span th:text="${user.email}"></span></a></td>
                     <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
                     <td align="center" class="th-sm" >
                         <a type="submit" class="btn btn-primary" style="margin:auto;" th:href="@{'/admin/edit/'+${user.id}}" th:text="${'Edit'}">Default text</a>

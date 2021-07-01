@@ -24,32 +24,60 @@
                     <h3 class="text-on-pannel text-primary"><strong class="text-uppercase"> Add New Course </strong></h3>
                     <form th:action="@{/course/add}" method="post" th:object=${course}>
                         <label style="display:inline-block;width:200px">Course Code:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="code"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="code" th:field="*{code}"  placeholder="SA5101"
                         ></br>
-
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>
+                         
                          <label style="display:inline-block;width:200px">Course Name:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="name"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="name" th:field="*{name}"  placeholder="Web Application Development"
                          ></br>
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>
 
                          <label style="display:inline-block;width:200px">Description:</label>
-                        <textarea type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id="" name="description"
+                        <textarea type="text" style="display:inline-block;width:200px" cols="5" wrap="soft" id="" name="description" th:field="*{description}"  placeholder="Sample Description"
                          ></textarea></br>
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>
 
                          <label style="display:inline-block;width:200px">Credits:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="credit"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="credit" th:field="*{credit}"
                          ></br>
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('credit')}" th:errors="*{credit}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>                         
 
                          <label style="display:inline-block;width:200px">Maximum Class Size:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="maxSize"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="maxSize" th:field="*{maxSize}"
                         ></br>
+						<div>
+                  			<a th:if="${#fields.hasErrors('maxSize')}" th:errors="*{maxSize}"></a>
+             				<a th:text="${maxSize}"><br></a>
+             			</div>                                             
 
                         <label style="display:inline-block;width:200px">StartDate:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="startDate" placeholder="dd/mm/yyyy"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="startDate" placeholder="dd/mm/yyyy" th:field="*{startDate}"
                          ></br>
-
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>
                          <label style="display:inline-block;width:200px">End Date:</label>
-                        <input type="text" style="display:inline-block;width:200px" id="" name="endDate" placeholder="dd/mm/yyyy"
+                        <input type="text" style="display:inline-block;width:200px" id="" name="endDate" placeholder="dd/mm/yyyy" th:field="*{endDate}"
                          ></br>
+                  		<div>
+                  			<a th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></a>
+             				<a th:text="${errorMsg}"><br></a>
+             			</div>                         
+                         
 						<input type="submit" class="btn btn-primary" value="Add Course">
             			<a class="btn btn-primary" href="/course/viewCourses">Back to Course List</a>
                     </form>

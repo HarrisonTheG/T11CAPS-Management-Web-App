@@ -109,6 +109,7 @@ public class UserService implements IUser,ILecturer {
 		edituser.setEmail(editUserDto.getEmail());
 		edituser.setImgUrl(editUserDto.getImgUrl());
 		edituser.setPassword(editUserDto.getPassword());
+		edituser.setRole(editUserDto.getRole());
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		  Date enrollmentDate = dateFormat.parse(editUserDto.getEnrollmentDate());
@@ -133,9 +134,9 @@ public class UserService implements IUser,ILecturer {
 		  newuser.setImgUrl(adduserDto.getImgUrl());
 		  newuser.setPassword(adduserDto.getPassword());
 		  
-		  String role = adduserDto.getRole();
-		  RoleType roletype = RoleType.valueOf(role.toUpperCase());
-		  newuser.setRole(roletype);
+		  RoleType role = adduserDto.getRole();
+		  //RoleType roletype = RoleType.valueOf(role.toUpperCase());
+		  newuser.setRole(role);
 		  
 		  DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		  Date enrollmentDate = dateFormat.parse(adduserDto.getEnrollmentDate());

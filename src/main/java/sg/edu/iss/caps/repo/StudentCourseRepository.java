@@ -20,6 +20,8 @@ public interface StudentCourseRepository extends JpaRepository<Student_Course, I
 	@Query("Select s.user from Student_Course s WHERE s.course = ?1")
 	public List<User> listStudentsInCourse(Course course);
 	
+	@Query("Select s.user from Student_Course s JOIN s.user u WHERE s.course = ?1 AND CONCAT(u.firstname, ' ', u.surname, ' ', u.email) LIKE %?2%")
+	public List<User> searchStudentsInCourse(Course course, String keyword);
 	
 	@Query("Select s from Student_Course s WHERE s.course = ?1")
 	public List<Student_Course> listStudentsGradesInCourse(Course course);

@@ -9,6 +9,8 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.commons.math3.util.Precision;
+
 public class UtilityManager {
 	  
 	public static String checkIdentity(User user, String identity) {
@@ -33,7 +35,7 @@ public class UtilityManager {
 			
 			grades+=course.getGrade()/100 * course.getCourse().getCredit();
 		}
-		return grades/credits * 5.0;
+		return Precision.round(grades/credits * 5.0,2);
 	}
 	
 	public static String CalculateCourseDuration (long start, long end) {

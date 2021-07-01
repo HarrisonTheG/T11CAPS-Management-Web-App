@@ -74,7 +74,7 @@ public class LecturerController {
 	public String viewCourseStudentList(HttpSession session, Model model,@PathVariable("cid") int cid, @Param("keyword") String keyword) {
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
-		List<User> listStudentsCourse = scService.listStudentsInCourse(course);
+		List<User> listStudentsCourse = scService.listStudentsInCourse(course, keyword);
         model.addAttribute("listStudents", listStudentsCourse);
         model.addAttribute("keyword", keyword);
 		return "lecturer/student-list";

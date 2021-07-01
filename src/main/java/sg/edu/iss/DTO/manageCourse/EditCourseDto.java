@@ -30,8 +30,11 @@ public class EditCourseDto {
 	private String description;
 	@Range(min=1, max=5)
 	private int credit;
+	@Range(min=1, max=3)
 	private int maxSize;
+	@NotBlank
 	private String startDate;
+	@NotBlank
 	private String endDate;
 
 	private List<Student_Course> studentCourses;
