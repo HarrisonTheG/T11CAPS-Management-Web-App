@@ -35,7 +35,7 @@
                     <button class="fa fa-search" type="submit"></button>
                 </span>
             </div>
-        </form>
+        </form></br>
         
         	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
     			<a type="submit" class="btn btn-success float-right" style="margin:auto;" th:href="@{'/course/add/'}" th:text="${'Add Course'}">Default text</a>
