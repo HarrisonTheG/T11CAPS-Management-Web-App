@@ -191,9 +191,13 @@ public class CourseController {
 		session.getAttribute("user");
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		
+		try {
 		User student = userService.findUserById(sid);
 		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
 		userService.sendEmailNotification(mail);
+		} catch (Exception e) {
+			return "Error";
+		}
 		
 		return "forward:/course/"+cid+"/student-list";
 	}
@@ -204,9 +208,13 @@ public class CourseController {
 		session.getAttribute("user");
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		
+		try {
 		User student = userService.findUserById(sid);
 		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
 		userService.sendEmailNotification(mail);
+		}catch (Exception e) {
+			return "Error";
+		}
 		
 		return "forward:/course/"+cid+"/student-list";
 	}
@@ -227,19 +235,39 @@ public class CourseController {
 	}
 
 	// Manage lecturers
-	@GetMapping(value = "/{cid}/addLecturerToCourse/{uid}")
-	public String addLecturerToCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+	@GetMapping(value = "/{cid}/addLecturerToCourse")
+	public String addLecturerToCourse(@PathVariable("cid") int cid, @RequestParam("uid") int uid, HttpSession session,
+			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
 		session.getAttribute("user");
 		List<User> lecturer = new ArrayList<User>();
 		lecturer.add(userService.findLecturerById(uid));
 		courseService.addLecturerToCourse(lecturer, cid);
+		
+		try {
+		User lecture = userService.findUserById(uid);
+		MailVo mail=new MailVo("PCXGudrew@163.com", lecture.getEmail(), header, body);
+		userService.sendEmailNotification(mail);
+		} catch (Exception e) {
+			return "Error";
+		}
+		
 		return "forward:/course/"+cid+"/lecturer-list";
 	}
 
-	@GetMapping(value = "/{cid}/deleteLecturerFromCourse/{uid}")
-	public String deleteLecturerFromCourse(@PathVariable("cid") int cid, @PathVariable("uid") int uid, HttpSession session) {
+	@GetMapping(value = "/{cid}/deleteLecturerFromCourse")
+	public String deleteLecturerFromCourse(@PathVariable("cid") int cid, @RequestParam("uid") int uid, HttpSession session,
+			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
 		session.getAttribute("user");
 		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
+		
+		try {
+		User lecture = userService.findUserById(uid);
+		MailVo mail=new MailVo("PCXGudrew@163.com", lecture.getEmail(), header, body);
+		userService.sendEmailNotification(mail);
+		} catch (Exception e) {
+		return "Error";
+		}
+
 		return "forward:/course/"+cid+"/lecturer-list";
 	}
 
