@@ -48,16 +48,16 @@ public class DbSeeding {
 		
 		User u2=new User();
 		u2.setFirstname("Harrison");
-		u2.setEmail("Harrison@nus.edu.sg");
+		u2.setEmail("e0696695@u.nus.edu");
 		u2.setEnrollmentDate(epoch);
 		u2.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar2.png");
 		u2.setRole(RoleType.STUDENT);
-		u2.setSurname("Gonaewan");
+		u2.setSurname("Goenawan");
 		u2.setPassword("123");
 		
 		User u3=new User();
 		u3.setFirstname("Wan Ling");
-		u3.setEmail("WanLing@nus.edu.sg");
+		u3.setEmail("e0004981@u.nus.edu");
 		u3.setEnrollmentDate(epoch);
 		u3.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar3.png");
 		u3.setRole(RoleType.STUDENT);
@@ -70,7 +70,7 @@ public class DbSeeding {
 		u4.setEnrollmentDate(epoch);
 		u4.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar4.png");
 		u4.setRole(RoleType.LECTURER);
-		u4.setSurname("Ngyuen");
+		u4.setSurname("Nguyen");
 		u4.setPassword("123");
 		
 		User u5=new User();
@@ -83,8 +83,8 @@ public class DbSeeding {
 		u5.setPassword("123");
 		
 		User u6=new User();
-		u6.setFirstname("Feliciatas");
-		u6.setEmail("Feliciatas@nus.edu.sg");
+		u6.setFirstname("Felicitas");
+		u6.setEmail("Felicitas@nus.edu.sg");
 		u6.setEnrollmentDate(epoch);
 		u6.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar6.png");
 		u6.setRole(RoleType.LECTURER);

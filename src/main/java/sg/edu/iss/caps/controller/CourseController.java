@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.iss.DTO.manageCourse.EditCourseDto;
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.MailVo;
 import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ICourse;
@@ -183,17 +185,29 @@ public class CourseController {
 	}
 
 	//Manage students
-	@GetMapping(value = "/{cid}/addStudentToCourse/{sid}")
-	public String addStudentToCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+	@GetMapping(value = "/{cid}/addStudentToCourse")
+	public String addStudentToCourse(@PathVariable("cid") int cid, @RequestParam("sid") int sid, HttpSession session, 
+			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
 		session.getAttribute("user");
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
+		
+		User student = userService.findUserById(sid);
+		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
+		userService.sendEmailNotification(mail);
+		
 		return "forward:/course/"+cid+"/student-list";
 	}
 
-	@GetMapping(value = "/{cid}/deleteStudentFromCourse/{sid}")
-	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @PathVariable("sid") int sid, HttpSession session) {
+	@GetMapping(value = "/{cid}/deleteStudentFromCourse")
+	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @RequestParam("sid") int sid, HttpSession session,
+			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
 		session.getAttribute("user");
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
+		
+		User student = userService.findUserById(sid);
+		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
+		userService.sendEmailNotification(mail);
+		
 		return "forward:/course/"+cid+"/student-list";
 	}
 

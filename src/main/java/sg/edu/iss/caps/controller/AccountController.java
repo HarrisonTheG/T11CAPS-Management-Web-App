@@ -40,9 +40,7 @@ public class AccountController {
 			model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(checklogin.getEnrollmentDate())));
 			return "Profile";
 		}
-			
-		
-			
+
 	
 		if (model.getAttribute("loginUser") == null) {
 		model.addAttribute("loginUser", new LoginUser());
