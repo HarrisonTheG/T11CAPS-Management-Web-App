@@ -12,10 +12,10 @@ Project is created with:
 
 	
 ## Setup
-To import and run this project, you will need Spring Tool Suite 4 and HeidiSQL.
+To import and run this project, you will need Spring Tool Suite 4 and HeidiSQL
 * Import project from Git in STS
 * Clone the URI from this repository https://github.com/HarrisonTheG/T11CAPS.git
-* Create application.properties file under Resources folder and include these properties.Include your own username and password for the connection to database.
+* Create application.properties file under Resources folder and include these properties.Include your own username and password for the connection to database
 
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/t11caps?useSSL=false&serverTimezone=Asia/Singapore
@@ -38,15 +38,16 @@ spring.mail.properties.mail.smtp.socketFactory.port = 465
 spring.mail.properties.mail.smtp.socketFactory.class = javax.net.ssl.SSLSocketFactory
 spring.mail.properties.mail.smtp.socketFactory.fallback = false   
 ```
-* Create database query in HeidiSQL using this code.
+* Create database query in HeidiSQL using this code
 ```
 CREATE SCHEMA t11caps;
 USE t11caps;
 ```
-* In T11CapsApplication file, uncomment these codes only once and run application.
+* In T11CapsApplication file, uncomment these codes only once to seed the database to run application
 
 ```
 //DbSeeding.SeedDBWithUsersAndCourses();
 //DbSeeding.SeedDBforCoursesTeachedandEnrolled();
 					
 ```
+* For subsequent runs, re-comment the codes to disable futher seeding of database
