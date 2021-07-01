@@ -55,7 +55,10 @@
             		</div>
                     <div th:if="${user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}">
             			<a class="btn btn-primary" href="/lecturer/viewLecturers">Back to Student List</a>
-            		</div>            		
+            		</div> 
+                    <div th:if="${user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}">
+            			<a class="btn btn-primary" href="/admin/profile">Back to My Profile</a>
+            		</div>            		            		           		
                 </div>
             </div>
         </div>

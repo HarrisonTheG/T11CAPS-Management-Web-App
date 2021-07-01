@@ -53,8 +53,10 @@
                     </th>
                     <th class="th-sm">Last Name
                     </th>
+                    <th class="th-sm">Email
+                    </th>
                     <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
-                    <th class="th-sm col-sm-3">Manage Lecturer</th>
+                    <th class="th-sm col-sm-2">Manage Lecturer</th>
                     </div>
                 </tr>
             </thead>
@@ -63,6 +65,7 @@
                     <td th:text="${iter.index+1}">1</td>
                     <td th:text="${lecturer.firstname}"></td>
                 	<td th:text="${lecturer.surname}">
+                	<td th:text="${lecturer.email}">
                     <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}">
                     	<td class="th-sm">
                         <a type="submit" class="btn btn-primary" style="margin:auto;" th:href="@{'/admin/edit/'+${lecturer.id}}" th:text="${'Edit'}">Edit</a>

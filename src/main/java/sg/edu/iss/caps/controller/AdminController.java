@@ -53,14 +53,18 @@ public class AdminController {
 		@RequestMapping("/add")
 		public String addUser(Model model, HttpSession session) {
 			session.getAttribute("user");
+			model.addAttribute("user",new EditUserDto());
 			return "admin/addUserForm";
 		}
 
 		@PostMapping("/saveNewUser")
 		public String saveNewUser(@ModelAttribute("user") @Valid EditUserDto addUserDto, BindingResult bindingResult, Model model) throws ParseException {
+			if(bindingResult.hasErrors()) {
+				return "admin/addUserForm";
+			}
 			if(addUserDto.getRole()==null)
 				addUserDto.setRole(RoleType.STUDENT);
-			userService.AddUser(addUserDto);
+			userService.AddUser(addUserDto);						
 			return "admin/addUserSuccess";
 		}
 
