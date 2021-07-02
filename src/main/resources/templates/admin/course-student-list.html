@@ -67,7 +67,7 @@
                 	   <span th:if="${#lists.contains(students, user)}">
                 			<a href="DeleteStudent.html" th:href="@{~/course/}+${course.id}+@{/deleteStudentFromCourse/(msgHeader=#{email.header.dismiss}, msgBody=#{email.body.dismiss(${user.firstname}, ${course.code})}, sid=${user.id})}">Delete</a></span>
                		 <span th:unless="${#lists.contains(students, user)}">
-               			<a th:text="'Unable to add, Class size is at Max Size.'"></a></span>
+               			<a th:text="'Unable to add student, class is full.'"></a></span>
                			
                		</span>
   
