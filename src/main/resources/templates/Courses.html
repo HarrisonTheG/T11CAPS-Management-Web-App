@@ -28,8 +28,8 @@
 	<section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
         <form th:action="@{/course/search}" method="get">
             <div class="input-group rounded">
-                <input th:value="${keyword}"
-                id="keyword" name="keyword" type="search" class="form-control rounded"
+                <input th:value="${keyword}" required type="text"
+                id="keyword" name="keyword" class="form-control rounded"
                     placeholder="Search for a Course" aria-label="Search" aria-describedby="search-addon" />
                 <span class="input-group-text border-0" id="search-addon">
                     <button class="fa fa-search" type="submit"></button>

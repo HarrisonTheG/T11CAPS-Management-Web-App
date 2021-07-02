@@ -57,8 +57,8 @@ In the Seed Database, we created dummy names and details. As these is management
 1. Login as Students using: e0696695@u.nus.edu (Email) and 123 (password)
 2. Login as Lecturer using: Tin@nus.edu.sg (Email) and 123 (password)
 3. Login as Admin using: megan@nus.edu.sg (Email) and 123 (password)
-* they are case-sensitive
+* Note: the dummy e-mails and passwords are case-sensitive
 
-##Email Notification
+## Email Notification
 Email Notification works only for STUDENT and LECTURER in the scenario of a successful course enrollment or dismissal of student/lecturer enrollment by admin.
 For email notification to work, please modify the student's or lecturer's email to legitimate real email address or enrollment and dismissal (by admin) will result in an error.
