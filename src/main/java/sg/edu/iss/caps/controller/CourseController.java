@@ -71,6 +71,7 @@ public class CourseController {
 		model.addAttribute("students", selectedCourse.getStudentCourses().stream().map(x -> x.getUser()).collect(Collectors.toList()));
 		
 		model.addAttribute("startDateString", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getStartDate())));
+		model.addAttribute("endDateString", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getEndDate())));
 		model.addAttribute("duration", UtilityManager.CalculateCourseDuration(selectedCourse.getStartDate(), selectedCourse.getEndDate()));
 
 		return "CourseDetail";
@@ -89,6 +90,7 @@ public class CourseController {
 		
 		//display the start date and duration in course details page
 		model.addAttribute("startDateString", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getStartDate())));
+		model.addAttribute("endDateString", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getEndDate())));
 		model.addAttribute("duration", UtilityManager.CalculateCourseDuration(selectedCourse.getStartDate(), selectedCourse.getEndDate()));
 
 		return "student/enrolled-courseDetail";

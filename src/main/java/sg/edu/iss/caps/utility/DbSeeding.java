@@ -66,7 +66,7 @@ public class DbSeeding {
 		
 		User u4=new User();
 		u4.setFirstname("Tin");
-		u4.setEmail("Tin@nus.edu.sg");
+		u4.setEmail("wanling2102@gmail.com");
 		u4.setEnrollmentDate(epoch);
 		u4.setImgUrl("https://www.bootdey.com/img/Content/avatar/avatar4.png");
 		u4.setRole(RoleType.LECTURER);
@@ -228,8 +228,9 @@ public class DbSeeding {
 		//ZoneId sgZone=ZoneId.of("Asia/Singapore");
 		ZonedDateTime Sem1Start=ZonedDateTime.of(Sem1ModuleStart,sgZone);
 		ZonedDateTime Sem2Start=ZonedDateTime.of(Sem2ModuleStart,sgZone);
-		long Sem2EpochStart=Sem2Start.toEpochSecond();
+
 		long Sem1EpochStart=Sem1Start.toEpochSecond();
+		long Sem2EpochStart=Sem2Start.toEpochSecond();
 		
 		//End Date of Sem1 and 2
 		LocalDateTime Sem1ModuleEnd=LocalDateTime.of(2021,4,30,0,0,0);
@@ -238,9 +239,8 @@ public class DbSeeding {
 		ZonedDateTime Sem1End=ZonedDateTime.of(Sem1ModuleEnd,sgZone);
 		ZonedDateTime Sem2End=ZonedDateTime.of(Sem2ModuleEnd,sgZone);
 		
-		long Sem2EpochEnd=Sem1End.toEpochSecond();
-		long Sem1EpochEnd=Sem2End.toEpochSecond();
-		
+		long Sem1EpochEnd=Sem1End.toEpochSecond();
+		long Sem2EpochEnd=Sem2End.toEpochSecond();		
 		
 		Course c1=new Course();
 		c1.setCredit(4);
