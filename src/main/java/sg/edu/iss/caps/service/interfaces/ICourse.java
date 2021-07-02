@@ -29,5 +29,7 @@ public interface ICourse {
 	public void addLecturerToCourse(List<User> lecturers, Integer cid);
 	public void deleteLecturerFromCourse(User lecturer, Integer cid);
 	public void deleteCourse(Course course);
+	public List<User> findLecturersByCourse(Integer cid);
+
 
 }

@@ -5,6 +5,7 @@
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import
   org.springframework.stereotype.Repository;
   
@@ -24,6 +25,8 @@ import sg.edu.iss.caps.model.User;
 	    
 	  @Query("SELECT c FROM Course c JOIN c.User u WHERE c.id=:id")
 	  	public List<Course> findallUsersByCourse(Integer id);
-	  
+
+	  @Query("SELECT c.User FROM Course c where c.id=:id")
+	  public List<User> findLecturerBycourse(@Param("id") Integer id);
   }
  

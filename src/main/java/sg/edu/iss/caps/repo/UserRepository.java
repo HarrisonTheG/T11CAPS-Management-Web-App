@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import sg.edu.iss.caps.model.User;
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.RoleType;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
@@ -32,5 +33,6 @@ public interface UserRepository extends JpaRepository<User,Integer>{
 	
 	@Query("SELECT u FROM User u WHERE u.role = :role")
 	public List<User> listAllInRole(@Param("role") RoleType role);
+	
 	
 }

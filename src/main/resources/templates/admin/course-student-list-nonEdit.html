@@ -24,8 +24,12 @@
 	<input type="hidden" id="courseId" th:value="${course.id}" />
 	
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
-		<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
+      	<a th:href="@{/course/viewCourses}">Course List</a><a> > </a><a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a><br>
+      	<hr>
+ 
+      	<label><strong>List of Students Currently Enrolled in:</strong></label>
 		<p th:text="${course.code} + ' ' + ${course.name}">Course</p>
+
 		
         <form th:action="@{/course/}+${course.id}+@{/student-list}">
             <div class="input-group rounded">
@@ -58,6 +62,7 @@
                 </tbody>
 
 </table>
+			
 </div>
 
 </body>

@@ -228,8 +228,11 @@ public class CourseController {
         model.addAttribute("keyword", keyword);
         Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
+
         //Add students in course
         List<User> listStudentsInCourse = scService.listStudentsInCourse(course, keyword);
+        model.addAttribute("currentsize",listStudentsInCourse.size());
+        model.addAttribute("maxSize",course.getMaxSize());
         model.addAttribute("students", listStudentsInCourse);
 		return "admin/course-student-list";
 	}
@@ -239,7 +242,11 @@ public class CourseController {
 	public String addLecturerToCourse(@PathVariable("cid") int cid, @RequestParam("uid") int uid, HttpSession session,
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
 		session.getAttribute("user");
-		List<User> lecturer = new ArrayList<User>();
+		//c.add(courseService.findCourseById(1));
+		
+		List<User> lecturer= courseService.findLecturersByCourse(cid);
+		
+		System.out.println("hi");
 		lecturer.add(userService.findLecturerById(uid));
 		courseService.addLecturerToCourse(lecturer, cid);
 		
