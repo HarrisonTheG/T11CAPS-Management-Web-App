@@ -46,9 +46,9 @@
         <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th class="th-sm col-sm-2">First Name</th>
-                    <th class="th-sm col-sm-4">Surname</th>
-                    <th class="th-sm">Modify</th>
+                    <th class="th-sm col-sm-3">First Name</th>
+                    <th class="th-sm col-sm-3">Surname</th>
+                    <th class="th-sm col-sm-4">Modify</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,12 +61,16 @@
                 		<span th:unless="${#lists.contains(students, user)}">
                 			<a href="AddStudent.html" th:href="@{~/course/}+${course.id}+@{/addStudentToCourse/(msgHeader=#{email.header.enroll}, msgBody=#{email.body.enroll(${user.firstname}, ${course.code})}, sid=${user.id})}">Add</a></span>
                		</span>	
-
-               			<span th:if="${#lists.contains(students, user)}">
+               		
+               		
+                	   <span th:unless="${currentsize}<${maxSize}">
+                	   <span th:if="${#lists.contains(students, user)}">
                 			<a href="DeleteStudent.html" th:href="@{~/course/}+${course.id}+@{/deleteStudentFromCourse/(msgHeader=#{email.header.dismiss}, msgBody=#{email.body.dismiss(${user.firstname}, ${course.code})}, sid=${user.id})}">Delete</a></span>
-                	   <span th:unless="${#lists.contains(students, user)}">
-               			<a th:text="'Unable to add, Class size is at Max Size of:'+${maxSize}"></a>
+               		 <span th:unless="${#lists.contains(students, user)}">
+               			<a th:text="'Unable to add, Class size is at Max Size.'"></a></span>
+               			
                		</span>
+  
                 	
                 	</td>	
               </tr>
