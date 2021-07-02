@@ -423,6 +423,33 @@ public class DbSeeding {
 
 		screpo.save(sc10);screpo.save(sc11); screpo.save(sc12);
 		
+		//set student for course 6
+		Student_Course sc13=new Student_Course();
+		sc13.setCourse(crepo.getById(6));
+		sc13.setUser(urepo.getById(8));
+		sc13.setGrade(95);
+		Student_Course sc14=new Student_Course();
+		sc14.setCourse(crepo.getById(6));
+		sc14.setUser(urepo.getById(9));
+		sc14.setGrade(43);
+		Student_Course sc15=new Student_Course();
+		sc15.setCourse(crepo.getById(6));
+		sc15.setUser(urepo.getById(10));
+		sc15.setGrade(65);
+		
+		screpo.save(sc13);screpo.save(sc14); screpo.save(sc15);
+		
+		//set student for course 5
+		Student_Course sc16=new Student_Course();
+		sc16.setCourse(crepo.getById(5));
+		sc16.setUser(urepo.getById(8));
+		sc16.setGrade(95);
+		Student_Course sc17=new Student_Course();
+		sc17.setCourse(crepo.getById(5));
+		sc17.setUser(urepo.getById(9));
+		sc17.setGrade(43);
+		
+		screpo.save(sc16);screpo.save(sc17);
 		
 		//add lecturer to course1 
 		List<User> LectTeach1=new ArrayList<User>();
@@ -448,14 +475,20 @@ public class DbSeeding {
 		List<User> LectTeach4=new ArrayList<User>();
 		LectTeach4.add(urepo.getById(4));
 		LectTeach4.add(urepo.getById(5));
-		crepo.getById(4).setUser(LectTeach2);
+		crepo.getById(4).setUser(LectTeach4);
 		crepo.save(crepo.getById(4));	
 		
 		//add lecturer to course5
 		List<User> LectTeach5=new ArrayList<User>();
 		LectTeach5.add(urepo.getById(6));
-		crepo.getById(5).setUser(LectTeach3);
+		crepo.getById(5).setUser(LectTeach5);
 		crepo.save(crepo.getById(5));
+		
+		//add lecturer to course6
+		List<User> LectTeach6=new ArrayList<User>();
+		LectTeach6.add(urepo.getById(5));
+		crepo.getById(6).setUser(LectTeach6);
+		crepo.save(crepo.getById(6));
 		
 		//delete lecturer to course1
 //		List<Course> c=crepo.findallUsersByCourse(1);
