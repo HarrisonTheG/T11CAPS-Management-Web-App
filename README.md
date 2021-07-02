@@ -60,5 +60,5 @@ In the Seed Database, we created dummy names and details. As these is management
 * they are case-sensitive
 
 ##Email Notification
-Email Notification works only for STUDENT in the scenario of a successful course enrollment or dismissal of student enrollment by admin.
-For email notification to work, please modify the student's email to legitimate real email address or enrollment and dismissal will result in an error.
+Email Notification works only for STUDENT and LECTURER in the scenario of a successful course enrollment or dismissal of student/lecturer enrollment by admin.
+For email notification to work, please modify the student's or lecturer's email to legitimate real email address or enrollment and dismissal (by admin) will result in an error.

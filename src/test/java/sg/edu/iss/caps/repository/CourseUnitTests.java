@@ -44,7 +44,7 @@ public class CourseUnitTests {
 	@Test
 	@Order(2)
 	public void testSearchCourseByKeyword() {
-		String keywords="java";
+		String keywords="Java";
 		List<Course> saved=crepo.search(keywords);
 		assertTrue(saved.size()>0);
 	}
@@ -62,6 +62,18 @@ public class CourseUnitTests {
 		List<Course> saved=crepo.findallUsersByCourse(courseId);
 		assertTrue(saved.size()>0);
 	}
-			
-	
+	@Test
+	@Order(5)
+	public void testSearchCourseByKeyword_NotExist() {
+		String keywords="elephant";
+		List<Course> saved=crepo.search(keywords);
+		assertTrue(saved.size()==0);
+	}
+	@Test
+	@Order(6)
+	public void testFindCourseByUser_NotExist() {
+	    Integer userId=30;
+		List<Course> saved=crepo.findCoursesByUser(userId);
+		assertTrue(saved.size()==0);
+	}
 }
