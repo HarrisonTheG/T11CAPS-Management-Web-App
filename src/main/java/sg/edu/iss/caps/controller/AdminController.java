@@ -35,6 +35,7 @@ public class AdminController {
 //	@Autowired IAdmin adminService;
 	@Autowired IUser userService;
 
+	//Specified admin page- Students and Lecturers can only view their own profile if routed here
 	@GetMapping("/profile")
 	public String viewProfile(HttpSession session, Model model) {
 
@@ -44,15 +45,20 @@ public class AdminController {
 			user=userService.findUserById(user.getId());
 			session.setAttribute("user", user);
 		}
+		
 		long start = user.getEnrollmentDate();
 		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 		return "Profile";
 	}
 
-	//Add new user
+	//Add new user by admin
 		@RequestMapping("/add")
 		public String addUser(Model model, HttpSession session) {
 			User user=(User)session.getAttribute("user");
+			//Redirect to Error Page if not admin
+			if(user.getRole()!=RoleType.ADMIN)
+				return "Error";	
+			
 			model.addAttribute("user",new EditUserDto());
 			return "admin/addUserForm";
 		}
@@ -71,7 +77,11 @@ public class AdminController {
 		//get delete student by admin
 		@GetMapping("/delete/{id}")
 		public String deleteStudent(@PathVariable("id")int id,Model model,HttpSession session) {
-			session.getAttribute("user");
+			User user=(User)session.getAttribute("user");
+			//Redirect to Error Page if not admin
+			if(user.getRole()!=RoleType.ADMIN)
+				return "Error";	
+			
 			User selecteduser=userService.findUserById(id);
 			model.addAttribute("user",selecteduser);
 			model.addAttribute("enrolment",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selecteduser.getEnrollmentDate())));
@@ -80,7 +90,7 @@ public class AdminController {
 		
 	//post delete student by admin
 		@PostMapping("/deleteStudent")
-		public String editStudent(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,Model model) throws ParseException{
+		public String editStudent(@ModelAttribute("user") @Valid User user,BindingResult bindingResult,Model model) throws ParseException{			
 			userService.adminDeleteStudent(user);
 			model.addAttribute("listStudents", userService.listStudents(""));
 			return "admin/viewStudentList";
@@ -88,7 +98,12 @@ public class AdminController {
 		
 		//view student list
 		@RequestMapping("/student-list")
-		public String viewStudentList(Model model, @Param("keyword") String keyword) {
+		public String viewStudentList(Model model, @Param("keyword") String keyword,HttpSession session) {
+			User user=(User)session.getAttribute("user");
+			//Redirect to Error Page if not admin
+			if(user.getRole()!=RoleType.ADMIN)
+				return "Error";	
+			
 			List<User> listStudents = userService.listStudents(keyword);
 	        model.addAttribute("listStudents", listStudents);
 	        model.addAttribute("keyword", keyword);
@@ -97,7 +112,11 @@ public class AdminController {
 	//Edit User
 	@GetMapping("/edit/{id}")
 	public String EditUserDetails(@PathVariable("id") int id, Model model, HttpSession session) {
-		session.getAttribute("user");
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not admin
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";	
+		
 		User selectedUser=userService.findUserById(id);
 
 		model.addAttribute("user",selectedUser);

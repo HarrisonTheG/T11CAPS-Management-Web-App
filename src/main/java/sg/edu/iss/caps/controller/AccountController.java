@@ -15,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import sg.edu.iss.caps.model.LoginUser;
 import sg.edu.iss.caps.model.MailVo;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.IUser;
 import sg.edu.iss.caps.utility.UtilityManager;
@@ -36,18 +37,16 @@ public class AccountController {
 	@GetMapping("/login")
 	public String login(Model model,HttpSession session) {
 		User checklogin=(User) session.getAttribute("user");
+		
+		//if user is logged In
 		if(checklogin!=null) {
 			model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(checklogin.getEnrollmentDate())));
 			return "Profile";
 		}
 
-	
 		if (model.getAttribute("loginUser") == null) {
 		model.addAttribute("loginUser", new LoginUser());
 		}
-		
-	
-		
 		return "LoginPage";
 	}
 	
@@ -58,7 +57,6 @@ public class AccountController {
 		System.out.println(123);
 		System.out.println(br.hasErrors());
 		if(br.hasErrors()) {
-			//model.addAttribute("user", new LoginUser());
 			return "LoginPage";
 		}
 		
@@ -67,14 +65,10 @@ public class AccountController {
 		
 		if(user1 != null) {
 			session.setAttribute("user", user1);
-			//session.getAttribute("user");
-			//model.addAttribute(user);
 				long start = user1.getEnrollmentDate();
-				//System.out.println(UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 				model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 			return "Profile";
 		}
-		System.out.println(2);
 		model.addAttribute("errorMsg", "Information above is incorrect!");
 		return "LoginPage";
 	}
@@ -87,9 +81,16 @@ public class AccountController {
 		return new RedirectView("/account/login");
 	}
 	
+	//view other people's profile
 	@GetMapping("/others/{id}")
 	public String viewOtherProfile(HttpSession session, @PathVariable int id, Model model) {
-		User user = userService.findUserById(id);
+		
+		//Student cannot view other students profile
+		User uservalidate=(User) session.getAttribute("user");
+		if(uservalidate.getRole()==RoleType.STUDENT && uservalidate.getId()!=id)
+			return "Error";	
+		
+		User user = userService.findUserById(id);		
 		model.addAttribute("user", user);
 		
 		long start = user.getEnrollmentDate();
