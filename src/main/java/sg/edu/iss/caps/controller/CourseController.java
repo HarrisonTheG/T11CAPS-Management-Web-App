@@ -198,6 +198,13 @@ public class CourseController {
 
 	@GetMapping("/search")
 	public String searchCourse(HttpSession session, Model model, @Param("keyword") String keyword) {
+		
+		User user = (User) session.getAttribute("user");
+		
+		if(keyword == "" || keyword == null) {
+			return "redirect:/course/viewCourses/" + user.getId();
+		}
+		
 		List<Course> searchedCourses = courseService.listAll(keyword);
         model.addAttribute("courses", searchedCourses);
         model.addAttribute("keyword", keyword);

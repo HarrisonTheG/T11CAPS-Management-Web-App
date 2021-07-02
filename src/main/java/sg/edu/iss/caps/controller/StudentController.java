@@ -41,7 +41,6 @@ public class StudentController {
 		return "Profile";
 	}
 	
-	//student enrolls in course
 	@GetMapping("/enroll") @ResponseBody
 	public RedirectView enrollCourse(HttpSession session, Model model, @RequestParam("studentId") int sId, @RequestParam("courseId") int cId, 
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
@@ -51,6 +50,7 @@ public class StudentController {
 		User student = (User) session.getAttribute("user");
 		MailVo mail=new MailVo("PCXGudrew@163.com", student.getEmail(), header, body);
 		userService.sendEmailNotification(mail);
+		
 		
 		return new RedirectView ("/course/viewCourses/" + sId);
 	}
