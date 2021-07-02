@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.iss.DTO.manageCourse.EditCourseDto;
 import sg.edu.iss.DTO.manageCourse.EditUserDto;
 import sg.edu.iss.caps.model.Course;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.Student_Course;
 import sg.edu.iss.caps.model.User;
 import sg.edu.iss.caps.service.interfaces.ICourse;
@@ -42,8 +43,10 @@ public class LecturerController {
 
 	@GetMapping("/profile")
 	public String viewProfile(HttpSession session, Model model) {
-		
-		User user = (User) session.getAttribute("user");
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";	
 		long start = user.getEnrollmentDate();
 		model.addAttribute("enrollDate", UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(start)));
 		return "Profile";
@@ -52,17 +55,25 @@ public class LecturerController {
 	//View courses taught by lecturer
 	@GetMapping("/courses/{id}")
 	public String viewCoursesTaught(Model model, HttpSession session, User user, @PathVariable("id") Integer id) {
-		System.out.println(id);
-		session.getAttribute("user");
+		User uservalidate=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer, or lecturer try to view other lecturers
+		if(uservalidate.getRole()!=RoleType.LECTURER||uservalidate.getRole()==RoleType.LECTURER && uservalidate.getId()!=id)
+			return "Error";	
+		
 		model.addAttribute("courses", courseService.findCourseByLecturerId(id));
 		model.addAttribute("id", id);
 		return "lecturer/courses";
 	}
 
 	
-	//View entire student list
+	//lecturer View entire student list
 	@GetMapping("/student-list")
-	public String viewStudentList(Model model, @Param("keyword") String keyword) {
+	public String viewStudentList(Model model, @Param("keyword") String keyword,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";	
+		
 		List<User> listStudents = userService.listStudents(keyword);
         model.addAttribute("listStudents", listStudents);
         model.addAttribute("keyword", keyword);
@@ -72,6 +83,11 @@ public class LecturerController {
 	//View student list in specific course
 	@GetMapping("/{cid}/student-list")
 	public String viewCourseStudentList(HttpSession session, Model model,@PathVariable("cid") int cid, @Param("keyword") String keyword) {
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";
+		
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
 		List<User> listStudentsCourse = scService.listStudentsInCourse(course, keyword);
@@ -80,10 +96,14 @@ public class LecturerController {
 		return "lecturer/student-list";
 	}
 
-	//Get list of students to grade for a course
+	//Get list of students to grade for a course- RESTRICT students and admin
 	@GetMapping("/{id}/grade-student-list")
 	public String gradeStudentList(Model model, HttpSession session, @PathVariable("id") int id) {
-		session.getAttribute("user");
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";
+		
 		Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
 		List<Student_Course> students = scService.listStudentsGradesInCourse(course);
@@ -91,9 +111,14 @@ public class LecturerController {
 		return "lecturer/grade-student-list";
 	}
 		
-	//Edit grade of student
+	//Edit grade of student- only lecturers can grade
 	@GetMapping("/{cid}/grade-student-list/edit/{id}")
 	public String editStudentGrade(@PathVariable("id") int id,@PathVariable("cid") int cid,Model model, HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";
+		
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
 		session.getAttribute("user");
@@ -105,7 +130,12 @@ public class LecturerController {
 
 	//To save grade after editing
 	@PostMapping("{cid}/grade-student-list")
-	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model,@PathVariable("cid") int cid) {
+	public String saveGradeForm(@ModelAttribute("selectedStudentCourse") @Valid Student_Course selectedStudentCourse,BindingResult bindingResult,Model model,@PathVariable("cid") int cid,HttpSession session) {
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not lecturer
+		if(user.getRole()!=RoleType.LECTURER)
+			return "Error";
+		
 		System.out.println(selectedStudentCourse.getGrade());
 		scService.editStudentsGradesInCourse(selectedStudentCourse);
 		model.addAttribute("selectedStudentCourse",selectedStudentCourse);
@@ -125,20 +155,26 @@ public class LecturerController {
 		model.addAttribute("cgpa", UtilityManager.GradesToGPA(scService.findStudentCoursesByStudentId(id)));
 		return "lecturer/student-list";
 	}
-
-	//View all lecturers
+	
+	//View all lecturers-only viewed by admin
 	@GetMapping("/viewLecturers")
 	public String viewAllLecturers(Model model, HttpSession session, @Param("keyword") String keyword) {
-		session.getAttribute("user");
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not ADMIN
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
 		model.addAttribute("lecturers", userService.listLecturers(keyword));
 		model.addAttribute("keyword", keyword);
 		return "lecturer/lecturer-list";
 	}
 
-	
+	//admin delete lecturer
 	@GetMapping("/delete/{id}")
 	public String deleteLecturer(@PathVariable("id") int id, Model model, HttpSession session) {
-		session.getAttribute("user");
+		User user=(User)session.getAttribute("user");
+		//Redirect to Error Page if not ADMIN
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
 		User selectedlecturer = userService.findLecturerById(id);
 		model.addAttribute("lecturer",selectedlecturer);
 		return "admin/deleteLecturer";

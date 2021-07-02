@@ -40,10 +40,15 @@ public class CourseController {
 	@Autowired IUser userService;
 	@Autowired IStudentCourse scService;
 	
-	//view all courses
+	//View all available courses
 	@GetMapping("/viewCourses")
 	public String viewAllCourses(Model model, HttpSession session) {
-		session.getAttribute("user");
+		
+		//Redirect to Error Page if not authorised
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		model.addAttribute("courses", courseService.listAllCourses());
 		return "Courses";
 	}
@@ -51,14 +56,18 @@ public class CourseController {
 	//View courses specific to one student
 	@GetMapping("/viewCourses/{id}")
 	public String viewAllUnenrolledCourses(@PathVariable("id") int id, Model model, HttpSession session) {
-		session.getAttribute("user");
+		
+		//Redirect to Error Page if not particular student
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.STUDENT||user.getId()!=id)
+			return "Error";
 
 		model.addAttribute("courses", courseService.findNewCoursesForStudents(id));
 
 		return "Courses";
 	}
 
-
+	//Show the Course Details Page- roletype can view their respective screens
 	@GetMapping("/details/{id}")
 	public String viewCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
 		//System.out.println(id);
@@ -77,11 +86,15 @@ public class CourseController {
 		return "CourseDetail";
 	}
 
-	
+	//Shows Student if student is enrolled in the course
 	@GetMapping("/enrolledDetails/{id}")
 	public String viewEnrolledCourseDetails(@PathVariable("id") int id, Model model, HttpSession session) {
+				
+		//Redirect to Error Page if not student
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.STUDENT)
+			return "Error";
 		
-		session.getAttribute("user");
 		Course selectedCourse = courseService.findCourse(id).orElse(null);
 
 		model.addAttribute("course", selectedCourse);
@@ -96,10 +109,14 @@ public class CourseController {
 		return "student/enrolled-courseDetail";
 	}
 
-	//Add Course
+	//Add Course by admin
 	@GetMapping("/add")
 	public String AddCourse(Model model,HttpSession session) {
-		session.getAttribute("user");
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		model.addAttribute("course",new EditCourseDto());
 		return "admin/addCourse";
 	}
@@ -115,10 +132,14 @@ public class CourseController {
 	}
 	
 	
-	//Edit Course
+	//Edit Course by admin
 	@GetMapping("/edit/{id}")
 	public String EditCourseDetails(@PathVariable("id") int id,Model model, HttpSession session) {
-		session.getAttribute("user");
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		Course selectedCourse=courseService.findCourse(id).orElse(null);
 
 		model.addAttribute("course",selectedCourse);
@@ -127,16 +148,20 @@ public class CourseController {
 		return "admin/editcourse";
 	}
 
-
 	@PostMapping("/edit")
 	public String editCourse(@ModelAttribute("course") @Valid EditCourseDto editCourseDto,BindingResult bindingResult,Model model) throws ParseException {
 		courseService.edit(editCourseDto);
 		return"admin/editSuccess";
 	}
 
+	//delete course by admin
 	@GetMapping("/delete/{id}")
 	public String DeleteCourse(@PathVariable("id")int id,Model model,HttpSession session) {
-		session.getAttribute("user");
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		Course selectedCourse=courseService.findCourse(id).orElse(null);
 		model.addAttribute("course",selectedCourse);
 		model.addAttribute("startdate",UtilityManager.ChangeDateTimeToString(UtilityManager.UnixToDate(selectedCourse.getStartDate())));
@@ -154,10 +179,15 @@ public class CourseController {
 		return "Courses";
 	}
 
-	//WORKING ON THIS
+	//Show the list of modules enrolled by student and Grades
 		@GetMapping("/studentCourses/{id}")
 		public String viewSpecificStudentAllCourses(HttpSession session, Model model, @PathVariable("id") int id) {
-			System.out.println(id);
+			
+			//Redirect to Error Page if student tries to view other students
+			User user=(User) session.getAttribute("user");
+			if(user.getRole()==RoleType.STUDENT && user.getId()!=id)
+				return "Error";
+			
 			User student = userService.findUserById(id);
 			model.addAttribute("student", student);
 			model.addAttribute("listStudentCourses", scService.findStudentCoursesByStudentId(id));
@@ -174,10 +204,14 @@ public class CourseController {
         return "Courses";
 	}
 
-	//Get list of students in course
+	//Get list of students in a particular course- viewed by lecturer and admin
 	@GetMapping("/{cid}/student-list")
 	public String viewCourseStudentList(Model model, @Param("keyword") String keyword, @PathVariable("cid") int cid, HttpSession session) {
-		session.getAttribute("user");
+		//Redirect to Error Page if student
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()==RoleType.STUDENT)
+			return "Error";
+		
 		Course course = courseService.findCourseById(cid);
         model.addAttribute("course", course);
         List<User> listUsers = scService.listStudentsInCourse(course, keyword);
@@ -186,11 +220,16 @@ public class CourseController {
 		return "admin/course-student-list-nonEdit";
 	}
 
-	//Manage students
+	//Admin add students to Course
 	@GetMapping(value = "/{cid}/addStudentToCourse")
 	public String addStudentToCourse(@PathVariable("cid") int cid, @RequestParam("sid") int sid, HttpSession session, 
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
-		session.getAttribute("user");
+
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		scService.addStudentToCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		
 		try {
@@ -204,10 +243,15 @@ public class CourseController {
 		return "forward:/course/"+cid+"/student-list";
 	}
 
+	//Admin remove students from Course
 	@GetMapping(value = "/{cid}/deleteStudentFromCourse")
 	public String deleteStudentFromCourse(@PathVariable("cid") int cid, @RequestParam("sid") int sid, HttpSession session,
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
-		session.getAttribute("user");
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";
+		
 		scService.removeStudentFromCourse(courseService.findCourseById(cid), userService.findStudentById(sid));
 		
 		try {
@@ -221,9 +265,15 @@ public class CourseController {
 		return "forward:/course/"+cid+"/student-list";
 	}
 
+	//Admin View -View full list of Students to add/delete from course
 	@GetMapping("/{cid}/edit-student-list")
 	public String viewCourseStudentList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
-		session.getAttribute("user");
+
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";		
+		
 		//get full list of students
 		List<User> listUsers = userService.listStudents(keyword);
         model.addAttribute("listUsers", listUsers);
@@ -239,12 +289,15 @@ public class CourseController {
 		return "admin/course-student-list";
 	}
 
-	// Manage lecturers
+	//Admin Add lecturer to course
 	@GetMapping(value = "/{cid}/addLecturerToCourse")
 	public String addLecturerToCourse(@PathVariable("cid") int cid, @RequestParam("uid") int uid, HttpSession session,
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
-		session.getAttribute("user");
-		//c.add(courseService.findCourseById(1));
+
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";				
 		
 		List<User> lecturer= courseService.findLecturersByCourse(cid);
 		
@@ -263,10 +316,15 @@ public class CourseController {
 		return "forward:/course/"+cid+"/edit-lecturer-list";
 	}
 
+	//Admin delete lecturer from course
 	@GetMapping(value = "/{cid}/deleteLecturerFromCourse")
 	public String deleteLecturerFromCourse(@PathVariable("cid") int cid, @RequestParam("uid") int uid, HttpSession session,
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
-		session.getAttribute("user");
+
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";		
 		courseService.deleteLecturerFromCourse(userService.findLecturerById(uid), cid);
 		
 		try {
@@ -282,7 +340,12 @@ public class CourseController {
 
 	@GetMapping("/{cid}/edit-lecturer-list")
 	public String viewCourseLecturerList(Model model, @PathVariable("cid") int cid, @Param("keyword") String keyword, HttpSession session) {
-		session.getAttribute("user");
+
+		//Redirect to Error Page if not admin
+		User user=(User) session.getAttribute("user");
+		if(user.getRole()!=RoleType.ADMIN)
+			return "Error";	
+		
 		//get full list of lecturers
 		List<User> listUsers = userService.listLecturers(keyword);
         model.addAttribute("listUsers", listUsers);

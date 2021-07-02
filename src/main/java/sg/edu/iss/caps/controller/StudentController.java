@@ -41,6 +41,7 @@ public class StudentController {
 		return "Profile";
 	}
 	
+	//student enrolls in course
 	@GetMapping("/enroll") @ResponseBody
 	public RedirectView enrollCourse(HttpSession session, Model model, @RequestParam("studentId") int sId, @RequestParam("courseId") int cId, 
 			@RequestParam("msgHeader") String header, @RequestParam("msgBody") String body) {
