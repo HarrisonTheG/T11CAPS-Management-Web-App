@@ -147,7 +147,9 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 	  List<User> existingLecturers = selectedCourse.getUser();
 	  existingLecturers.remove(lecturer);
 	  selectedCourse.setUser(existingLecturers);
+	  
   }  
+  
 
 	
   @Transactional
@@ -158,6 +160,10 @@ import sg.edu.iss.caps.service.interfaces.ICourse;
 		crepo.delete(course);
   }
 
+  @Transactional
+  public List<User> findLecturersByCourse(Integer cid) {
+	  return crepo.findLecturerBycourse(cid);
+  }
 
   
   

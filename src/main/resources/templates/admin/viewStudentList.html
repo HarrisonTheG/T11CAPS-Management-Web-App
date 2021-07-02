@@ -61,9 +61,9 @@
             <tbody>
 			<tr th:each="user , iter:${listStudents}">
 					<td th:text="${iter.index+1}">1</td>
-                	<td><a><span th:text="${user.firstname}"></span></a></td>
-                    <td><a><span th:text="${user.surname}"></span></a></td>
-                    <td><a><span th:text="${user.email}"></span></a></td>
+                	<td><a th:href="@{'/account/others/' + ${user.id}}"><span th:text="${user.firstname}"></span></a></td>
+                    <td><a th:href="@{'/account/others/' + ${user.id}}"><span th:text="${user.surname}"></span></a></td>
+                    <td><a th:href="@{'/account/others/' + ${user.id}}"><span th:text="${user.email}"></span></a></td>
                     <div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" >
                     <td align="center" class="th-sm" >
                         <a type="submit" class="btn btn-primary" style="margin:auto;" th:href="@{'/admin/edit/'+${user.id}}" th:text="${'Edit'}">Default text</a>

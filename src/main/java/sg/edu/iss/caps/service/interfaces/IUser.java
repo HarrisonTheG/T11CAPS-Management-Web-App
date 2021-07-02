@@ -8,7 +8,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import sg.edu.iss.DTO.manageCourse.EditUserDto;
+import sg.edu.iss.caps.model.Course;
 import sg.edu.iss.caps.model.MailVo;
+import sg.edu.iss.caps.model.RoleType;
 import sg.edu.iss.caps.model.User;
 
 public interface IUser {

@@ -16,7 +16,7 @@
     <title>Lecturer List</title>
 </head>
 <body style="background-color: #e2e8f0" th:href="@{/css/ListTableView.css}">
-
+	
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).STUDENT}" th:insert="fragments/general.html::navBar"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).LECTURER}" th:insert="fragments/general.html::navBar-lecturer"> </div>
 	<div th:if="${session.user.role == T(sg.edu.iss.caps.model.RoleType).ADMIN}" th:insert="fragments/general.html::navBar-admin"> </div>
@@ -24,7 +24,9 @@
 	<input type="hidden" id="courseId" th:value="${course.id}" />
 	
 <section class="center-margin" style="margin-bottom: 32px; margin-top: 88px; width: 60%;">
-		<a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a>
+		<a th:href="@{/course/viewCourses}">Course List</a><a> > </a><a href="CourseDetails.html" th:href="@{~/course/details/} + ${course.id}">Back to course details</a><br>
+		<hr>
+		<label><strong>Add/Delete Lecturers from Course:</strong></label>
 		<p th:text="${course.code} + ' ' + ${course.name}">Course</p>
 		
         <form th:action="@{/course/}+${course.id}+@{/edit-lecturer-list}">
