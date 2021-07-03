@@ -1,7 +1,7 @@
 # T11CAPS
 Management System created with Spring Boot and MySQL.
 
-##Basic App Feature for CAPS:
+## Basic App Feature for CAPS:
 1.	Three identities with different use cases:
 	a.	Student: view own profile, view enrolled courses, view other courses, view course details, view course lecturer profile, view grades, enroll course, search courses, receive successful and unsuccessful email notification for course enrolment, login and logout.
 	b.	Lecturer: view own profile, view student profile, view student performance, view enrolled courses, view course details, search student, search courses, grade student, receive successful and unsuccessful email notification for course enrolment, login and logout.
