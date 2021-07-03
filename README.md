@@ -64,6 +64,7 @@ USE t11caps;
 					
 ```
 * For subsequent runs, re-comment the codes to disable futher seeding of database
+* Use Chrome Browser to run application to ensure correct stylings.
 
 ## Logging In
 In the Seed Database, we created dummy names and details. As these is management system involving many identities, for testing purpose:
