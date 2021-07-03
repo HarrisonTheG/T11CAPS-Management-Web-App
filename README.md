@@ -3,9 +3,9 @@ Management System created with Spring Boot and MySQL.
 
 ## Basic App Feature for CAPS:
 1.	Three identities with different use cases:
-	a.	Student: view own profile, view enrolled courses, view other courses, view course details, view course lecturer profile, view grades, enroll course, search courses, receive successful and unsuccessful email notification for course enrolment, login and logout.
-	b.	Lecturer: view own profile, view student profile, view student performance, view enrolled courses, view course details, search student, search courses, grade student, receive successful and unsuccessful email notification for course enrolment, login and logout.
-	c.	Admin: CRUD on student, lecturer profile, CRUD on course, CRUD on course-student and course-lecturer enrolment, view and update own profile, login and logout.
+	*	Student: view own profile, view enrolled courses, view other courses, view course details, view course lecturer profile, view grades, enroll course, search courses, receive successful and unsuccessful email notification for course enrolment, login and logout.
+	*	Lecturer: view own profile, view student profile, view student performance, view enrolled courses, view course details, search student, search courses, grade student, receive successful and unsuccessful email notification for course enrolment, login and logout.
+	*	Admin: CRUD on student, lecturer profile, CRUD on course, CRUD on course-student and course-lecturer enrolment, view and update own profile, login and logout.
 2.	Validation on login, admin registering for new student or lecturer.
 3.	Exception Handling: custom error page when something went wrong.
 4.	Email notification for student and lecturer when student successfully enrolled to a course, and when admin add or remove student/lecturer to/from a course.
